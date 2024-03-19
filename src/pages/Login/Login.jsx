@@ -1,6 +1,11 @@
 import "./Login.css";
 
 const Login = () => {
+  
+  onLoginSubmit(e){
+    e.preventDefault();
+  }
+  
   return (
     <div className="flex">
       <div className="flex-1 h-dvh">
@@ -11,7 +16,7 @@ const Login = () => {
       </div>
       <div className="flex-1">
         <div className="loginForm">
-          <form>
+          <form onSubmit={onLoginSubmit}>
             <div className="flex flex-col gap-2">
               <input placeholder="Email" type="email" className="loginInput" />
               <input
