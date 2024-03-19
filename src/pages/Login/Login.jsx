@@ -10,11 +10,23 @@ const Login = () => {
         />
       </div>
       <div className="flex-1">
-        <form className="loginInput">
-          <input placeholder="Email" type="email" />
-          <input placeholder="Password" type="email" />
-          <button>Log In</button>
-        </form>
+        <div className="loginForm">
+          <form>
+            <div className="flex flex-col gap-2">
+              <input placeholder="Email" type="email" className="loginInput" />
+              <input
+                placeholder="Password"
+                type="password"
+                className="loginInput"
+              />
+            </div>
+
+            <div className="mt-3 flex justify-between">
+              <button className="loginButton">Log In</button>
+              <button className="loginButton">Create a New Account</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
