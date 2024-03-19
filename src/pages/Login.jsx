@@ -1,9 +1,10 @@
-import PropTypes from "prop-types";
-
 const Login = (props) => {
-  return <div>Login</div>;
+  return (
+    <div>
+      <div></div>
+      <div></div>
+    </div>
+  );
 };
-
-Login.propTypes = {};
 
 export default Login;
