@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import "./Header.css";
 import PeopleIcon from "@mui/icons-material/People";
 import SearchIcon from "@mui/icons-material/Search";
@@ -6,7 +5,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
-function Header(props) {
+function Header() {
   return (
     <div className="headerContainer">
       <div className="headerLeft">
@@ -40,7 +39,5 @@ function Header(props) {
     </div>
   );
 }
-
-Header.propTypes = {};
 
 export default Header;
