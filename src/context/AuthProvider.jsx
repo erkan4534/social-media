@@ -3,16 +3,14 @@ import { AuthContext } from "./AuthContext";
 import { useEffect, useState } from "react";
 import { userData } from "../data/userData";
 
-const initial = {
-  password: "",
-  email: "",
-};
-
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(initial);
+  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    console.log(user);
+    if (user) {
+      setIsLoggedIn(true);
+    }
   }, [user]);
 
   function findUser(userInfo) {
@@ -25,7 +23,7 @@ const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUser, findUser }}>
+    <AuthContext.Provider value={{ user, setUser, findUser, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Login.css";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const initial = {
   password: "",
@@ -8,9 +9,16 @@ const initial = {
 };
 
 const Login = () => {
-  const { findUser } = useContext(AuthContext);
-
+  const { findUser, isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [inputData, setInputData] = useState(initial);
+
+  useEffect(() => {
+    debugger;
+    if (isLoggedIn) {
+      navigate("/home");
+    }
+  }, [isLoggedIn, navigate]);
 
   function onLoginSubmit(event) {
     event.preventDefault();
