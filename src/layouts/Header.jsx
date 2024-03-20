@@ -21,17 +21,19 @@ function Header(props) {
       </div>
 
       <div className="headerRight">
-        <div>
-          <PersonIcon />
-        </div>
-        <div>
-          <MarkUnreadChatAltIcon />
-        </div>
-        <div>
-          <NotificationsIcon />
+        <div className="headerRightIcon">
+          <div>
+            <PersonIcon />
+          </div>
+          <div>
+            <MarkUnreadChatAltIcon />
+          </div>
+          <div>
+            <NotificationsIcon />
+          </div>
         </div>
 
-        <div>
+        <div className="headerRightProfile">
           <img src="https://i.pravatar.cc/300" className="profil" />
         </div>
       </div>

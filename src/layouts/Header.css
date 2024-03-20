@@ -27,9 +27,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 10px;
+}
+
+.headerRightIcon {
+  display: flex;
+  column-gap: 20px;
+  flex: 9;
   color: white;
   font-weight: bold;
+  justify-content: center;
+}
+
+.headerRightProfile {
+  flex: 1;
 }
 
 .searchbar {
