@@ -4,12 +4,14 @@ export const userData = [
     ad: "Ali",
     surname: "Kaya",
     password: "123",
+    email: "erkan1.yildirim@gmail.com",
   },
   {
     id: 2,
     ad: "Sebnem",
     surname: "Durmaz",
     password: "123",
+    email: "erkan2.yildirim@gmail.com",
   },
 
   {
@@ -17,6 +19,7 @@ export const userData = [
     ad: "Rasim",
     surname: "Dayi",
     password: "123",
+    email: "erkan3.yildirim@gmail.com",
   },
 
   {
@@ -24,5 +27,6 @@ export const userData = [
     ad: "Ezel",
     surname: "Bayraktar",
     password: "123",
+    email: "erkan4.yildirim@gmail.com",
   },
 ];

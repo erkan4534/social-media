@@ -1,11 +1,29 @@
+import { useContext, useState } from "react";
 import "./Login.css";
+import { AuthContext } from "../../context/AuthContext";
+
+const initial = {
+  password: "",
+  email: "",
+};
 
 const Login = () => {
-  
-  onLoginSubmit(e){
-    e.preventDefault();
+  const { findUser } = useContext(AuthContext);
+
+  const [inputData, setInputData] = useState(initial);
+
+  function onLoginSubmit(event) {
+    event.preventDefault();
+    findUser(inputData);
   }
-  
+
+  function handleChange({ target: { name, value } }) {
+    setInputData({
+      ...inputData,
+      [name]: value,
+    });
+  }
+
   return (
     <div className="flex">
       <div className="flex-1 h-dvh">
@@ -18,11 +36,19 @@ const Login = () => {
         <div className="loginForm">
           <form onSubmit={onLoginSubmit}>
             <div className="flex flex-col gap-2">
-              <input placeholder="Email" type="email" className="loginInput" />
+              <input
+                placeholder="Email"
+                type="email"
+                name="email"
+                className="loginInput"
+                onChange={handleChange}
+              />
               <input
                 placeholder="Password"
                 type="password"
+                name="password"
                 className="loginInput"
+                onChange={handleChange}
               />
             </div>
 
