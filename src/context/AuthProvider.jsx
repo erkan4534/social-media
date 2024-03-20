@@ -9,13 +9,11 @@ const initial = {
 };
 
 const AuthProvider = ({ children }) => {
-  useEffect(() => {
-    if (user) {
-      console.log("Güncellenmiş user değeri:", user);
-    }
-  }, [user]);
-
   const [user, setUser] = useState(initial);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   function findUser(userInfo) {
     const userDetailData = userData.find(
@@ -23,11 +21,7 @@ const AuthProvider = ({ children }) => {
         usr.password === userInfo.password && usr.email === userInfo.email
     );
 
-    if (userDetailData) {
-      setUser(userDetailData);
-    } else {
-      setUser(null);
-    }
+    setUser(userDetailData);
   }
 
   return (
