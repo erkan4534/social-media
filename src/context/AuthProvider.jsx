@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { AuthContext } from "./AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userData } from "../data/userData";
 
 const initial = {
@@ -9,6 +9,12 @@ const initial = {
 };
 
 const AuthProvider = ({ children }) => {
+  useEffect(() => {
+    if (user) {
+      console.log("Güncellenmiş user değeri:", user);
+    }
+  }, [user]);
+
   const [user, setUser] = useState(initial);
 
   function findUser(userInfo) {
@@ -22,8 +28,6 @@ const AuthProvider = ({ children }) => {
     } else {
       setUser(null);
     }
-
-    console.log(user);
   }
 
   return (
