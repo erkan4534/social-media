@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import "./Header.css";
 import PeopleIcon from "@mui/icons-material/People";
 import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from "@mui/icons-material/Person";
+import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 function Header(props) {
   return (
@@ -17,7 +20,21 @@ function Header(props) {
         </div>
       </div>
 
-      <div className="headerRight"></div>
+      <div className="headerRight">
+        <div>
+          <PersonIcon />
+        </div>
+        <div>
+          <MarkUnreadChatAltIcon />
+        </div>
+        <div>
+          <NotificationsIcon />
+        </div>
+
+        <div>
+          <img src="https://i.pravatar.cc/300" className="profil" />
+        </div>
+      </div>
     </div>
   );
 }
