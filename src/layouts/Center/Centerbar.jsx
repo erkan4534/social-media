@@ -1,7 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
-
-const Centerbar = (props) => {
+const Centerbar = () => {
   return <div>Centerbar</div>;
 };
 
