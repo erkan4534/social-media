@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
+import "./Home.css";
+import Header from "../../layouts/Header";
 
 const Home = (props) => {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <Header></Header>
     </div>
   );
 };

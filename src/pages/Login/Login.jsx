@@ -14,7 +14,6 @@ const Login = () => {
   const [inputData, setInputData] = useState(initial);
 
   useEffect(() => {
-    debugger;
     if (isLoggedIn) {
       navigate("/home");
     }
