@@ -4,9 +4,9 @@ import { firendData } from "../../data/firendData";
 const CloseFriend = () => {
   return (
     <div>
-      <lu>
+      <lu className="closeFriendList">
         {firendData.map((firend) => (
-          <li key={firend.id}>
+          <li key={firend.id} className="closeFriend">
             <img src={firend.profilePicture} />
             <span>{firend.username}</span>
           </li>
