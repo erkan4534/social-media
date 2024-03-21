@@ -1,5 +1,4 @@
 import "./Header.css";
-import PeopleIcon from "@mui/icons-material/People";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
@@ -26,7 +25,9 @@ function Header() {
   return (
     <div className="headerContainer">
       <div className="headerLeft">
-        <PeopleIcon className="logo" />
+        <span className="text-white font-bold text-[20px] ml-3">
+          Social Media
+        </span>
       </div>
 
       <div className="headerCenter">
