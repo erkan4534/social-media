@@ -33,7 +33,9 @@ function Header() {
         </div>
 
         <div className="headerRightProfile">
-          <img src="https://i.pravatar.cc/300" className="profil" />
+          <button>
+            <img src="https://i.pravatar.cc/300" className="profil" />
+          </button>
         </div>
       </div>
     </div>
