@@ -3,7 +3,9 @@ import CloseFriend from "../../pages/CloseFriend/CloseFriend";
 const Leftbar = () => {
   return (
     <div>
-      <CloseFriend />
+      <div className="mt-10">
+        <CloseFriend />
+      </div>
     </div>
   );
 };
