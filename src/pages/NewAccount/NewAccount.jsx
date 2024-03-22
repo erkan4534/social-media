@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { newAccountInputData } from "../../data/newAccountInputData";
 import { useState } from "react";
 
-const initial = {
+const initialInput = {
   username: "",
   name: "",
   email: "",
@@ -13,10 +13,12 @@ const initial = {
 
 const NewAccount = ({ showLogin }) => {
   const [inputDataArray, setInputDataArray] = useState(newAccountInputData);
-  const [inputData, setInputData] = useState(initial);
+  const [inputData, setInputData] = useState(initialInput);
+  const [isShowError, setIsShowError] = useState(false);
 
   function onNewAccountSubmit(event) {
     event.preventDefault();
+    isValidateForm();
   }
 
   function handleChange({ target: { name, value } }) {
@@ -26,8 +28,20 @@ const NewAccount = ({ showLogin }) => {
     });
   }
 
+  function isValidateForm() {
+    const isFormValid = Object.values(inputData).every(
+      (value) => value.trim() !== ""
+    );
+
+    if (!isFormValid) {
+      setIsShowError(true);
+      return;
+    }
+  }
+
   return (
     <div className="newAccountForm">
+      {isShowError && <span>Please fill all input</span>}
       <form onSubmit={onNewAccountSubmit} noValidate>
         <div className="flex flex-col gap-2">
           {inputDataArray.map((inputData) => (
