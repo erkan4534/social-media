@@ -15,6 +15,7 @@ const Login = () => {
   const [inputData, setInputData] = useState(initial);
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [isShowNewAccount, setIsShowNewAccount] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -56,6 +57,8 @@ const Login = () => {
     });
   }
 
+  const showNewAccount = () => setIsShowNewAccount(true);
+
   return (
     <div className="flex">
       <div className="flex-1 h-dvh flex justify-center items-center">
@@ -64,36 +67,40 @@ const Login = () => {
         </span>
       </div>
       <div className="flex-1">
-        <div className="loginForm">
-          {isLoginInValidMessage && <span>Invalid Password or Email</span>}
-          <form onSubmit={onLoginSubmit} noValidate>
-            <div className="flex flex-col gap-2">
-              <input
-                placeholder="Email"
-                type="email"
-                name="email"
-                className="loginInput"
-                onChange={handleChange}
-                required={emailValid}
-              />
-              {emailValid && <span>It should be a valid email address!</span>}
-              <input
-                placeholder="Password"
-                type="password"
-                name="password"
-                className="loginInput"
-                onChange={handleChange}
-                required={passwordValid}
-              />
-              {passwordValid && <span>Enter your password</span>}
-            </div>
+        {isShowNewAccount && (
+          <div className="loginForm">
+            {isLoginInValidMessage && <span>Invalid Password or Email</span>}
+            <form onSubmit={onLoginSubmit} noValidate>
+              <div className="flex flex-col gap-2">
+                <input
+                  placeholder="Email"
+                  type="email"
+                  name="email"
+                  className="loginInput"
+                  onChange={handleChange}
+                  required={emailValid}
+                />
+                {emailValid && <span>It should be a valid email address!</span>}
+                <input
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  className="loginInput"
+                  onChange={handleChange}
+                  required={passwordValid}
+                />
+                {passwordValid && <span>Enter your password</span>}
+              </div>
 
-            <div className="mt-3 flex justify-between">
-              <button className="loginButton">Log In</button>
-              <button className="loginButton">Create a New Account</button>
-            </div>
-          </form>
-        </div>
+              <div className="mt-3 flex justify-between">
+                <button className="loginButton">Log In</button>
+                <button className="loginButton" onClick={showNewAccount}>
+                  Create a New Account
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
