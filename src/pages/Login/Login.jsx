@@ -9,7 +9,8 @@ const initial = {
 };
 
 const Login = () => {
-  const { findUser, isLoggedIn } = useContext(AuthContext);
+  const { findUser, isLoggedIn, isLoginInValidMessage } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const [inputData, setInputData] = useState(initial);
   const [emailValid, setEmailValid] = useState(false);
@@ -64,6 +65,7 @@ const Login = () => {
       </div>
       <div className="flex-1">
         <div className="loginForm">
+          {isLoginInValidMessage && <span>Enter your password</span>}
           <form onSubmit={onLoginSubmit} noValidate>
             <div className="flex flex-col gap-2">
               <input

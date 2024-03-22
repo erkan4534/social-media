@@ -6,6 +6,7 @@ import { userData } from "../data/userData";
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoginInValidMessage, setIsLoginInValidMessage] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -23,15 +24,20 @@ const AuthProvider = ({ children }) => {
 
     if (userDetailData) {
       setIsLoggedIn(true);
-      return true;
+      setIsLoginInValidMessage(true);
     }
-
-    return false;
   }
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, findUser, isLoggedIn, setIsLoggedIn }}
+      value={{
+        user,
+        setUser,
+        findUser,
+        isLoggedIn,
+        setIsLoggedIn,
+        isLoginInValidMessage,
+      }}
     >
       {children}
     </AuthContext.Provider>
