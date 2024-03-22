@@ -59,6 +59,8 @@ const Login = () => {
 
   const showNewAccount = () => setIsShowNewAccount(true);
 
+  const showLogin = () => setIsShowNewAccount(false);
+
   return (
     <div className="flex">
       <div className="flex-1 h-dvh flex justify-center items-center">
@@ -102,7 +104,39 @@ const Login = () => {
           </div>
         )}
 
-        {isShowNewAccount && <div>hello</div>}
+        {isShowNewAccount && (
+          <div className="loginForm">
+            <form onSubmit={onLoginSubmit} noValidate>
+              <div className="flex flex-col gap-2">
+                <input
+                  placeholder="Email"
+                  type="email"
+                  name="email"
+                  className="loginInput"
+                  onChange={handleChange}
+                  required={emailValid}
+                />
+                {emailValid && <span>It should be a valid email address!</span>}
+                <input
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  className="loginInput"
+                  onChange={handleChange}
+                  required={passwordValid}
+                />
+                {passwordValid && <span>Enter your password</span>}
+              </div>
+
+              <div className="mt-3 flex justify-between">
+                <button className="loginButton" onClick={showLogin}>
+                  Back To Login
+                </button>
+                <button className="loginButton">Save</button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );
