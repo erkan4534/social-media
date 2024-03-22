@@ -20,6 +20,10 @@ const AuthProvider = ({ children }) => {
     );
 
     setUser(userDetailData);
+
+    if (userDetailData) {
+      setIsLoggedIn(true);
+    }
   }
 
   return (

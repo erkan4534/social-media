@@ -23,12 +23,12 @@ const Login = () => {
 
   function onLoginSubmit(event) {
     event.preventDefault();
-    if (!validateForm()) {
+    if (isValidateForm()) {
       findUser(inputData);
     }
   }
 
-  function validateForm() {
+  function isValidateForm() {
     const { email, password } = inputData;
     let valid = true;
     if (email.trim() === "") {
