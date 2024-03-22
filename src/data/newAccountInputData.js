@@ -6,7 +6,7 @@ export const newAccountInputData = [
     label: "Username",
     type: "text",
     value: "",
-    require: true,
+    require: "require",
   },
 
   {
@@ -16,7 +16,7 @@ export const newAccountInputData = [
     label: "Name",
     type: "text",
     value: "",
-    require: true,
+    require: "require",
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ export const newAccountInputData = [
     label: "Email",
     type: "email",
     value: "",
-    require: true,
+    require: "require",
   },
 
   {
@@ -35,7 +35,7 @@ export const newAccountInputData = [
     label: "password",
     type: "password",
     value: "",
-    require: true,
+    require: "require",
   },
 
   {
@@ -45,6 +45,6 @@ export const newAccountInputData = [
     label: "Confirm Password",
     type: "password",
     value: "",
-    require: true,
+    require: "require",
   },
 ];

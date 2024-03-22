@@ -12,7 +12,7 @@ const initialInput = {
 };
 
 const NewAccount = ({ showLogin }) => {
-  const [inputDataArray, setInputDataArray] = useState(newAccountInputData);
+  const [inputDataArray] = useState(newAccountInputData);
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
 
