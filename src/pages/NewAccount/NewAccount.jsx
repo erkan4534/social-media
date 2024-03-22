@@ -12,20 +12,18 @@ const NewAccount = ({ showLogin }) => {
   return (
     <div className="newAccountForm">
       <form onSubmit={onNewAccountSubmit} noValidate>
-        <div key={inputData.id} className="flex flex-col gap-2">
-            {inputDataArray.map((inputData) => (
-            
-                <input
-                placeholder={inputData.placeholder}
-                type={inputData.type}
-                name={inputData.name}
-                className="newAccountInput"
-                // onChange={handleChange}
-                required={inputData.required}
-                />
-                {/* {emailValid && <span>It should be a valid email address!</span>} */}
-            
-            ))}
+        <div className="flex flex-col gap-2">
+          {inputDataArray.map((inputData) => (
+            <input
+              key={inputData.id}
+              placeholder={inputData.placeholder}
+              type={inputData.type}
+              name={inputData.name}
+              className="newAccountInput"
+              // onChange={handleChange}
+              required={inputData.required}
+            />
+          ))}
         </div>
         <div className="mt-3 flex justify-between">
           <button className="newAccountButton" onClick={showLogin}>
