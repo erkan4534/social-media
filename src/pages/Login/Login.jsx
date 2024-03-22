@@ -12,6 +12,8 @@ const Login = () => {
   const { findUser, isLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [inputData, setInputData] = useState(initial);
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -21,7 +23,29 @@ const Login = () => {
 
   function onLoginSubmit(event) {
     event.preventDefault();
-    findUser(inputData);
+    if (!validateForm()) {
+      findUser(inputData);
+    }
+  }
+
+  function validateForm() {
+    const { email, password } = inputData;
+    let valid = true;
+    if (email.trim() === "") {
+      setEmailValid(true);
+      valid = false;
+    } else {
+      setEmailValid(false);
+    }
+
+    if (password.trim() === "") {
+      setPasswordValid(true);
+      valid = false;
+    } else {
+      setPasswordValid(false);
+    }
+
+    return valid;
   }
 
   function handleChange({ target: { name, value } }) {
@@ -40,7 +64,7 @@ const Login = () => {
       </div>
       <div className="flex-1">
         <div className="loginForm">
-          <form onSubmit={onLoginSubmit}>
+          <form onSubmit={onLoginSubmit} noValidate>
             <div className="flex flex-col gap-2">
               <input
                 placeholder="Email"
@@ -48,14 +72,20 @@ const Login = () => {
                 name="email"
                 className="loginInput"
                 onChange={handleChange}
+                emailValid={emailValid.toString()}
+                required={emailValid}
               />
+              <span>It should be a valid email address!</span>
               <input
                 placeholder="Password"
                 type="password"
                 name="password"
                 className="loginInput"
                 onChange={handleChange}
+                passwordValid={passwordValid.toString()}
+                required={passwordValid}
               />
+              <span>Enter your password</span>
             </div>
 
             <div className="mt-3 flex justify-between">

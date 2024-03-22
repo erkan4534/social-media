@@ -31,3 +31,26 @@
   cursor: pointer;
   padding: 0px 12px;
 }
+
+.loginForm span {
+  color: red;
+  font-size: 12px;
+  text-align: start;
+  display: none;
+}
+
+input[type="email"]:invalid[emailValid="true"] {
+  border: 1px solid red;
+}
+
+input[type="email"]:invalid[emailValid="true"] ~ span {
+  display: block;
+}
+
+input[type="password"]:invalid[passwordValid="true"] {
+  border: 1px solid red;
+}
+
+input[type="password"]:invalid[passwordValid="true"] ~ span {
+  display: block;
+}
