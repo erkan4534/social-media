@@ -72,7 +72,6 @@ const Login = () => {
                 name="email"
                 className="loginInput"
                 onChange={handleChange}
-                emailValid={emailValid.toString()}
                 required={emailValid}
               />
               <span>It should be a valid email address!</span>
@@ -82,7 +81,6 @@ const Login = () => {
                 name="password"
                 className="loginInput"
                 onChange={handleChange}
-                passwordValid={passwordValid.toString()}
                 required={passwordValid}
               />
               <span>Enter your password</span>

@@ -39,18 +39,18 @@
   display: none;
 }
 
-input[type="email"]:invalid[emailValid="true"] {
+input[type="email"]:invalid {
   border: 1px solid red;
 }
 
-input[type="email"]:invalid[emailValid="true"] ~ span {
+input[type="email"]:invalid ~ span {
   display: block;
 }
 
-input[type="password"]:invalid[passwordValid="true"] {
+input[type="password"]:invalid {
   border: 1px solid red;
 }
 
-input[type="password"]:invalid[passwordValid="true"] ~ span {
+input[type="password"]:invalid ~ span {
   display: block;
 }
