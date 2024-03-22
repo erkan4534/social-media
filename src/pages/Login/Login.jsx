@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import "./Login.css";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import NewAccount from "../NewAccount/NewAccount";
 
 const initial = {
   password: "",
@@ -104,39 +105,7 @@ const Login = () => {
           </div>
         )}
 
-        {isShowNewAccount && (
-          <div className="loginForm">
-            <form onSubmit={onLoginSubmit} noValidate>
-              <div className="flex flex-col gap-2">
-                <input
-                  placeholder="Email"
-                  type="email"
-                  name="email"
-                  className="loginInput"
-                  onChange={handleChange}
-                  required={emailValid}
-                />
-                {emailValid && <span>It should be a valid email address!</span>}
-                <input
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                  className="loginInput"
-                  onChange={handleChange}
-                  required={passwordValid}
-                />
-                {passwordValid && <span>Enter your password</span>}
-              </div>
-
-              <div className="mt-3 flex justify-between">
-                <button className="loginButton" onClick={showLogin}>
-                  Back To Login
-                </button>
-                <button className="loginButton">Save</button>
-              </div>
-            </form>
-          </div>
-        )}
+        {isShowNewAccount && <NewAccount showLogin={showLogin} />}
       </div>
     </div>
   );
