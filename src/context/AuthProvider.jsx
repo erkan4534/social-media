@@ -21,9 +21,10 @@ const AuthProvider = ({ children }) => {
     );
 
     setUser(userDetailData);
-
     if (userDetailData) {
       setIsLoggedIn(true);
+      setIsLoginInValidMessage(false);
+    } else {
       setIsLoginInValidMessage(true);
     }
   }
