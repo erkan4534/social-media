@@ -67,7 +67,7 @@ const Login = () => {
         </span>
       </div>
       <div className="flex-1">
-        {isShowNewAccount && (
+        {!isShowNewAccount && (
           <div className="loginForm">
             {isLoginInValidMessage && <span>Invalid Password or Email</span>}
             <form onSubmit={onLoginSubmit} noValidate>
@@ -101,6 +101,8 @@ const Login = () => {
             </form>
           </div>
         )}
+
+        {isShowNewAccount && <div>hello</div>}
       </div>
     </div>
   );
