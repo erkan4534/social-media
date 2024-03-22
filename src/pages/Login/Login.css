@@ -36,21 +36,13 @@
   color: red;
   font-size: 12px;
   text-align: start;
-  display: none;
+  display: block;
 }
 
 input[type="email"]:invalid {
   border: 1px solid red;
 }
 
-input[type="email"]:invalid ~ span {
-  display: block;
-}
-
 input[type="password"]:invalid {
   border: 1px solid red;
-}
-
-input[type="password"]:invalid ~ span {
-  display: block;
 }
