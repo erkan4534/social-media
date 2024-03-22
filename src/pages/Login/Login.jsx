@@ -74,7 +74,7 @@ const Login = () => {
                 onChange={handleChange}
                 required={emailValid}
               />
-              <span>It should be a valid email address!</span>
+              {emailValid && <span>It should be a valid email address!</span>}
               <input
                 placeholder="Password"
                 type="password"
@@ -83,7 +83,7 @@ const Login = () => {
                 onChange={handleChange}
                 required={passwordValid}
               />
-              <span>Enter your password</span>
+              {passwordValid && <span>Enter your password</span>}
             </div>
 
             <div className="mt-3 flex justify-between">
