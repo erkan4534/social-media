@@ -15,9 +15,11 @@ const NewAccount = ({ showLogin }) => {
   const [inputDataArray] = useState(newAccountInputData);
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
+  const [required, setRequired] = useState(false);
 
   function onNewAccountSubmit(event) {
     event.preventDefault();
+    setRequired(true);
     isValidateForm();
   }
 
@@ -44,15 +46,15 @@ const NewAccount = ({ showLogin }) => {
       {isShowError && <span>Please fill all input</span>}
       <form onSubmit={onNewAccountSubmit} noValidate>
         <div className="flex flex-col gap-2">
-          {inputDataArray.map((inputData) => (
+          {inputDataArray.map((data) => (
             <input
-              key={inputData.id}
-              placeholder={inputData.placeholder}
-              type={inputData.type}
-              name={inputData.name}
+              key={data.id}
+              placeholder={data.placeholder}
+              type={data.type}
+              name={data.name}
               className="newAccountInput"
               onChange={handleChange}
-              required={inputData.required}
+              required={required}
             />
           ))}
         </div>

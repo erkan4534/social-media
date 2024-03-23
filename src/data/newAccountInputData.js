@@ -5,7 +5,6 @@ export const newAccountInputData = [
     placeholder: "Enter your username",
     label: "Username",
     type: "text",
-    require: true,
   },
 
   {
@@ -14,7 +13,6 @@ export const newAccountInputData = [
     placeholder: "Enter your name",
     label: "Name",
     type: "text",
-    require: true,
   },
   {
     id: 3,
@@ -22,7 +20,6 @@ export const newAccountInputData = [
     placeholder: "Enter your email",
     label: "Email",
     type: "email",
-    require: true,
   },
 
   {
@@ -31,7 +28,6 @@ export const newAccountInputData = [
     placeholder: "Enter your Password",
     label: "password",
     type: "password",
-    require: true,
   },
 
   {
@@ -40,6 +36,5 @@ export const newAccountInputData = [
     placeholder: "Enter your Confirm Password",
     label: "Confirm Password",
     type: "password",
-    require: true,
   },
 ];
