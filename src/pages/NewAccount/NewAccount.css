@@ -39,10 +39,6 @@
   display: block;
 }
 
-.newAccountForm input[type="email"]:invalid {
-  border: 1px solid red;
-}
-
-.newAccountForm input[type="username"]:invalid {
+.newAccountForm input:invalid {
   border: 1px solid red;
 }
