@@ -38,6 +38,7 @@ const AuthProvider = ({ children }) => {
         isLoggedIn,
         setIsLoggedIn,
         isLoginInValidMessage,
+        setIsLoginInValidMessage,
       }}
     >
       {children}

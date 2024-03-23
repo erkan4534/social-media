@@ -10,13 +10,18 @@ const initial = {
 };
 
 const Login = () => {
-  const { findUser, isLoggedIn, isLoginInValidMessage } =
-    useContext(AuthContext);
+  const {
+    findUser,
+    isLoggedIn,
+    isLoginInValidMessage,
+    setIsLoginInValidMessage,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const [inputData, setInputData] = useState(initial);
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [isShowNewAccount, setIsShowNewAccount] = useState(false);
+  const [isNewAccountMessage, setIsNewAccountMessage] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -74,6 +79,7 @@ const Login = () => {
           <div className="loginForm">
             <span id="loginTitle">Login In</span>
             {isLoginInValidMessage && <span>Invalid Password or Email</span>}
+            {isNewAccountMessage && <span>New Account is added</span>}
             <form onSubmit={onLoginSubmit} noValidate>
               <div className="flex flex-col gap-2">
                 <input
@@ -110,7 +116,13 @@ const Login = () => {
           </div>
         )}
 
-        {isShowNewAccount && <NewAccount showLogin={showLogin} />}
+        {isShowNewAccount && (
+          <NewAccount
+            showLogin={showLogin}
+            setIsNewAccountMessage={setIsNewAccountMessage}
+            setIsLoginInValidMessage={setIsLoginInValidMessage}
+          />
+        )}
       </div>
     </div>
   );

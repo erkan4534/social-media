@@ -2,6 +2,7 @@ import "./NewAccount.css";
 import PropTypes from "prop-types";
 import { newAccountInputData } from "../../data/newAccountInputData";
 import { useEffect, useState } from "react";
+import { userData } from "../../data/userData";
 
 const initialInput = {
   username: "",
@@ -11,21 +12,37 @@ const initialInput = {
   confirmPassword: "",
 };
 
-const NewAccount = ({ showLogin }) => {
-  const [inputDataArray, setInputDataArray] = useState(newAccountInputData);
+const NewAccount = ({
+  showLogin,
+  setIsNewAccountMessage,
+  setIsLoginInValidMessage,
+}) => {
+  const [inputDataArray] = useState(newAccountInputData);
+  const [userDataArray, setUserDataArray] = useState(userData);
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
   const [required, setRequired] = useState(false);
 
   useEffect(() => {
     if (!isShowError) {
+      setIsLoginInValidMessage(false);
+      setIsNewAccountMessage(false);
       return;
     }
 
     if (!required) {
       showLogin();
+      setIsLoginInValidMessage(false);
+      setIsNewAccountMessage(true);
     }
-  }, [inputDataArray, showLogin, isShowError, required]);
+  }, [
+    userDataArray,
+    showLogin,
+    isShowError,
+    required,
+    setIsLoginInValidMessage,
+    setIsNewAccountMessage,
+  ]);
 
   function onNewAccountSubmit(event) {
     event.preventDefault();
@@ -35,13 +52,13 @@ const NewAccount = ({ showLogin }) => {
       return;
     } else {
       const newInputData = {
-        id: inputDataArray.length + 1,
+        id: userDataArray.length + 1,
         ad: inputData.name,
         surname: inputData.surname,
         password: inputData.password,
         email: inputData.email,
       };
-      setInputDataArray([...inputDataArray, newInputData]);
+      setUserDataArray([...inputDataArray, newInputData]);
     }
   }
 
@@ -100,6 +117,8 @@ const NewAccount = ({ showLogin }) => {
 
 NewAccount.propTypes = {
   showLogin: PropTypes.func,
+  setIsNewAccountMessage: PropTypes.func,
+  setIsLoginInValidMessage: PropTypes.func,
 };
 
 export default NewAccount;
