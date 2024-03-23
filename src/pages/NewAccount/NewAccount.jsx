@@ -1,7 +1,7 @@
 import "./NewAccount.css";
 import PropTypes from "prop-types";
 import { newAccountInputData } from "../../data/newAccountInputData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const initialInput = {
   username: "",
@@ -12,15 +12,30 @@ const initialInput = {
 };
 
 const NewAccount = ({ showLogin }) => {
-  const [inputDataArray] = useState(newAccountInputData);
+  const [inputDataArray, setInputDataArray] = useState(newAccountInputData);
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
   const [required, setRequired] = useState(false);
 
+  useEffect(() => {
+    console.log(inputDataArray);
+  }, [inputDataArray]);
+
   function onNewAccountSubmit(event) {
     event.preventDefault();
     setRequired(true);
-    isValidateForm();
+
+    if (!isValidateForm()) {
+      const newInputData = {
+        id: inputDataArray.length + 1,
+        ad: inputData.name,
+        surname: inputData.surname,
+        password: inputData.password,
+        email: inputData.email,
+      };
+
+      setInputDataArray([...inputDataArray, newInputData]);
+    }
   }
 
   function handleChange({ target: { name, value } }) {
