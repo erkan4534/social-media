@@ -58,7 +58,7 @@ const NewAccount = ({ showLogin }) => {
         </div>
         <div className="mt-3 flex justify-between">
           <button className="newAccountButton" onClick={showLogin}>
-            Back To newAccount
+            Back To Login
           </button>
           <button className="newAccountButton">Save</button>
         </div>
