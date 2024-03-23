@@ -98,7 +98,11 @@ const Login = () => {
 
               <div className="mt-3 flex justify-between">
                 <button className="loginButton">Log In</button>
-                <button className="loginButton" onClick={showNewAccount}>
+                <button
+                  className="loginButton"
+                  type="button"
+                  onClick={showNewAccount}
+                >
                   Create a New Account
                 </button>
               </div>

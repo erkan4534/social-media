@@ -18,14 +18,22 @@ const NewAccount = ({ showLogin }) => {
   const [required, setRequired] = useState(false);
 
   useEffect(() => {
-    console.log(inputDataArray);
-  }, [inputDataArray]);
+    if (!isShowError) {
+      return;
+    }
+
+    if (!required) {
+      showLogin();
+    }
+  }, [inputDataArray, showLogin, isShowError, required]);
 
   function onNewAccountSubmit(event) {
     event.preventDefault();
-    setRequired(true);
-
+    setRequired(false);
     if (!isValidateForm()) {
+      setRequired(true);
+      return;
+    } else {
       const newInputData = {
         id: inputDataArray.length + 1,
         ad: inputData.name,
@@ -33,7 +41,6 @@ const NewAccount = ({ showLogin }) => {
         password: inputData.password,
         email: inputData.email,
       };
-
       setInputDataArray([...inputDataArray, newInputData]);
     }
   }
@@ -46,14 +53,16 @@ const NewAccount = ({ showLogin }) => {
   }
 
   function isValidateForm() {
-    const isFormValid = Object.values(inputData).every(
-      (value) => value.trim() !== ""
+    const isFormValid = Object.values(inputData).some(
+      (value) => value.trim() == ""
     );
 
-    if (!isFormValid) {
+    if (isFormValid) {
       setIsShowError(true);
-      return;
+      return false;
     }
+
+    return true;
   }
 
   return (
@@ -76,7 +85,11 @@ const NewAccount = ({ showLogin }) => {
         </div>
         <div className="mt-3 flex justify-between">
           <button className="newAccountButton">Save</button>
-          <button className="newAccountButton" onClick={showLogin}>
+          <button
+            className="newAccountButton"
+            type="button"
+            onClick={showLogin}
+          >
             Back To Login
           </button>
         </div>
