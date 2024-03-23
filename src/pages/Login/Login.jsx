@@ -72,6 +72,7 @@ const Login = () => {
       <div className="flex-1">
         {!isShowNewAccount && (
           <div className="loginForm">
+            <span id="loginTitle">Login In</span>
             {isLoginInValidMessage && <span>Invalid Password or Email</span>}
             <form onSubmit={onLoginSubmit} noValidate>
               <div className="flex flex-col gap-2">
