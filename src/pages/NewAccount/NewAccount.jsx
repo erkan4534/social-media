@@ -43,6 +43,7 @@ const NewAccount = ({ showLogin }) => {
 
   return (
     <div className="newAccountForm">
+      <span id="newAccountTitle">New Account</span>
       {isShowError && <span>Please fill all input</span>}
       <form onSubmit={onNewAccountSubmit} noValidate>
         <div className="flex flex-col gap-2">

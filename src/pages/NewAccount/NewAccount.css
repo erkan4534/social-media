@@ -42,3 +42,9 @@
 .newAccountForm input:invalid {
   border: 1px solid red;
 }
+
+#newAccountTitle {
+  font-size: 20px;
+  color: #1775ee;
+  font-weight: bold;
+}
