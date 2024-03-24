@@ -20,7 +20,7 @@ const NewAccount = ({
   const [userDataArray, setUserDataArray] = useState(userData);
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
-  const [required, setRequired] = useState(false);
+  //const [required, setRequired] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
@@ -39,19 +39,19 @@ const NewAccount = ({
 
   function onNewAccountSubmit(event) {
     event.preventDefault();
-    setRequired(false);
-    if (!isValidateForm()) {
-      setRequired(true);
+    setIsShowError(false);
+    if (!isFormValid()) {
+      setIsShowError(true);
       setIsSuccess(false);
       return;
-    } else {
-      const newInputData = {
-        id: userDataArray.length + 1,
-        ...inputData,
-      };
-      setUserDataArray([...userDataArray, newInputData]);
-      setIsSuccess(true);
     }
+
+    const newInputData = {
+      id: userDataArray.length + 1,
+      ...inputData,
+    };
+    setUserDataArray([...userDataArray, newInputData]);
+    setIsSuccess(true);
   }
 
   function handleChange({ target: { name, value } }) {
@@ -61,17 +61,8 @@ const NewAccount = ({
     });
   }
 
-  function isValidateForm() {
-    const isFormValid = Object.values(inputData).some(
-      (value) => value.trim() == ""
-    );
-
-    if (isFormValid) {
-      setIsShowError(true);
-      return false;
-    }
-
-    return true;
+  function isFormValid() {
+    return !Object.values(inputData).some((value) => value.trim() === "");
   }
 
   return (
@@ -88,7 +79,7 @@ const NewAccount = ({
               name={data.name}
               className="newAccountInput"
               onChange={handleChange}
-              required={required}
+              required={isShowError}
             />
           ))}
         </div>
