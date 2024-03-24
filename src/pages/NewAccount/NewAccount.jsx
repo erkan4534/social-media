@@ -20,7 +20,6 @@ const NewAccount = ({
   const [userDataArray, setUserDataArray] = useState(userData);
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
-  //const [required, setRequired] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
