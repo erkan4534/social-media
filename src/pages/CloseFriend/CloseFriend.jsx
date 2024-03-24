@@ -1,9 +1,12 @@
+import { useSelector } from "react-redux";
 import "./CloseFriend.css";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+//import { useContext } from "react";
+//import { AuthContext } from "../../context/AuthContext";
 
 const CloseFriend = () => {
-  const { userDataArray } = useContext(AuthContext);
+  // const { userDataArray } = useContext(AuthContext);
+
+  const { userDataArray } = useSelector((state) => state.auth);
 
   return (
     <div>

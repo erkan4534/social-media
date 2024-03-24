@@ -3,23 +3,29 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { AuthContext } from "../../context/AuthContext";
-import { useContext, useEffect } from "react";
+//import { AuthContext } from "../../context/AuthContext";
+//import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/action/authActions";
 
 function Header() {
-  const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
+  //const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
+
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
-      setUser(null);
+      // dispatch(setUser(null));
     }
-  }, [isLoggedIn, user, navigate, setUser]);
+  }, [navigate, isLoggedIn]);
 
-  function logout() {
-    setIsLoggedIn(false);
+  function userLogout() {
+    dispatch(logout(null));
   }
 
   return (
@@ -51,8 +57,12 @@ function Header() {
         </div>
 
         <div className="headerRightProfile">
-          <button onClick={logout}>
-            <img src={user.profilePicture} className="profil" alt="profil" />
+          <button onClick={userLogout}>
+            <img
+              src={user && user.profilePicture}
+              className="profil"
+              alt="profil"
+            />
           </button>
         </div>
       </div>

@@ -1,7 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+//import { useContext, useEffect, useState } from "react";
+//import { AuthContext } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Register from "../Register/Register";
+import { login } from "../../redux/action/authActions";
+
 import "./Login.css";
 
 const initial = {
@@ -10,18 +14,22 @@ const initial = {
 };
 
 const Login = () => {
-  const {
-    findUser,
-    isLoggedIn,
-    isLoginInValidMessage,
-    setIsLoginInValidMessage,
-  } = useContext(AuthContext);
+  // const {
+  //   findUser,
+  //   isLoggedIn,
+  //   isLoginInValidMessage,
+  //   setIsLoginInValidMessage,
+  // } = useContext(AuthContext);
   const navigate = useNavigate();
   const [inputData, setInputData] = useState(initial);
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
   const [isShowNewAccount, setIsShowNewAccount] = useState(false);
   const [isNewAccountMessage, setIsNewAccountMessage] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoggedIn, isLoginInValidMessage } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -32,7 +40,8 @@ const Login = () => {
   function onLoginSubmit(event) {
     event.preventDefault();
     if (isValidateForm()) {
-      findUser(inputData);
+      //findUser(inputData);
+      dispatch(login(inputData));
     }
   }
 
@@ -120,7 +129,7 @@ const Login = () => {
           <Register
             showLogin={showLogin}
             setIsNewAccountMessage={setIsNewAccountMessage}
-            setIsLoginInValidMessage={setIsLoginInValidMessage}
+            //setIsLoginInValidMessage={setIsLoginInValidMessage}
           />
         )}
       </div>
