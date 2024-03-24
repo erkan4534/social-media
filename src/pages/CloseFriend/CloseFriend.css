@@ -4,6 +4,12 @@
   align-items: center;
   margin-top: 20px;
   padding: 10px;
+  margin-right: 12px;
+}
+
+.closeFriendList:hover {
+  background-color: #f0f2f5;
+  margin-right: 12px;
 }
 
 .closeFriend {
