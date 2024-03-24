@@ -1,7 +1,7 @@
 export const userData = [
   {
     id: 1,
-    ad: "Ali",
+    name: "Ali",
     surname: "Kaya",
     password: "123",
     email: "erkan1.yildirim@gmail.com",
@@ -9,7 +9,7 @@ export const userData = [
   },
   {
     id: 2,
-    ad: "Sebnem",
+    name: "Sebnem",
     surname: "Durmaz",
     password: "123",
     email: "erkan2.yildirim@gmail.com",
@@ -18,7 +18,7 @@ export const userData = [
 
   {
     id: 3,
-    ad: "Rasim",
+    name: "Rasim",
     surname: "Dayi",
     password: "123",
     email: "erkan3.yildirim@gmail.com",
@@ -27,7 +27,7 @@ export const userData = [
 
   {
     id: 4,
-    ad: "Ezel",
+    name: "Ezel",
     surname: "Bayraktar",
     password: "123",
     email: "erkan4.yildirim@gmail.com",
@@ -36,7 +36,7 @@ export const userData = [
 
   {
     id: 5,
-    ad: "Rasim",
+    name: "Rasim",
     surname: "Dayi",
     password: "123",
     email: "erkan5.yildirim@gmail.com",
@@ -45,7 +45,7 @@ export const userData = [
 
   {
     id: 6,
-    ad: "Ezel",
+    name: "Ezel",
     surname: "Bayraktar",
     password: "123",
     email: "erkan6.yildirim@gmail.com",
@@ -54,7 +54,7 @@ export const userData = [
 
   {
     id: 7,
-    ad: "Ezel",
+    name: "Ezel",
     surname: "Bayraktar",
     password: "123",
     email: "erkan7.yildirim@gmail.com",
@@ -63,7 +63,7 @@ export const userData = [
 
   {
     id: 8,
-    ad: "Ezel",
+    name: "Ezel",
     surname: "Bayraktar",
     password: "123",
     email: "erkan8.yildirim@gmail.com",
@@ -72,7 +72,7 @@ export const userData = [
 
   {
     id: 9,
-    ad: "Ezel",
+    name: "Ezel",
     surname: "Bayraktar",
     password: "123",
     email: "erkan9.yildirim@gmail.com",
@@ -81,7 +81,7 @@ export const userData = [
 
   {
     id: 10,
-    ad: "Ezel",
+    name: "Ezel",
     surname: "Bayraktar",
     password: "123",
     email: "erkan10.yildirim@gmail.com",
