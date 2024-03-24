@@ -17,7 +17,6 @@ const NewAccount = ({
   setIsNewAccountMessage,
   setIsLoginInValidMessage,
 }) => {
-  const [inputDataArray] = useState(newAccountInputData);
   const [userDataArray, setUserDataArray] = useState(userData);
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
@@ -58,7 +57,7 @@ const NewAccount = ({
         password: inputData.password,
         email: inputData.email,
       };
-      setUserDataArray([...inputDataArray, newInputData]);
+      setUserDataArray([...userDataArray, newInputData]);
       setIsSuccess(true);
     }
   }
