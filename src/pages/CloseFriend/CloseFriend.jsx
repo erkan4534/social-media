@@ -7,16 +7,17 @@ const CloseFriend = () => {
 
   return (
     <div>
-      <lu className="closeFriendList">
-        {userDataArray.map((firend) => (
-          <li key={firend.id} className="closeFriend">
+      {userDataArray.map((firend) => (
+        <div key={firend.id} className="closeFriendList">
+          <div className="closeFriend">
             <img src={firend.profilePicture} />
             <span>
               {firend.name} {firend.surname}
             </span>
-          </li>
-        ))}
-      </lu>
+          </div>
+          <button className="addButton">Add</button>
+        </div>
+      ))}
     </div>
   );
 };

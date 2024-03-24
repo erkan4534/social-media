@@ -1,7 +1,14 @@
+.closeFriendList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+}
+
 .closeFriend {
   display: flex;
   align-items: center;
-  margin-top: 20px;
 }
 
 .closeFriend img {
@@ -12,8 +19,15 @@
   margin-right: 8px;
 }
 
-.closeFriendList {
-  list-style: none;
-  padding: 0;
-  margin: 16px 0 0 !important;
+.addButton {
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1775ee;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0 12px;
+  margin-right: 30px;
 }
