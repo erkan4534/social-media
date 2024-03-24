@@ -64,6 +64,12 @@ const NewAccount = ({
     return !Object.values(inputData).some((value) => value.trim() === "");
   }
 
+  const backToLogin = () => {
+    showLogin();
+    setIsLoginInValidMessage(false);
+    setIsNewAccountMessage(false);
+  };
+
   return (
     <div className="newAccountForm">
       <span id="newAccountTitle">New Account</span>
@@ -87,7 +93,7 @@ const NewAccount = ({
           <button
             className="newAccountButton"
             type="button"
-            onClick={showLogin}
+            onClick={backToLogin}
           >
             Back To Login
           </button>
