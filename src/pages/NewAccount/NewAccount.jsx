@@ -52,10 +52,7 @@ const NewAccount = ({
     } else {
       const newInputData = {
         id: userDataArray.length + 1,
-        ad: inputData.name,
-        surname: inputData.surname,
-        password: inputData.password,
-        email: inputData.email,
+        ...inputData,
       };
       setUserDataArray([...userDataArray, newInputData]);
       setIsSuccess(true);
