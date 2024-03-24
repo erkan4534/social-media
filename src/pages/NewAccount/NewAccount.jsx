@@ -24,22 +24,17 @@ const NewAccount = ({
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
-    if (!isSuccess) {
-      return;
-    }
-
-    if (!required) {
+    if (isSuccess && Object.values(inputData).includes("")) {
       showLogin();
       setIsLoginInValidMessage(false);
       setIsNewAccountMessage(true);
     }
   }, [
-    userDataArray,
     showLogin,
-    required,
+    isSuccess,
     setIsLoginInValidMessage,
     setIsNewAccountMessage,
-    isSuccess,
+    inputData,
   ]);
 
   function onNewAccountSubmit(event) {
