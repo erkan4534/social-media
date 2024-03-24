@@ -22,11 +22,10 @@ const NewAccount = ({
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
   const [required, setRequired] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
-    if (!isShowError) {
-      setIsLoginInValidMessage(false);
-      setIsNewAccountMessage(false);
+    if (!isSuccess) {
       return;
     }
 
@@ -38,10 +37,10 @@ const NewAccount = ({
   }, [
     userDataArray,
     showLogin,
-    isShowError,
     required,
     setIsLoginInValidMessage,
     setIsNewAccountMessage,
+    isSuccess,
   ]);
 
   function onNewAccountSubmit(event) {
@@ -49,6 +48,7 @@ const NewAccount = ({
     setRequired(false);
     if (!isValidateForm()) {
       setRequired(true);
+      setIsSuccess(false);
       return;
     } else {
       const newInputData = {
@@ -59,6 +59,7 @@ const NewAccount = ({
         email: inputData.email,
       };
       setUserDataArray([...inputDataArray, newInputData]);
+      setIsSuccess(true);
     }
   }
 
