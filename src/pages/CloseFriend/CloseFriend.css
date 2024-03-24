@@ -5,7 +5,6 @@
   margin-top: 20px;
   padding: 10px;
   margin-right: 12px;
-  /* İsteğe bağlı: Ekran genişliği çok dar olduğunda sağdaki boşluğu kaldır */
 }
 
 .closeFriendList:hover {
@@ -23,6 +22,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 8px;
+  transition: width 0.3s ease, height 0.3s ease;
 }
 
 .addButton {
@@ -35,29 +35,28 @@
   font-weight: 500;
   cursor: pointer;
   padding: 0 12px;
-  margin-right: 30px; /* Mobil cihazlarda buton aralığını ayarlamak için */
+  margin-right: 10px;
 }
 
-/* Ekran genişliği 768px ve altı için stil */
 @media (max-width: 768px) {
   .closeFriendList {
-    flex-direction: column; /* Öğeleri dikey yönde sırala */
-    align-items: flex-start; /* Öğeleri sola yasla */
-    margin-right: 0; /* Dar ekranlarda sağ taraftaki boşluğu kaldır */
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 0;
   }
 
   .closeFriend {
-    margin-bottom: 10px; /* closeFriend öğeleri arasında dikey boşluk ekle */
+    margin-bottom: 10px;
   }
 
   .addButton {
-    margin-right: 0; /* Mobil cihazlarda butonun sağdaki fazladan boşluğunu kaldır */
-    width: 100%; /* Butonu genişlet */
+    margin-right: 0;
+    width: 100%;
   }
 
   .closeFriend img {
-    width: 40px; /* Mobil cihazlarda genişlik */
-    height: 40px; /* Mobil cihazlarda yükseklik */
+    width: 40px;
+    height: 40px;
   }
 }
 
