@@ -84,7 +84,7 @@ export const userData = [
     ad: "Ezel",
     surname: "Bayraktar",
     password: "123",
-    email: "erkan8.yildirim@gmail.com",
+    email: "erkan10.yildirim@gmail.com",
     profilePicture: "assets/person/10.jpeg",
   },
 ];
