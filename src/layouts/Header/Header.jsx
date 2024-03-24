@@ -52,7 +52,7 @@ function Header() {
 
         <div className="headerRightProfile">
           <button onClick={logout}>
-            <img src={user.profilePicture} className="profil" />
+            <img src={user.profilePicture} className="profil" alt="profil" />
           </button>
         </div>
       </div>
