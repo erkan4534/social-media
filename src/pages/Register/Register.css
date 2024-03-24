@@ -1,0 +1,50 @@
+.newAccountForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  row-gap: 15px;
+}
+
+.newAccountInput {
+  height: 50px;
+  width: 300px;
+  border-radius: 6px;
+  border: 1px solid gray;
+  font-size: 18px;
+  padding-left: 20px;
+}
+
+.newAccountInput:focus {
+  outline: none;
+}
+
+.newAccountButton {
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1775ee !important;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0px 12px;
+}
+
+.newAccountForm span {
+  color: red;
+  font-size: 12px;
+  text-align: start;
+  display: block;
+}
+
+.newAccountForm input:invalid {
+  border: 1px solid red;
+}
+
+#newAccountTitle {
+  font-size: 20px;
+  color: #1775ee;
+  font-weight: bold;
+}

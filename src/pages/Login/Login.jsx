@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import "./Login.css";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import NewAccount from "../NewAccount/NewAccount";
+import Register from "../Register/Register";
+import "./Login.css";
 
 const initial = {
   password: "",
@@ -117,7 +117,7 @@ const Login = () => {
         )}
 
         {isShowNewAccount && (
-          <NewAccount
+          <Register
             showLogin={showLogin}
             setIsNewAccountMessage={setIsNewAccountMessage}
             setIsLoginInValidMessage={setIsLoginInValidMessage}
