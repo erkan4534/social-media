@@ -12,13 +12,13 @@ function Header() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user == null && !isLoggedIn) {
+    if (!isLoggedIn) {
       navigate("/login");
+      setUser(null);
     }
-  }, [isLoggedIn, user, navigate]);
+  }, [isLoggedIn, user, navigate, setUser]);
 
   function logout() {
-    setUser(null);
     setIsLoggedIn(false);
   }
 
@@ -52,7 +52,7 @@ function Header() {
 
         <div className="headerRightProfile">
           <button onClick={logout}>
-            <img src="https://i.pravatar.cc/300" className="profil" />
+            <img src={user.profilePicture} className="profil" />
           </button>
         </div>
       </div>
