@@ -88,7 +88,7 @@ const NewAccount = ({
       {isShowError && <span>Please fill all input</span>}
       <form onSubmit={onNewAccountSubmit} noValidate>
         <div className="flex flex-col gap-2">
-          {inputDataArray.map((data) => (
+          {newAccountInputData.map((data) => (
             <input
               key={data.id}
               placeholder={data.placeholder}
