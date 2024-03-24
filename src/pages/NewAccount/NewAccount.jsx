@@ -24,7 +24,7 @@ const NewAccount = ({
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
-    if (isSuccess && Object.values(inputData).includes("")) {
+    if (isSuccess && !Object.values(inputData).includes("")) {
       showLogin();
       setIsLoginInValidMessage(false);
       setIsNewAccountMessage(true);
