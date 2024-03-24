@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoginInValidMessage, setIsLoginInValidMessage] = useState(false);
+  const [userDataArray, setUserDataArray] = useState(userData);
 
   useEffect(() => {
     if (user) {
@@ -15,7 +16,7 @@ const AuthProvider = ({ children }) => {
   }, [user]);
 
   function findUser(userInfo) {
-    const userDetailData = userData.find(
+    const userDetailData = userDataArray.find(
       (usr) =>
         usr.password === userInfo.password && usr.email === userInfo.email
     );
@@ -39,6 +40,8 @@ const AuthProvider = ({ children }) => {
         setIsLoggedIn,
         isLoginInValidMessage,
         setIsLoginInValidMessage,
+        userDataArray,
+        setUserDataArray,
       }}
     >
       {children}

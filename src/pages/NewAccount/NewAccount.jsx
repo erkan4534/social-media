@@ -1,8 +1,8 @@
 import "./NewAccount.css";
 import PropTypes from "prop-types";
 import { newAccountInputData } from "../../data/newAccountInputData";
-import { useEffect, useState } from "react";
-import { userData } from "../../data/userData";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const initialInput = {
   username: "",
@@ -17,10 +17,10 @@ const NewAccount = ({
   setIsNewAccountMessage,
   setIsLoginInValidMessage,
 }) => {
-  const [userDataArray, setUserDataArray] = useState(userData);
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const { userDataArray, setUserDataArray } = useContext(AuthContext);
 
   useEffect(() => {
     if (isSuccess && !Object.values(inputData).includes("")) {
@@ -45,11 +45,11 @@ const NewAccount = ({
       return;
     }
 
-    const newInputData = {
+    const newUserData = {
       id: userDataArray.length + 1,
       ...inputData,
     };
-    setUserDataArray([...userDataArray, newInputData]);
+    setUserDataArray([...userDataArray, newUserData]);
     setIsSuccess(true);
   }
 
