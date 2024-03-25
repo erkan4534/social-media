@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Card } from "antd";
 import "./Share.css";
-import { Button } from "@mui/material";
+import { Button, colors } from "@mui/material";
 const { Meta } = Card;
 
 const inputData = {
@@ -80,14 +80,22 @@ const Share = () => {
               </div>
             }
           >
-            <Meta
-              description={post.timestamp}
-              title={post.content.inputContent}
-            />
-            <Meta
-              description={post.timestamp}
-              title={post.content.textAreaContent}
-            />
+            <div className="flex flex-col relative">
+              <Meta
+                description={post.content.inputContent}
+                title="Url"
+                style={colors.common}
+              />
+              <Meta
+                description={post.content.textAreaContent}
+                name="Describe"
+                title="Describe"
+              />
+            </div>
+
+            <Button type="button" variant="contained" className="removeButton">
+              Remove
+            </Button>
           </Card>
         ))}
       </div>
