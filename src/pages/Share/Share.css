@@ -21,13 +21,31 @@
 }
 
 .shareButton {
-  padding: 10px 20px;
-  background-color: #007bff !important; /* Buton için mavi bir arka plan */
+  width: 300px;
+  height: 30px;
+  background-color: #007bff !important;
   color: white;
   font-weight: bold;
   border: none;
   border-radius: 6px;
   margin-top: 10px;
-  cursor: pointer; /* Fare imlecini buton üzerine getirildiğinde el şekline dönüştürür */
+  cursor: pointer;
   font-size: 18px;
+}
+
+.card-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.card-cover img {
+  max-width: 200px;
+  margin-top: 20px;
+}
+
+.ant-card-cover {
+  display: inline;
 }

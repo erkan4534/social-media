@@ -1,15 +1,16 @@
 import { useState } from "react";
+import { Card } from "antd";
 import "./Share.css";
-
+const { Meta } = Card;
 const Share = () => {
   const [postContent, setPostContent] = useState("");
   const [posts, setPosts] = useState([]);
 
   const getImageForUrl = (url) => {
     if (url.match(/hurriyet\.com\.tr/)) {
-      return "assets/person/1.jpeg"; // URL'ye özel resim
+      return "assets/person/1.jpeg";
     } else {
-      return "default-placeholder.jpg"; // Tanınmayan URL için genel yer tutucu resim
+      return "";
     }
   };
 
@@ -46,19 +47,20 @@ const Share = () => {
         </div>
       </form>
       <div>
-        <ul>
-          {posts.map((post) => (
-            <li key={post.id}>
-              <p>{post.content}</p>
-              <img
-                src={post.imageUrl}
-                alt="Preview"
-                style={{ maxWidth: "200px" }}
-              />
-              <small>{post.timestamp}</small>
-            </li>
-          ))}
-        </ul>
+        {posts.map((post) => (
+          <Card
+            className="mt-5"
+            key={post.id}
+            hoverable
+            cover={
+              <div className="card-cover">
+                <img src={post.imageUrl} alt="Preview" />
+              </div>
+            }
+          >
+            <Meta description={post.timestamp} title={post.content} />
+          </Card>
+        ))}
       </div>
     </div>
   );
