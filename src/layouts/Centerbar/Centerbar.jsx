@@ -1,5 +1,11 @@
+import Share from "../../pages/Share/Share";
+
 const Centerbar = () => {
-  return <div>Centerbar</div>;
+  return (
+    <div>
+      <Share />
+    </div>
+  );
 };
 
 Centerbar.propTypes = {};

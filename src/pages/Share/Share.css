@@ -1,0 +1,33 @@
+.shareInput {
+  height: 50px;
+  width: 300px;
+  border-radius: 6px;
+  border: 1px solid #cccccc;
+  font-size: 18px;
+  padding-left: 20px;
+  outline: none;
+}
+
+.shareContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shareButton {
+  padding: 10px 20px;
+  background-color: #007bff !important; /* Buton için mavi bir arka plan */
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer; /* Fare imlecini buton üzerine getirildiğinde el şekline dönüştürür */
+  font-size: 18px;
+}
