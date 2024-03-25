@@ -32,7 +32,8 @@ const Share = () => {
   const handleChange = (event) => {
     setPostContents({
       ...postContents,
-    })[event.target.name] = event.target.value;
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
