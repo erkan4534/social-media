@@ -7,11 +7,7 @@ const Share = () => {
   const [posts, setPosts] = useState([]);
 
   const getImageForUrl = (url) => {
-    if (url.match(/hurriyet\.com\.tr/)) {
-      return "assets/person/1.jpeg";
-    } else {
-      return "";
-    }
+    return "https://picsum.photos/200";
   };
 
   const handlePostSubmit = (event) => {
