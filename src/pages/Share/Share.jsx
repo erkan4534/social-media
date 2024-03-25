@@ -29,6 +29,13 @@ const Share = () => {
     <div className="shareContainer">
       <form onSubmit={handlePostSubmit} noValidate>
         <div className="flex flex-col gap-2 mb-3">
+          <textarea
+            placeholder="Write someting"
+            className="shareTextArea"
+            rows={3}
+            cols={50}
+            wrap="physical"
+          ></textarea>
           <input
             type="text"
             className="shareInput"
@@ -37,6 +44,7 @@ const Share = () => {
             placeholder="URL girin"
             required
           />
+
           <button type="submit" className="shareButton">
             Post
           </button>
