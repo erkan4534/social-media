@@ -13,8 +13,6 @@ const Share = () => {
   const [postContents, setPostContents] = useState(inputData);
   const [posts, setPosts] = useState([]);
 
-  console.log(postContents);
-
   const handlePostSubmit = (event) => {
     event.preventDefault();
 
@@ -79,10 +77,13 @@ const Share = () => {
               </div>
             }
           >
-            <Meta description={post.timestamp} title={post.postInputContent} />
             <Meta
               description={post.timestamp}
-              title={post.postTextAreaContent}
+              title={post.content.inputContent}
+            />
+            <Meta
+              description={post.timestamp}
+              title={post.content.textAreaContent}
             />
           </Card>
         ))}
