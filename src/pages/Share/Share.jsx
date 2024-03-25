@@ -52,7 +52,6 @@ const Share = () => {
             className="shareInput"
             onChange={handleChange}
             placeholder="Text Url"
-            required
           />
 
           <Button
