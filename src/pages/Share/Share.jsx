@@ -4,27 +4,26 @@ import "./Share.css";
 import { Button } from "@mui/material";
 const { Meta } = Card;
 const Share = () => {
-  const [postContent, setPostContent] = useState("");
+  const [postInput, setPostInput] = useState("");
+  const [postTextArea, setPostTextArea] = useState("");
   const [posts, setPosts] = useState([]);
-
-  const getImageForUrl = (url) => {
-    return "https://picsum.photos/200";
-  };
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
-    const imageUrl = getImageForUrl(postContent);
 
     const newPost = {
       id: posts.length + 1,
-      content: postContent,
+      postInputContent: postInput,
+      postTextAreaContent: postTextArea,
       timestamp: new Date().toISOString(),
-      imageUrl: imageUrl,
+      imageUrl: "https://picsum.photos/200",
     };
 
     setPosts([...posts, newPost]);
-    setPostContent("");
+    setPostInput("");
   };
+
+  const handleChange = (event) => {};
 
   return (
     <div className="shareContainer">
@@ -35,13 +34,13 @@ const Share = () => {
             className="shareTextArea"
             rows={3}
             cols={50}
-            wrap="physical"
+            onChange={(e) => setPostTextArea(e.target.value)}
           ></textarea>
           <input
             type="text"
             className="shareInput"
-            value={postContent}
-            onChange={(e) => setPostContent(e.target.value)}
+            value={postInput}
+            onChange={(e) => setPostInput(e.target.value)}
             placeholder="URL girin"
             required
           />
@@ -49,8 +48,8 @@ const Share = () => {
           <Button
             type="submit"
             variant="contained"
-            disabled={!postContent}
-            className={!postContent ? "" : "shareButton"}
+            disabled={!postInput}
+            className={!postInput ? "" : "shareButton"}
           >
             Post
           </Button>
@@ -68,7 +67,11 @@ const Share = () => {
               </div>
             }
           >
-            <Meta description={post.timestamp} title={post.content} />
+            <Meta description={post.timestamp} title={post.postInputContent} />
+            <Meta
+              description={post.timestamp}
+              title={post.postTextAreaContent}
+            />
           </Card>
         ))}
       </div>
