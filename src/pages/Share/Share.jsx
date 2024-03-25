@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card } from "antd";
 import "./Share.css";
+import { Button } from "@mui/material";
 const { Meta } = Card;
 const Share = () => {
   const [postContent, setPostContent] = useState("");
@@ -45,9 +46,14 @@ const Share = () => {
             required
           />
 
-          <button type="submit" className="shareButton">
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={!postContent}
+            className={!postContent ? "" : "shareButton"}
+          >
             Post
-          </button>
+          </Button>
         </div>
       </form>
       <div>
