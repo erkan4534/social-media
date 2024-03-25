@@ -24,7 +24,9 @@ const Share = () => {
     };
 
     setPosts([...posts, newPost]);
-    setPostContent("");
+    setPostContent(inputData);
+
+    console.log(postContent);
   };
 
   const handleChange = (event) => {
@@ -45,6 +47,7 @@ const Share = () => {
             cols={50}
             onChange={handleChange}
             name="textAreaContent"
+            value={postContent.textAreaContent}
           ></textarea>
           <input
             type="text"
@@ -52,6 +55,7 @@ const Share = () => {
             className="shareInput"
             onChange={handleChange}
             placeholder="Text Url"
+            value={postContent.inputContent}
           />
 
           <Button
