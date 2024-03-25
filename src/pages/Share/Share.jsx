@@ -10,7 +10,7 @@ const inputData = {
 };
 
 const Share = () => {
-  const [postContents, setPostContents] = useState(inputData);
+  const [postContent, setPostContent] = useState(inputData);
   const [posts, setPosts] = useState([]);
 
   const handlePostSubmit = (event) => {
@@ -18,18 +18,18 @@ const Share = () => {
 
     const newPost = {
       id: posts.length + 1,
-      content: postContents,
+      content: postContent,
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
     };
 
     setPosts([...posts, newPost]);
-    setPostContents("");
+    setPostContent("");
   };
 
   const handleChange = (event) => {
-    setPostContents({
-      ...postContents,
+    setPostContent({
+      ...postContent,
       [event.target.name]: event.target.value,
     });
   };
@@ -57,8 +57,8 @@ const Share = () => {
           <Button
             type="submit"
             variant="contained"
-            disabled={!postContents}
-            className={!postContents ? "" : "shareButton"}
+            disabled={!postContent}
+            className={!postContent ? "" : "shareButton"}
           >
             Post
           </Button>
