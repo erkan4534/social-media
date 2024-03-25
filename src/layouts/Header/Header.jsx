@@ -18,10 +18,8 @@ function Header() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    debugger;
     if (!isLoggedIn) {
       navigate("/login");
-      // dispatch(setUser(null));
     }
   }, [navigate, isLoggedIn]);
 

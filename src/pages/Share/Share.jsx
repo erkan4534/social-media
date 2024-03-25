@@ -3,27 +3,37 @@ import { Card } from "antd";
 import "./Share.css";
 import { Button } from "@mui/material";
 const { Meta } = Card;
+
+const inputData = {
+  inputContent: "",
+  textAreaContent: "",
+};
+
 const Share = () => {
-  const [postInput, setPostInput] = useState("");
-  const [postTextArea, setPostTextArea] = useState("");
+  const [postContents, setPostContents] = useState(inputData);
   const [posts, setPosts] = useState([]);
+
+  console.log(postContents);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
 
     const newPost = {
       id: posts.length + 1,
-      postInputContent: postInput,
-      postTextAreaContent: postTextArea,
+      content: postContents,
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
     };
 
     setPosts([...posts, newPost]);
-    setPostInput("");
+    setPostContents("");
   };
 
-  const handleChange = (event) => {};
+  const handleChange = (event) => {
+    setPostContents({
+      ...postContents,
+    })[event.target.name] = event.target.value;
+  };
 
   return (
     <div className="shareContainer">
@@ -34,22 +44,23 @@ const Share = () => {
             className="shareTextArea"
             rows={3}
             cols={50}
-            onChange={(e) => setPostTextArea(e.target.value)}
+            onChange={handleChange}
+            name="textAreaContent"
           ></textarea>
           <input
             type="text"
+            name="inputContent"
             className="shareInput"
-            value={postInput}
-            onChange={(e) => setPostInput(e.target.value)}
-            placeholder="URL girin"
+            onChange={handleChange}
+            placeholder="Text Url"
             required
           />
 
           <Button
             type="submit"
             variant="contained"
-            disabled={!postInput}
-            className={!postInput ? "" : "shareButton"}
+            disabled={!postContents}
+            className={!postContents ? "" : "shareButton"}
           >
             Post
           </Button>
