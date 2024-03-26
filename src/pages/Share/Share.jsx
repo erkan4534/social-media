@@ -68,8 +68,16 @@ const Share = () => {
           <Button
             type="submit"
             variant="contained"
-            disabled={!postContent}
-            className={!postContent ? "" : "shareButton"}
+            disabled={
+              postContent.inputContent === "" &&
+              postContent.textAreaContent === ""
+            }
+            className={
+              postContent.inputContent === "" &&
+              postContent.textAreaContent === ""
+                ? ""
+                : "shareButton"
+            }
           >
             Post
           </Button>
