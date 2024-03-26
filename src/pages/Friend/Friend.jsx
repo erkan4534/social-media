@@ -1,5 +1,14 @@
+import { useSelector } from "react-redux";
 const Friend = () => {
-  return <div>Friend</div>;
+  const { user } = useSelector((state) => state.auth);
+
+  return (
+    <div>
+      {user.firends.map((firend) => (
+        <div key={firend.id}>{firend.name}</div>
+      ))}
+    </div>
+  );
 };
 
 Friend.propTypes = {};
