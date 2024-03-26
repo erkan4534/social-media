@@ -6,21 +6,25 @@ import "./CloseFriend.css";
 const CloseFriend = () => {
   // const { userDataArray } = useContext(AuthContext);
 
-  const { userDataArray } = useSelector((state) => state.auth);
+  const { userDataArray, user } = useSelector((state) => state.auth);
+
+  console.log(user);
 
   return (
     <div>
-      {userDataArray.map((firend) => (
-        <div key={firend.id} className="closeFriendList">
-          <div className="closeFriend">
-            <img src={firend.profilePicture} />
-            <span>
-              {firend.name} {firend.surname}
-            </span>
+      {userDataArray
+        .filter((firend) => firend.id != user.id)
+        .map((firend) => (
+          <div key={firend.id} className="closeFriendList">
+            <div className="closeFriend">
+              <img src={firend.profilePicture} />
+              <span>
+                {firend.name} {firend.surname}
+              </span>
+            </div>
+            <button className="addButton">Add</button>
           </div>
-          <button className="addButton">Add</button>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };
