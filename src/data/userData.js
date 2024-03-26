@@ -7,6 +7,7 @@ export const userData = [
     email: "erkan1.yildirim@gmail.com",
     profilePicture: "assets/person/1.jpeg",
     firends: [],
+    posts: [],
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const userData = [
     email: "erkan2.yildirim@gmail.com",
     profilePicture: "assets/person/2.jpeg",
     firends: [],
+    posts: [],
   },
 
   {
@@ -26,6 +28,7 @@ export const userData = [
     email: "erkan3.yildirim@gmail.com",
     profilePicture: "assets/person/3.jpeg",
     firends: [],
+    posts: [],
   },
 
   {
@@ -36,6 +39,7 @@ export const userData = [
     email: "erkan4.yildirim@gmail.com",
     profilePicture: "assets/person/4.jpeg",
     firends: [],
+    posts: [],
   },
 
   {
@@ -46,6 +50,7 @@ export const userData = [
     email: "erkan5.yildirim@gmail.com",
     profilePicture: "assets/person/5.jpeg",
     firends: [],
+    posts: [],
   },
 
   {
@@ -56,6 +61,7 @@ export const userData = [
     email: "erkan6.yildirim@gmail.com",
     profilePicture: "assets/person/6.jpeg",
     firends: [],
+    posts: [],
   },
 
   {
@@ -66,6 +72,7 @@ export const userData = [
     email: "erkan7.yildirim@gmail.com",
     profilePicture: "assets/person/7.jpeg",
     firends: [],
+    posts: [],
   },
 
   {
@@ -76,6 +83,7 @@ export const userData = [
     email: "erkan8.yildirim@gmail.com",
     profilePicture: "assets/person/8.jpeg",
     firends: [],
+    posts: [],
   },
 
   {
@@ -86,6 +94,7 @@ export const userData = [
     email: "erkan9.yildirim@gmail.com",
     profilePicture: "assets/person/9.jpeg",
     firends: [],
+    posts: [],
   },
 
   {
@@ -96,5 +105,6 @@ export const userData = [
     email: "erkan10.yildirim@gmail.com",
     profilePicture: "assets/person/10.jpeg",
     firends: [],
+    posts: [],
   },
 ];
