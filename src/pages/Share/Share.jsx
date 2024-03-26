@@ -37,6 +37,11 @@ const Share = () => {
     });
   };
 
+  const removePost = (id) => {
+    const newPost = posts.filter((post) => post.id !== id);
+    setPosts(newPost);
+  };
+
   return (
     <div className="shareContainer">
       <form onSubmit={handlePostSubmit} noValidate>
@@ -94,16 +99,12 @@ const Share = () => {
               />
             </div>
 
-            {/* <Button
+            <IconButton
+              onClick={() => removePost(post.id)}
               type="button"
-              ima
-              variant="contained"
+              aria-label="delete"
               className="removeButton"
             >
-              <RiDeleteBin6Line />
-            </Button> */}
-
-            <IconButton aria-label="delete" className="removeButton">
               <RiDeleteBin6Line />
             </IconButton>
           </Card>
