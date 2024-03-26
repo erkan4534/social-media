@@ -63,12 +63,15 @@
   font-weight: bold !important;
 }
 
-.removeButton {
+.removeButton,
+.likeButton {
   font-size: 25px !important;
   font-weight: bold !important;
-  position: absolute !important;
-  bottom: 6px;
-  right: 6px;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: space-between;
 }
 
 .cardContainer {

@@ -3,6 +3,7 @@ import { Card } from "antd";
 import "./Share.css";
 import { Button, IconButton, colors } from "@mui/material";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { BiLike } from "react-icons/bi";
 const { Meta } = Card;
 
 const inputData = {
@@ -86,27 +87,42 @@ const Share = () => {
               </div>
             }
           >
-            <div className="flex flex-col relative">
-              <Meta
-                description={post.content.inputContent}
-                title="Url"
-                style={colors.common}
-              />
-              <Meta
-                description={post.content.textAreaContent}
-                name="Describe"
-                title="Describe"
-              />
-            </div>
+            <div className="relative">
+              <div className=" block">
+                <div className="flex flex-col">
+                  <Meta
+                    description={post.content.inputContent}
+                    title="Url"
+                    style={colors.common}
+                  />
+                  <Meta
+                    description={post.content.textAreaContent}
+                    name="Describe"
+                    title="Describe"
+                  />
+                </div>
+              </div>
 
-            <IconButton
-              onClick={() => removePost(post.id)}
-              type="button"
-              aria-label="delete"
-              className="removeButton"
-            >
-              <RiDeleteBin6Line />
-            </IconButton>
+              <div className="card-actions">
+                <IconButton
+                  onClick={() => removePost(post.id)}
+                  type="button"
+                  aria-label="delete"
+                  className="likeButton"
+                >
+                  <BiLike />
+                </IconButton>
+
+                <IconButton
+                  onClick={() => removePost(post.id)}
+                  type="button"
+                  aria-label="delete"
+                  className="removeButton"
+                >
+                  <RiDeleteBin6Line />
+                </IconButton>
+              </div>
+            </div>
           </Card>
         ))}
       </div>
