@@ -71,7 +71,7 @@ const Share = () => {
       <div>
         {posts.map((post) => (
           <Card
-            className="mt-5"
+            className="mt-5 cardContainer"
             key={post.id}
             hoverable
             cover={

@@ -72,3 +72,7 @@
   bottom: 6px;
   right: 6px;
 }
+
+.cardContainer {
+  width: 400px;
+}
