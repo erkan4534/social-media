@@ -20,17 +20,19 @@ const Member = () => {
   return (
     <div>
       {userDataArray
-        .filter((firend) => firend.id != user.id)
-        .map((firend) => (
-          <div key={firend.id} className="closeFriendList">
+        .filter((friend) => friend.id != user.id)
+        .map((friend) => (
+          <div key={friend.id} className="closeFriendList">
             <div className="closeFriend">
-              <img src={firend.profilePicture} />
+              <img src={friend.profilePicture} />
               <span>
-                {firend.name} {firend.surname}
+                {friend.name} {friend.surname}
               </span>
             </div>
-            <button onClick={() => addFirend(firend)} className="addButton">
-              Add
+            <button onClick={() => addFirend(friend)} className="addButton">
+              {user.firends.find((usr) => usr.id === friend.id)
+                ? "Friend"
+                : "Add"}
             </button>
           </div>
         ))}
