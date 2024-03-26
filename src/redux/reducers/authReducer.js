@@ -36,7 +36,10 @@ function authReducer(state = initialState, action) {
     case "SET_USER":
       return {
         ...state,
-        user: action.payload,
+        user: {
+          ...state.user,
+          firends: [...state.user.firends, action.payload],
+        },
       };
 
     default:
