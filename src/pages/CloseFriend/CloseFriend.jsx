@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../redux/action/authActions";
 import "./CloseFriend.css";
 //import { useContext } from "react";
 //import { AuthContext } from "../../context/AuthContext";
@@ -7,10 +8,14 @@ const CloseFriend = () => {
   // const { userDataArray } = useContext(AuthContext);
 
   const { userDataArray, user } = useSelector((state) => state.auth);
-
+  const dispatch = useDispatch();
   if (!user) {
     return <></>;
   }
+
+  const addFirend = (firend) => {
+    dispatch(setUser(firend));
+  };
 
   return (
     <div>
@@ -24,7 +29,9 @@ const CloseFriend = () => {
                 {firend.name} {firend.surname}
               </span>
             </div>
-            <button className="addButton">Add</button>
+            <button onClick={() => addFirend(firend)} className="addButton">
+              Add
+            </button>
           </div>
         ))}
     </div>

@@ -33,6 +33,12 @@ function authReducer(state = initialState, action) {
         isLoggedIn: false,
       };
 
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.payload,
+      };
+
     default:
       return state;
   }
