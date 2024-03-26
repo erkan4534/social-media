@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Card } from "antd";
 import "./Share.css";
-import { Button, colors } from "@mui/material";
+import { Button, IconButton, colors } from "@mui/material";
+import { RiDeleteBin6Line } from "react-icons/ri";
 const { Meta } = Card;
 
 const inputData = {
@@ -93,9 +94,18 @@ const Share = () => {
               />
             </div>
 
-            <Button type="button" variant="contained" className="removeButton">
-              Remove
-            </Button>
+            {/* <Button
+              type="button"
+              ima
+              variant="contained"
+              className="removeButton"
+            >
+              <RiDeleteBin6Line />
+            </Button> */}
+
+            <IconButton aria-label="delete" className="removeButton">
+              <RiDeleteBin6Line />
+            </IconButton>
           </Card>
         ))}
       </div>

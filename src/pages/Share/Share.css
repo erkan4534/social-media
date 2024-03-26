@@ -64,10 +64,8 @@
 }
 
 .removeButton {
-  font-size: 10px !important;
+  font-size: 25px !important;
   font-weight: bold !important;
-  background-color: #007bff !important;
-  color: white !important;
   position: absolute !important;
   bottom: 6px;
   right: 6px;
