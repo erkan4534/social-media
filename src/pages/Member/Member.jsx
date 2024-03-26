@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/action/authActions";
-import "./CloseFriend.css";
+import "./Member.css";
 //import { useContext } from "react";
 //import { AuthContext } from "../../context/AuthContext";
 
-const CloseFriend = () => {
+const Member = () => {
   // const { userDataArray } = useContext(AuthContext);
 
   const { userDataArray, user } = useSelector((state) => state.auth);
@@ -38,4 +38,4 @@ const CloseFriend = () => {
   );
 };
 
-export default CloseFriend;
+export default Member;
