@@ -90,8 +90,8 @@ export const userData = [
 
   {
     id: 10,
-    name: "Ezel",
-    surname: "Bayraktar",
+    name: "Kerpeten",
+    surname: "Ali",
     password: "123",
     email: "erkan10.yildirim@gmail.com",
     profilePicture: "assets/person/10.jpeg",
