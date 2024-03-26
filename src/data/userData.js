@@ -6,6 +6,7 @@ export const userData = [
     password: "123",
     email: "erkan1.yildirim@gmail.com",
     profilePicture: "assets/person/1.jpeg",
+    firends: [],
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const userData = [
     password: "123",
     email: "erkan2.yildirim@gmail.com",
     profilePicture: "assets/person/2.jpeg",
+    firends: [],
   },
 
   {
@@ -23,6 +25,7 @@ export const userData = [
     password: "123",
     email: "erkan3.yildirim@gmail.com",
     profilePicture: "assets/person/3.jpeg",
+    firends: [],
   },
 
   {
@@ -32,6 +35,7 @@ export const userData = [
     password: "123",
     email: "erkan4.yildirim@gmail.com",
     profilePicture: "assets/person/4.jpeg",
+    firends: [],
   },
 
   {
@@ -41,6 +45,7 @@ export const userData = [
     password: "123",
     email: "erkan5.yildirim@gmail.com",
     profilePicture: "assets/person/5.jpeg",
+    firends: [],
   },
 
   {
@@ -50,6 +55,7 @@ export const userData = [
     password: "123",
     email: "erkan6.yildirim@gmail.com",
     profilePicture: "assets/person/6.jpeg",
+    firends: [],
   },
 
   {
@@ -59,6 +65,7 @@ export const userData = [
     password: "123",
     email: "erkan7.yildirim@gmail.com",
     profilePicture: "assets/person/7.jpeg",
+    firends: [],
   },
 
   {
@@ -68,6 +75,7 @@ export const userData = [
     password: "123",
     email: "erkan8.yildirim@gmail.com",
     profilePicture: "assets/person/8.jpeg",
+    firends: [],
   },
 
   {
@@ -77,6 +85,7 @@ export const userData = [
     password: "123",
     email: "erkan9.yildirim@gmail.com",
     profilePicture: "assets/person/9.jpeg",
+    firends: [],
   },
 
   {
@@ -86,5 +95,6 @@ export const userData = [
     password: "123",
     email: "erkan10.yildirim@gmail.com",
     profilePicture: "assets/person/10.jpeg",
+    firends: [],
   },
 ];

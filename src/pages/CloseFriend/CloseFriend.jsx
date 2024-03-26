@@ -8,7 +8,9 @@ const CloseFriend = () => {
 
   const { userDataArray, user } = useSelector((state) => state.auth);
 
-  console.log(user);
+  if (!user) {
+    return <></>;
+  }
 
   return (
     <div>
