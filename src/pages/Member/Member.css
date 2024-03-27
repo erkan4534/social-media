@@ -59,10 +59,3 @@
     height: 40px;
   }
 }
-
-@media (max-width: 480px) {
-  .closeFriend img {
-    width: 48px; /* Çok dar cihazlarda genişlik */
-    height: 48px; /* Çok dar cihazlarda yükseklik */
-  }
-}
