@@ -38,7 +38,7 @@
   margin-right: 10px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-width: 1159px) {
   .closeFriendList {
     flex-direction: column;
     align-items: flex-start;
