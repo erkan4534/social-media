@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 const Home = () => {
   const [isleftbarVisible, setIsleftbarVisible] = useState(true);
+  const [isRightbarVisible, setIsRightbarVisible] = useState(true);
 
   useEffect(() => {
     function handleResize() {
@@ -25,7 +26,9 @@ const Home = () => {
     <>
       <Header />
       <button
-        className={isleftbarVisible ? "hamburgerMenu" : "hamburgerMenuChangeBg"}
+        className={
+          isleftbarVisible ? "leftHamburgerMenu" : "leftHamburgerMenuChangeBg"
+        }
         onClick={() => setIsleftbarVisible(!isleftbarVisible)}
       >
         <GiHamburgerMenu />
