@@ -42,6 +42,13 @@ function authReducer(state = initialState, action) {
         },
       };
 
+    case "SET_USER_DATA_ARRAY":
+      return {
+        ...state,
+        userDataArray: [...state.userDataArray, action.payload],
+        isLoginInValidMessage: false,
+      };
+
     default:
       return state;
   }

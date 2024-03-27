@@ -18,3 +18,10 @@ export const setUser = (userInfo) => {
     payload: userInfo,
   };
 };
+
+export const setUserDataArray = (userData) => {
+  return {
+    type: "SET_USER_DATA_ARRAY",
+    payload: userData,
+  };
+};

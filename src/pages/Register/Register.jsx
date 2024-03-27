@@ -1,8 +1,11 @@
 import "./Register.css";
 import PropTypes from "prop-types";
 import { newAccountInputData } from "../../data/newAccountInputData";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDataArray } from "../../redux/action/authActions";
+//import { useContext, useEffect, useState } from "react";
+//import { AuthContext } from "../../context/AuthContext";
 
 const initialInput = {
   username: "",
@@ -15,23 +18,25 @@ const initialInput = {
 const Register = ({
   showLogin,
   setIsNewAccountMessage,
-  setIsLoginInValidMessage,
+  // setIsLoginInValidMessage,
 }) => {
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const { userDataArray, setUserDataArray } = useContext(AuthContext);
+  //const { userDataArray, setUserDataArray } = useContext(AuthContext);
+  const { userDataArray } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isSuccess && !Object.values(inputData).includes("")) {
       showLogin();
-      setIsLoginInValidMessage(false);
+      // setIsLoginInValidMessage(false);
       setIsNewAccountMessage(true);
     }
   }, [
     showLogin,
     isSuccess,
-    setIsLoginInValidMessage,
+    //setIsLoginInValidMessage,
     setIsNewAccountMessage,
     inputData,
   ]);
@@ -49,7 +54,8 @@ const Register = ({
       id: userDataArray.length + 1,
       ...inputData,
     };
-    setUserDataArray([...userDataArray, newUserData]);
+    dispatch(setUserDataArray(newUserData));
+    //setUserDataArray([...userDataArray, newUserData]);
     setIsSuccess(true);
   }
 
@@ -66,7 +72,7 @@ const Register = ({
 
   const backToLogin = () => {
     showLogin();
-    setIsLoginInValidMessage(false);
+    //setIsLoginInValidMessage(false);
     setIsNewAccountMessage(false);
   };
 
