@@ -4,6 +4,7 @@ import { newAccountInputData } from "../../data/newAccountInputData";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDataArray } from "../../redux/action/authActions";
+import FileUpload from "../../components/UI/FileUpload/FileUpload";
 //import { useContext, useEffect, useState } from "react";
 //import { AuthContext } from "../../context/AuthContext";
 
@@ -93,6 +94,7 @@ const Register = ({
               required={isShowError}
             />
           ))}
+          <FileUpload />
         </div>
         <div className="mt-3 flex justify-between">
           <button className="newAccountButton">Save</button>
