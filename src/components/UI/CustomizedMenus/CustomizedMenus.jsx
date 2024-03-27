@@ -55,7 +55,11 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function CustomizedMenus({ children, className, userLogout }) {
+export default function CustomizedMenus({
+  children,
+  customizedMenusClass,
+  userLogout,
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -76,7 +80,7 @@ export default function CustomizedMenus({ children, className, userLogout }) {
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
-        className={className}
+        className={customizedMenusClass}
       >
         {children}
       </Button>
@@ -104,6 +108,6 @@ export default function CustomizedMenus({ children, className, userLogout }) {
 
 CustomizedMenus.propTypes = {
   children: PropTypes.object,
-  className: PropTypes.string,
+  customizedMenusClass: PropTypes.string,
   userLogout: PropTypes.func,
 };

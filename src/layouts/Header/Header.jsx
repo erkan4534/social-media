@@ -44,7 +44,7 @@ function Header() {
       <div className="headerRight">
         <div className="headerRightIcon">
           <div>
-            <PersonIcon />
+            <PersonIcon className="font-size" />
           </div>
           <div>
             <MarkUnreadChatAltIcon />
@@ -55,7 +55,10 @@ function Header() {
         </div>
 
         <div className="headerRightProfile">
-          <CustomizedMenus className="customizedMenus" userLogout={userLogout}>
+          <CustomizedMenus
+            customizedMenusClass="customizedMenus"
+            userLogout={userLogout}
+          >
             <img
               src={user && user.profilePicture}
               className="profil"

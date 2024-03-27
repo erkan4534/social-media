@@ -31,7 +31,6 @@
 
 .headerRightIcon {
   display: flex;
-  column-gap: 20px;
   flex: 9;
   color: white;
   font-weight: bold;
@@ -69,8 +68,6 @@
 .profil {
   border-radius: 50%;
   object-fit: cover;
-  width: 60px;
-  height: 30px;
 }
 
 .logo {
@@ -78,19 +75,33 @@
   font-weight: bold;
 }
 
+.customizedMenus {
+  background-color: #1877f2 !important;
+}
+
 @media (max-width: 768px) {
   .logo {
-    font-size: 12px;
+    font-size: 11px;
     margin-left: 35px;
   }
 
   .profil {
-    margin-right: 60px;
+    margin-right: 40px;
+    width: 34px;
+    height: 35px;
   }
 
   .customizedMenus {
-    background-color: #1877f2 !important;
-    min-width: 30px !important;
+    width: 18px !important;
+    margin-left: 40px !important;
+  }
+  .css-i4bv87-MuiSvgIcon-root {
+    width: 18px !important;
+  }
+
+  .headerRightIcon {
+    column-gap: 8px;
+    margin-left: 12px;
   }
 }
 
@@ -101,7 +112,15 @@
   }
 
   .customizedMenus {
-    background-color: #1877f2 !important;
     min-width: 90px !important;
+  }
+
+  .headerRightIcon {
+    column-gap: 20px;
+  }
+
+  .profil {
+    width: 60px;
+    height: 30px;
   }
 }
