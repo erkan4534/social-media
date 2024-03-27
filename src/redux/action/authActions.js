@@ -25,3 +25,10 @@ export const setUserDataArray = (userData) => {
     payload: userData,
   };
 };
+
+export const removeUser = (userData) => {
+  return {
+    type: "REMOVE_USER",
+    payload: userData,
+  };
+};

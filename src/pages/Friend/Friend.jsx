@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser } from "../../redux/action/authActions";
 import "./Friend.css";
 const Friend = () => {
   const { user } = useSelector((state) => state.auth);
-
+  const dispatch = useDispatch();
   return (
     <div>
       {user &&
@@ -15,7 +16,12 @@ const Friend = () => {
                 {friend.name} {friend.surname}
               </span>
             </div>
-            <button className="removeFriendButton">Remove</button>
+            <button
+              className="removeFriendButton"
+              onClick={() => dispatch(removeUser(friend.id))}
+            >
+              Remove
+            </button>
           </div>
         ))}
     </div>

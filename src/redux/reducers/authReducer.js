@@ -49,6 +49,20 @@ function authReducer(state = initialState, action) {
         isLoginInValidMessage: false,
       };
 
+    case "REMOVE_USER": {
+      const newFirens = state.user.firends.filter(
+        (user) => user.id != action.payload
+      );
+
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          firends: newFirens,
+        },
+      };
+    }
+
     default:
       return state;
   }
