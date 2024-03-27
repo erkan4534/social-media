@@ -38,7 +38,7 @@ function authReducer(state = initialState, action) {
         ...state,
         user: {
           ...state.user,
-          firends: [...state.user.firends, action.payload],
+          friends: [...state.user.friends, action.payload],
         },
       };
 
@@ -50,7 +50,7 @@ function authReducer(state = initialState, action) {
       };
 
     case "REMOVE_USER": {
-      const newFirens = state.user.firends.filter(
+      const newFriends = state.user.friends.filter(
         (user) => user.id != action.payload
       );
 
@@ -58,7 +58,7 @@ function authReducer(state = initialState, action) {
         ...state,
         user: {
           ...state.user,
-          firends: newFirens,
+          friends: newFriends,
         },
       };
     }

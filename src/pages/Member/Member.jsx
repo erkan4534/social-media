@@ -13,12 +13,17 @@ const Member = () => {
     return <></>;
   }
 
-  const addFirend = (firend) => {
-    dispatch(setUser(firend));
+  const addFirend = (friend) => {
+    if (!isFriend(friend)) {
+      dispatch(setUser(friend));
+    }
   };
 
-  const isFriend = (friend) =>
-    user && user.friends && user.friends.find((usr) => usr.id === friend.id);
+  const isFriend = (friend) => {
+    return (
+      user && user.friends && user.friends.some((usr) => usr.id === friend.id)
+    );
+  };
 
   return (
     <div>
@@ -27,7 +32,10 @@ const Member = () => {
         .map((friend) => (
           <div key={friend.id} className="closeFriendList">
             <div className="closeFriend">
-              <img src={friend.profilePicture} />
+              <img
+                src={friend.profilePicture}
+                alt={`${friend.name} ${friend.surname}`}
+              />
               <span>
                 {friend.name} {friend.surname}
               </span>

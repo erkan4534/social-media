@@ -7,8 +7,8 @@ const Friend = () => {
   return (
     <div>
       {user &&
-        user.firends &&
-        user.firends.map((friend) => (
+        user.friends &&
+        user.friends.map((friend) => (
           <div key={friend.id} className="friendList">
             <div className="friend">
               <img src={friend.profilePicture} />
