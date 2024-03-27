@@ -67,10 +67,10 @@
 }
 
 .profil {
-  width: 30px;
-  height: 30px;
   border-radius: 50%;
   object-fit: cover;
+  width: 30px;
+  height: 30px;
 }
 
 .logo {
@@ -82,6 +82,10 @@
   .logo {
     font-size: 12px;
     margin-left: 35px;
+  }
+
+  .profil {
+    margin-right: 40px;
   }
 }
 
