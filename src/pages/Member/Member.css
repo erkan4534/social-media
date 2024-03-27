@@ -38,6 +38,10 @@
   margin-right: 10px;
 }
 
+.addButton:disabled {
+  cursor: default !important;
+}
+
 @media (max-width: 768px), (max-width: 1159px) {
   .closeFriendList {
     flex-direction: column;
