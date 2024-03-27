@@ -7,6 +7,10 @@
   flex: 1;
 }
 
+.centerbar {
+  flex: 2;
+}
+
 .leftbar {
   flex: 1;
   position: sticky;
@@ -15,6 +19,55 @@
   height: calc(100vh - 50px);
 }
 
-.centerbar {
-  flex: 2;
+.hamburgerMenu {
+  z-index: 100;
+  cursor: pointer;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  color: white;
+  background-color: #1775ee;
+  margin-top: 7px;
+}
+
+.hamburgerMenuChangeBg {
+  z-index: 100;
+  cursor: pointer;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  color: black;
+  background-color: white;
+  margin-top: 7px;
+}
+
+@media (max-width: 768px) {
+  .hamburgerMenu {
+    display: block;
+  }
+
+  .leftbar {
+    display: none;
+  }
+
+  .leftbarWithHamburgeMenu {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    z-index: 99;
+    overflow-y: scroll;
+    height: calc(100vh - 50px);
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburgerMenu {
+    display: none;
+  }
+
+  .leftbar {
+    display: block;
+  }
 }

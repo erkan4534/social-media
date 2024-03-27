@@ -30,9 +30,7 @@ function Header() {
   return (
     <div className="headerContainer">
       <div className="headerLeft">
-        <span className="text-white font-bold text-[20px] ml-3">
-          Social Media
-        </span>
+        <span className="logo">Social Media</span>
       </div>
 
       <div className="headerCenter">

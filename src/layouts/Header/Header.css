@@ -66,16 +66,28 @@
   padding-left: 5px;
 }
 
-.logo {
-  color: white;
-  font-weight: bold;
-  font-size: 30px;
-  margin-left: 15px;
-}
-
 .profil {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.logo {
+  color: white;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 12px;
+    margin-left: 35px;
+  }
+}
+
+@media (min-width: 769px) {
+  .logo {
+    font-size: 20px;
+    margin-left: 15px;
+  }
 }

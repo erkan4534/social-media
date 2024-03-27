@@ -4,7 +4,8 @@ const Friend = () => {
 
   return (
     <div>
-      {user.firends &&
+      {user &&
+        user.firends &&
         user.firends.map((firend) => <div key={firend.id}>{firend.name}</div>)}
     </div>
   );
