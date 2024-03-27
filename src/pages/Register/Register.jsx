@@ -54,6 +54,7 @@ const Register = ({
     const newUserData = {
       id: userDataArray.length + 1,
       ...inputData,
+      profilePicture: "https://i.pravatar.cc/300",
     };
     dispatch(setUserDataArray(newUserData));
     //setUserDataArray([...userDataArray, newUserData]);
