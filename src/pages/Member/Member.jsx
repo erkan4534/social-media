@@ -29,7 +29,12 @@ const Member = () => {
                 {friend.name} {friend.surname}
               </span>
             </div>
-            <button onClick={() => addFirend(friend)} className="addButton">
+
+            <button
+              disabled={user.firends.some((usr) => usr.id === friend.id)}
+              onClick={() => addFirend(friend)}
+              className="addButton"
+            >
               {user.firends.find((usr) => usr.id === friend.id)
                 ? "Followed"
                 : "Add"}
