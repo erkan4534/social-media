@@ -5,17 +5,19 @@ const Friend = () => {
 
   return (
     <div>
-      {user.firends.map((friend) => (
-        <div key={friend.id} className="friendList">
-          <div className="friend">
-            <img src={friend.profilePicture} />
-            <span>
-              {friend.name} {friend.surname}
-            </span>
+      {user &&
+        user.firends &&
+        user.firends.map((friend) => (
+          <div key={friend.id} className="friendList">
+            <div className="friend">
+              <img src={friend.profilePicture} />
+              <span>
+                {friend.name} {friend.surname}
+              </span>
+            </div>
+            <button className="removeFriendButton">Remove</button>
           </div>
-          <button className="removeFriendButton">Remove</button>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

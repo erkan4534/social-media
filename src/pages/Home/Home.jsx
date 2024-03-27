@@ -13,6 +13,7 @@ const Home = () => {
     function handleResize() {
       if (window.innerWidth > 768) {
         setIsleftbarVisible(true);
+        setIsRightbarVisible(true);
       }
     }
 
@@ -34,6 +35,17 @@ const Home = () => {
         <GiHamburgerMenu />
       </button>
 
+      <button
+        className={
+          isRightbarVisible
+            ? "rightHamburgerMenu"
+            : "rightHamburgerMenuChangeBg"
+        }
+        onClick={() => setIsRightbarVisible(!isRightbarVisible)}
+      >
+        <GiHamburgerMenu />
+      </button>
+
       <div className="homeContainer">
         <div
           className={isleftbarVisible ? "leftbar" : "leftbarWithHamburgeMenu"}
@@ -43,7 +55,11 @@ const Home = () => {
         <div className="centerbar">
           <Centerbar />
         </div>
-        <div className="rightbar">
+        <div
+          className={
+            isRightbarVisible ? "rightbar" : "rightbarWithHamburgeMenu"
+          }
+        >
           <Rightbar />
         </div>
       </div>
