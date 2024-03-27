@@ -33,7 +33,7 @@ const Home = () => {
 
       <div className="homeContainer">
         <div
-          className={!isleftbarVisible ? "leftbarWithHamburgeMenu" : "leftbar"}
+          className={isleftbarVisible ? "leftbar" : "leftbarWithHamburgeMenu"}
         >
           <Leftbar />
         </div>
