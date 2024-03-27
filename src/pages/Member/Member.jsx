@@ -31,7 +31,7 @@ const Member = () => {
             </div>
             <button onClick={() => addFirend(friend)} className="addButton">
               {user.firends.find((usr) => usr.id === friend.id)
-                ? "Friend"
+                ? "Followed"
                 : "Add"}
             </button>
           </div>

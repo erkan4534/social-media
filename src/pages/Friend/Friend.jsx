@@ -20,7 +20,7 @@ const Friend = () => {
               className="removeFriendButton"
               onClick={() => dispatch(removeUser(friend.id))}
             >
-              Remove
+              UnFollowed
             </button>
           </div>
         ))}
