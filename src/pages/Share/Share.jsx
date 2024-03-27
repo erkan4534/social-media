@@ -27,8 +27,6 @@ const Share = () => {
 
     setPosts([...posts, newPost]);
     setPostContent(inputData);
-
-    console.log(postContent);
   };
 
   const handleChange = (event) => {

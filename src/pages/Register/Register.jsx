@@ -5,8 +5,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDataArray } from "../../redux/action/authActions";
 import FileUpload from "../../components/UI/FileUpload/FileUpload";
-//import { useContext, useEffect, useState } from "react";
-//import { AuthContext } from "../../context/AuthContext";
 
 const initialInput = {
   username: "",
@@ -16,31 +14,19 @@ const initialInput = {
   confirmPassword: "",
 };
 
-const Register = ({
-  showLogin,
-  setIsNewAccountMessage,
-  // setIsLoginInValidMessage,
-}) => {
+const Register = ({ showLogin, setIsNewAccountMessage }) => {
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  //const { userDataArray, setUserDataArray } = useContext(AuthContext);
   const { userDataArray } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (isSuccess && !Object.values(inputData).includes("")) {
       showLogin();
-      // setIsLoginInValidMessage(false);
       setIsNewAccountMessage(true);
     }
-  }, [
-    showLogin,
-    isSuccess,
-    //setIsLoginInValidMessage,
-    setIsNewAccountMessage,
-    inputData,
-  ]);
+  }, [showLogin, isSuccess, setIsNewAccountMessage, inputData]);
 
   function onNewAccountSubmit(event) {
     event.preventDefault();
@@ -57,7 +43,6 @@ const Register = ({
       profilePicture: "https://i.pravatar.cc/300",
     };
     dispatch(setUserDataArray(newUserData));
-    //setUserDataArray([...userDataArray, newUserData]);
     setIsSuccess(true);
   }
 
@@ -74,7 +59,6 @@ const Register = ({
 
   const backToLogin = () => {
     showLogin();
-    //setIsLoginInValidMessage(false);
     setIsNewAccountMessage(false);
   };
 

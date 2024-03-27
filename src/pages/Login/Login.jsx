@@ -1,5 +1,3 @@
-//import { useContext, useEffect, useState } from "react";
-//import { AuthContext } from "../../context/AuthContext";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,12 +12,6 @@ const initial = {
 };
 
 const Login = () => {
-  // const {
-  //   findUser,
-  //   isLoggedIn,
-  //   isLoginInValidMessage,
-  //   setIsLoginInValidMessage,
-  // } = useContext(AuthContext);
   const navigate = useNavigate();
   const [inputData, setInputData] = useState(initial);
   const [emailValid, setEmailValid] = useState(false);
@@ -40,7 +32,6 @@ const Login = () => {
   function onLoginSubmit(event) {
     event.preventDefault();
     if (isValidateForm()) {
-      //findUser(inputData);
       dispatch(login(inputData));
     }
   }
@@ -129,7 +120,6 @@ const Login = () => {
           <Register
             showLogin={showLogin}
             setIsNewAccountMessage={setIsNewAccountMessage}
-            //setIsLoginInValidMessage={setIsLoginInValidMessage}
           />
         )}
       </div>
