@@ -3,10 +3,24 @@ import Header from "../../layouts/Header/Header";
 import Rightbar from "../../layouts/Rightbar/Rightbar";
 import Leftbar from "../../layouts/Leftbar/Leftbar";
 import Centerbar from "../../layouts/Centerbar/Centerbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 const Home = () => {
   const [isleftbarVisible, setIsleftbarVisible] = useState(true);
+
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth > 768) {
+        setIsleftbarVisible(true);
+      }
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       <Header />
