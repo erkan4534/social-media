@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/action/authActions";
+import CustomizedMenus from "../../components/UI/CustomizedMenus/CustomizedMenus";
 
 function Header() {
   //const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
@@ -54,13 +55,13 @@ function Header() {
         </div>
 
         <div className="headerRightProfile">
-          <button onClick={userLogout}>
+          <CustomizedMenus className="customizedMenus" userLogout={userLogout}>
             <img
               src={user && user.profilePicture}
               className="profil"
               alt="profil"
             />
-          </button>
+          </CustomizedMenus>
         </div>
       </div>
     </div>
