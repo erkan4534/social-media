@@ -17,6 +17,9 @@ const Member = () => {
     dispatch(setUser(firend));
   };
 
+  const isFriend = (friend) =>
+    user && user.friends && user.friends.find((usr) => usr.id === friend.id);
+
   return (
     <div>
       {userDataArray
@@ -31,13 +34,11 @@ const Member = () => {
             </div>
 
             <button
-              disabled={user.firends.some((usr) => usr.id === friend.id)}
+              disabled={isFriend(friend)}
               onClick={() => addFirend(friend)}
               className="addButton"
             >
-              {user.firends.find((usr) => usr.id === friend.id)
-                ? "Followed"
-                : "Add"}
+              {isFriend(friend) ? "Followed" : "Add"}
             </button>
           </div>
         ))}
