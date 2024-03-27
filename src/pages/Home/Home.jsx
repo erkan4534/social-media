@@ -5,9 +5,11 @@ import Leftbar from "../../layouts/Leftbar/Leftbar";
 import Centerbar from "../../layouts/Centerbar/Centerbar";
 import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useSelector } from "react-redux";
 const Home = () => {
   const [isleftbarVisible, setIsleftbarVisible] = useState(true);
   const [isRightbarVisible, setIsRightbarVisible] = useState(true);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     function handleResize() {
@@ -41,6 +43,7 @@ const Home = () => {
             ? "rightHamburgerMenu"
             : "rightHamburgerMenuChangeBg"
         }
+        disabled={user && user.firends && user.firends.length == 0}
         onClick={() => setIsRightbarVisible(!isRightbarVisible)}
       >
         <GiHamburgerMenu />
