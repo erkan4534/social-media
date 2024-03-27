@@ -1,0 +1,61 @@
+.friendList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+  margin-right: 12px;
+}
+
+.friendList:hover {
+  background-color: #f0f2f5;
+}
+
+.friend {
+  display: flex;
+  align-items: center;
+}
+
+.friend img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.removeFriendButton {
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1775ee;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0 12px;
+  margin-right: 10px;
+}
+
+@media (max-width: 768px), (max-width: 1159px) {
+  .friendList {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 0;
+  }
+
+  .friend {
+    margin-bottom: 10px;
+  }
+
+  .removeButton {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .friend img {
+    width: 40px;
+    height: 40px;
+  }
+}
