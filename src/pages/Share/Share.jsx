@@ -25,7 +25,7 @@ const Share = () => {
       imageUrl: "https://picsum.photos/200",
     };
 
-    setPosts([...posts, newPost]);
+    setPosts([newPost, ...posts]);
     setPostContent(inputData);
   };
 
