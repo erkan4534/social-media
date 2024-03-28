@@ -22,7 +22,7 @@ export const userData = [
 
   {
     id: 3,
-    name: "Rasim",
+    name: "Ramiz",
     surname: "Dayi",
     password: "123",
     email: "erkan3.yildirim@gmail.com",
@@ -44,7 +44,7 @@ export const userData = [
 
   {
     id: 5,
-    name: "Rasim",
+    name: "Ramiz",
     surname: "Dayi",
     password: "123",
     email: "erkan5.yildirim@gmail.com",
@@ -55,8 +55,8 @@ export const userData = [
 
   {
     id: 6,
-    name: "Ezel",
-    surname: "Bayraktar",
+    name: "Tefo",
+    surname: "",
     password: "123",
     email: "erkan6.yildirim@gmail.com",
     profilePicture: "assets/person/6.jpeg",
