@@ -63,15 +63,19 @@
   font-weight: bold !important;
 }
 
-.removeButton,
-.likeButton {
-  font-size: 25px !important;
-  font-weight: bold !important;
+.commentAndLikeButton {
+  font-size: 25px;
+  font-weight: bold;
+  width: 50%;
+  color: gray !important;
+}
+
+.commentAndLikeButton:hover {
+  background-color: whitesmoke !important;
 }
 
 .card-actions {
   display: flex;
-  justify-content: space-between;
 }
 
 .cardContainer {

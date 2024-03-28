@@ -4,6 +4,8 @@ import "./Share.css";
 import { Button, IconButton, colors } from "@mui/material";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiLike } from "react-icons/bi";
+import { FaRegComment } from "react-icons/fa";
+import { CgClose } from "react-icons/cg";
 const { Meta } = Card;
 
 const inputData = {
@@ -110,23 +112,16 @@ const Share = () => {
               </div>
 
               <div className="card-actions">
-                <IconButton
-                  onClick={() => removePost(post.id)}
-                  type="button"
-                  aria-label="delete"
-                  className="likeButton"
-                >
-                  <BiLike />
-                </IconButton>
+                <Button className="commentAndLikeButton" startIcon={<BiLike />}>
+                  Like
+                </Button>
 
-                <IconButton
-                  onClick={() => removePost(post.id)}
-                  type="button"
-                  aria-label="delete"
-                  className="removeButton"
+                <Button
+                  className="commentAndLikeButton"
+                  startIcon={<FaRegComment />}
                 >
-                  <RiDeleteBin6Line />
-                </IconButton>
+                  comment
+                </Button>
               </div>
             </div>
           </Card>
