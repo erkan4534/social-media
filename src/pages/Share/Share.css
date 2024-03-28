@@ -1,6 +1,6 @@
 .shareInput {
   height: 50px;
-  width: 300px;
+  width: 100%;
   border-radius: 6px;
   font-size: 18px;
   padding-left: 20px;
@@ -51,7 +51,7 @@
   padding-left: 20px;
   padding-right: 20px;
   border: 1px solid gray;
-  width: 300px;
+  width: 100%;
 }
 
 .shareTextArea::placeholder {
@@ -75,5 +75,5 @@
 }
 
 .cardContainer {
-  width: 400px;
+  width: 470px;
 }
