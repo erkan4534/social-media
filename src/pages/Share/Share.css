@@ -95,8 +95,11 @@
   position: absolute;
   right: 0;
   bottom: 0px;
-  padding: 0px !important;
-  background-color: #007bff !important;
+  padding: 0px;
+  background-color: #007bff;
   color: white;
   font-size: 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  width: 40px;
 }

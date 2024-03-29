@@ -135,7 +135,7 @@ const Share = () => {
               {isShowComment && (
                 <div className="commentArea">
                   <TextArea></TextArea>
-                  <Button>Post</Button>
+                  <button>Post</button>
                 </div>
               )}
             </div>
