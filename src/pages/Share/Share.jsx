@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Card } from "antd";
 import "./Share.css";
-import { Button, IconButton, colors } from "@mui/material";
+import { Button, colors, debounce } from "@mui/material";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
+import TextArea from "antd/es/input/TextArea";
 const { Meta } = Card;
 
 const inputData = {
@@ -16,6 +17,7 @@ const inputData = {
 const Share = () => {
   const [postContent, setPostContent] = useState(inputData);
   const [posts, setPosts] = useState([]);
+  const [isShowComment, setIsShowComment] = useState(false);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -29,6 +31,10 @@ const Share = () => {
 
     setPosts([newPost, ...posts]);
     setPostContent(inputData);
+  };
+
+  const showComment = () => {
+    setIsShowComment(!isShowComment);
   };
 
   const handleChange = (event) => {
@@ -117,12 +123,15 @@ const Share = () => {
                 </Button>
 
                 <Button
+                  type="button"
                   className="commentAndLikeButton"
+                  onClick={showComment}
                   startIcon={<FaRegComment />}
                 >
                   comment
                 </Button>
               </div>
+              {isShowComment && <TextArea></TextArea>}
             </div>
           </Card>
         ))}
