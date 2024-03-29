@@ -81,3 +81,22 @@
 .cardContainer {
   width: 470px;
 }
+
+.commentArea {
+  position: relative;
+  width: 420px;
+  height: 100px;
+}
+
+.commentArea textArea {
+  resize: none;
+}
+.commentArea button {
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  padding: 0px !important;
+  background-color: #007bff !important;
+  color: white;
+  font-size: 12px;
+}

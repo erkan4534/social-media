@@ -7,6 +7,7 @@ import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { CgClose } from "react-icons/cg";
 import TextArea from "antd/es/input/TextArea";
+import { BiCaretRight } from "react-icons/bi";
 const { Meta } = Card;
 
 const inputData = {
@@ -131,7 +132,12 @@ const Share = () => {
                   comment
                 </Button>
               </div>
-              {isShowComment && <TextArea></TextArea>}
+              {isShowComment && (
+                <div className="commentArea">
+                  <TextArea></TextArea>
+                  <Button>Post</Button>
+                </div>
+              )}
             </div>
           </Card>
         ))}
