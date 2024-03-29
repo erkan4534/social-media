@@ -1,20 +1,12 @@
+import "./Share.css";
 import { useState } from "react";
 import { Card } from "antd";
-import "./Share.css";
-import {
-  Button,
-  CardHeader,
-  CardMedia,
-  IconButton,
-  colors,
-} from "@mui/material";
+import { Button, CardHeader, CardMedia, IconButton } from "@mui/material";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import Avatar from "@mui/material/Avatar";
-import { red } from "@mui/material/colors";
 
 const { Meta } = Card;
 
@@ -27,6 +19,7 @@ const Share = () => {
   const [postContent, setPostContent] = useState(inputData);
   const [posts, setPosts] = useState([]);
   const [isShowComment, setIsShowComment] = useState(false);
+  const [comment, setComment] = useState(null);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -57,6 +50,17 @@ const Share = () => {
     const newPost = posts.filter((post) => post.id !== id);
     setPosts(newPost);
   };
+
+  const commentChange = (event) => {
+    setComment({
+      ...comment,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  function postCommnet() {
+    console.log(comment);
+  }
 
   return (
     <div className="shareContainer">
@@ -103,8 +107,11 @@ const Share = () => {
           <Card className="mt-5 cardContainer" key={post.id}>
             <CardHeader
               action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
+                <IconButton
+                  onClick={() => removePost(post.id)}
+                  aria-label="settings"
+                >
+                  <RiDeleteBin6Line />
                 </IconButton>
               }
             />
@@ -141,8 +148,11 @@ const Share = () => {
               </div>
               {isShowComment && (
                 <div className="commentArea">
-                  <TextArea></TextArea>
-                  <button>Post</button>
+                  <TextArea
+                    name="commentTextArea"
+                    onChange={commentChange}
+                  ></TextArea>
+                  <button onClick={postCommnet}>Post</button>
                 </div>
               )}
             </div>
