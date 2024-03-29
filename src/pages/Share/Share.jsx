@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { Card } from "antd";
 import "./Share.css";
-import { Button, colors, debounce } from "@mui/material";
+import {
+  Button,
+  CardHeader,
+  CardMedia,
+  IconButton,
+  colors,
+} from "@mui/material";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
-import { CgClose } from "react-icons/cg";
 import TextArea from "antd/es/input/TextArea";
-import { BiCaretRight } from "react-icons/bi";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Avatar from "@mui/material/Avatar";
+import { red } from "@mui/material/colors";
+
 const { Meta } = Card;
 
 const inputData = {
@@ -92,30 +100,29 @@ const Share = () => {
       </form>
       <div>
         {posts.map((post) => (
-          <Card
-            className="mt-5 cardContainer"
-            key={post.id}
-            hoverable
-            cover={
-              <div className="card-cover">
-                <img src={post.imageUrl} alt="Preview" />
-              </div>
-            }
-          >
-            <div className="relative">
-              <div className=" block">
-                <div className="flex flex-col">
-                  <Meta
-                    description={post.content.inputContent}
-                    title="Url"
-                    style={colors.common}
-                  />
-                  <Meta
-                    description={post.content.textAreaContent}
-                    name="Describe"
-                    title="Describe"
-                  />
-                </div>
+          <Card className="mt-5 cardContainer" key={post.id}>
+            <CardHeader
+              action={
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              }
+            />
+
+            <CardMedia component="img" image={post.imageUrl} alt="Preview" />
+
+            <div className=" block">
+              <div className="flex flex-col mt-4">
+                <Meta
+                  className="metaUrl"
+                  description={post.content.inputContent}
+                  title="Url"
+                />
+                <Meta
+                  className="metaDescribe"
+                  description={post.content.textAreaContent}
+                  title="Describe"
+                />
               </div>
 
               <div className="card-actions">

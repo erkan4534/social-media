@@ -31,8 +31,8 @@
   font-size: 18px;
 }
 
-.card-cover {
-  width: 100%;
+/* .card-cover {
+  width: 100% !important;
 }
 
 .card-cover img {
@@ -40,7 +40,7 @@
   max-height: 100%;
   object-fit: contain;
   width: 100%;
-}
+} */
 
 .shareTextArea {
   resize: none;
@@ -102,4 +102,13 @@
   font-weight: bold;
   border-radius: 5px;
   width: 40px;
+}
+
+.metaDescribe {
+  margin-top: 8px !important;
+  font-weight: bold;
+}
+
+.metaUrl {
+  font-weight: bold;
 }
