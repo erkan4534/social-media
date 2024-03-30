@@ -156,6 +156,7 @@ const Share = () => {
                   <TextArea
                     name="commentTextArea"
                     onChange={commentChange}
+                    value={comment}
                   ></TextArea>
                   <button onClick={() => postCommnet()}>Post</button>
                 </div>
