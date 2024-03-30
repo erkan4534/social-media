@@ -158,7 +158,9 @@ const Share = () => {
                     onChange={commentChange}
                     value={comment}
                   ></TextArea>
-                  <button onClick={() => postCommnet()}>Post</button>
+                  <button onClick={() => postCommnet()} disabled={!comment}>
+                    Post
+                  </button>
                 </div>
               )}
 
