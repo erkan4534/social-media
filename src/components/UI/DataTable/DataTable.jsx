@@ -17,7 +17,7 @@ const columns = [
     headerName: "Actions",
     width: 10,
     getActions: (params) => [
-      <div key={params.id} className="actionPosition">
+      <div key={params.id}>
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Edit"
