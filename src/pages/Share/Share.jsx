@@ -165,7 +165,11 @@ const Share = () => {
               )}
 
               {commentArray && commentArray.length > 0 && (
-                <DataTable rows={commentArray} setRows={setCommentArray} />
+                <DataTable
+                  rows={commentArray}
+                  setRows={setCommentArray}
+                  setComment={setComment}
+                />
               )}
             </div>
           </Card>
