@@ -7,6 +7,7 @@ import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DataTable from "../../components/UI/DataTable/DataTable";
 
 const { Meta } = Card;
 
@@ -155,6 +156,8 @@ const Share = () => {
                   <button onClick={postCommnet}>Post</button>
                 </div>
               )}
+
+              <DataTable />
             </div>
           </Card>
         ))}

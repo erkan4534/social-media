@@ -1,0 +1,8 @@
+.css-qcqlck-MuiDataGrid-root .MuiDataGrid-columnHeaders {
+  display: none;
+}
+
+.actionPosition {
+  display: flex;
+  justify-content: space-between;
+}
