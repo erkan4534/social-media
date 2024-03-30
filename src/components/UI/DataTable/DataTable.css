@@ -2,7 +2,9 @@
   display: none;
 }
 
-.actionPosition {
-  display: flex;
-  justify-content: space-between;
+.dataTableCell {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }

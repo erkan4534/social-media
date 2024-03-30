@@ -1,11 +1,16 @@
 import "./DataTable.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 const columns = [
-  { field: "name", headerName: "Name", width: 350 },
+  {
+    field: "name",
+    headerName: "Name",
+    width: 350,
+    renderCell: (params) => <div className="dataTableCell">{params.value}</div>,
+  },
   {
     field: "actions",
     type: "actions",
@@ -32,8 +37,11 @@ const columns = [
 ];
 
 const initialRows = [
-  { name: "John Doe" },
-  { name: "Jane Smith" },
+  {
+    id: "1",
+    name: "John Doeyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+  },
+  { id: "2", name: "Jane Smith" },
   // Diğer satırlar...
 ];
 
@@ -68,8 +76,9 @@ function DataTable() {
         autoHeight
         processRowUpdate={handleProcessRowUpdate}
         onProcessRowUpdateError={(error) => console.error(error)}
-        headerHeight={0} // Sütun başlıklarını gizler
-        hideFooter // Tablonun altındaki footer'ı gizler
+        headerHeight={0}
+        hideFooter
+        getRowHeight={() => "auto"}
       />
     </div>
   );
