@@ -20,7 +20,8 @@ const Share = () => {
   const [postContent, setPostContent] = useState(inputData);
   const [posts, setPosts] = useState([]);
   const [isShowComment, setIsShowComment] = useState(false);
-  const [comment, setComment] = useState(null);
+  const [comment, setComment] = useState("");
+  const [commentArray, setCommentArray] = useState([]);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -53,14 +54,17 @@ const Share = () => {
   };
 
   const commentChange = (event) => {
-    setComment({
-      ...comment,
-      [event.target.name]: event.target.value,
-    });
+    setComment(event.target.value);
   };
 
   function postCommnet() {
-    console.log(comment);
+    const newComment = {
+      name: comment,
+      id: Date.now(),
+    };
+    const newCommentArray = [...commentArray, newComment];
+    setCommentArray(newCommentArray);
+    setComment(null);
   }
 
   return (
@@ -153,11 +157,13 @@ const Share = () => {
                     name="commentTextArea"
                     onChange={commentChange}
                   ></TextArea>
-                  <button onClick={postCommnet}>Post</button>
+                  <button onClick={() => postCommnet()}>Post</button>
                 </div>
               )}
 
-              <DataTable />
+              {commentArray && commentArray.length > 0 && (
+                <DataTable rows={commentArray} setRows={setCommentArray} />
+              )}
             </div>
           </Card>
         ))}

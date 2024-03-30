@@ -1,52 +1,43 @@
 import "./DataTable.css";
-import { useState } from "react";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import PropTypes from "prop-types";
 
-const columns = [
-  {
-    field: "name",
-    headerName: "Name",
-    width: 350,
-    renderCell: (params) => <div className="dataTableCell">{params.value}</div>,
-  },
-  {
-    field: "actions",
-    type: "actions",
-    headerName: "Actions",
-    width: 10,
-    getActions: (params) => [
-      <div key={params.id}>
-        <GridActionsCellItem
-          icon={<EditIcon />}
-          label="Edit"
-          onClick={() => handleEdit(params.id)}
-          color="inherit"
-        />
+function DataTable({ rows, setRows }) {
+  const columns = [
+    {
+      field: "name",
+      headerName: "Name",
+      width: 350,
+      renderCell: (params) => (
+        <div className="dataTableCell">{params.value}</div>
+      ),
+    },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
+      width: 10,
+      getActions: (params) => [
+        <div key={params.id}>
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            onClick={() => handleEdit(params.id)}
+            color="inherit"
+          />
 
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={() => handleDelete(params.id)}
-          color="inherit"
-        />
-      </div>,
-    ],
-  },
-];
-
-const initialRows = [
-  {
-    id: "1",
-    name: "John Doeyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
-  },
-  { id: "2", name: "Jane Smith" },
-  // Diğer satırlar...
-];
-
-function DataTable() {
-  const [rows, setRows] = useState(initialRows);
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={() => handleDelete(params.id)}
+            color="inherit"
+          />
+        </div>,
+      ],
+    },
+  ];
 
   const handleProcessRowUpdate = (newRow) => {
     setRows((prevRows) =>
@@ -83,5 +74,10 @@ function DataTable() {
     </div>
   );
 }
+
+DataTable.propTypes = {
+  rows: PropTypes.array,
+  setRows: PropTypes.func,
+};
 
 export default DataTable;
