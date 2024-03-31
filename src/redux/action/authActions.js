@@ -26,6 +26,13 @@ export const setUserDataArray = (userData) => {
   };
 };
 
+export const setUserPost = (userPost) => {
+  return {
+    type: "SET_USER_POST",
+    payload: userPost,
+  };
+};
+
 export const removeUser = (userData) => {
   return {
     type: "REMOVE_USER",
