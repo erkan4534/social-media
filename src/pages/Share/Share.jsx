@@ -6,7 +6,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DataTable from "../../components/UI/DataTable/DataTable";
 
 const { Meta } = Card;
