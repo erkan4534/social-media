@@ -168,6 +168,15 @@ const Share = () => {
                   comment
                 </Button>
               </div>
+
+              {commentArray && commentArray.length > 0 && (
+                <DataTable
+                  rows={commentArray}
+                  setRows={setCommentArray}
+                  setComment={setComment}
+                />
+              )}
+
               {isShowComment && (
                 <div className="commentArea">
                   <TextArea
@@ -179,14 +188,6 @@ const Share = () => {
                     Post
                   </button>
                 </div>
-              )}
-
-              {commentArray && commentArray.length > 0 && (
-                <DataTable
-                  rows={commentArray}
-                  setRows={setCommentArray}
-                  setComment={setComment}
-                />
               )}
             </div>
           </Card>
