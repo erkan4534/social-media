@@ -72,6 +72,20 @@ function authReducer(state = initialState, action) {
       };
     }
 
+    case "REMOVE_USER_POST": {
+      const newPosts = state.user.posts.filter(
+        (post) => post != action.payload
+      );
+
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          posts: newPosts,
+        },
+      };
+    }
+
     default:
       return state;
   }
