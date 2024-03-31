@@ -86,6 +86,7 @@
   position: relative;
   width: 420px;
   height: 100px;
+  margin-top: 10px;
 }
 
 .commentArea textArea {
