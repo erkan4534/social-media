@@ -39,3 +39,10 @@ export const removeUser = (userData) => {
     payload: userData,
   };
 };
+
+export const removeUserPost = (post) => {
+  return {
+    type: "REMOVE_USER_POST",
+    payload: post,
+  };
+};
