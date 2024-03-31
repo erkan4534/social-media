@@ -16,11 +16,16 @@ const inputData = {
   textAreaContent: "",
 };
 
+const intialComment = {
+  id: "",
+  name: "",
+};
+
 const Share = () => {
   const [postContent, setPostContent] = useState(inputData);
   const [posts, setPosts] = useState([]);
   const [isShowComment, setIsShowComment] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState(intialComment);
   const [commentArray, setCommentArray] = useState([]);
 
   const handlePostSubmit = (event) => {
@@ -54,17 +59,29 @@ const Share = () => {
   };
 
   const commentChange = (event) => {
-    setComment(event.target.value);
+    setComment({ ...comment, name: event.target.value });
   };
 
   function postCommnet() {
-    const newComment = {
-      name: comment,
-      id: Date.now(),
-    };
-    const newCommentArray = [...commentArray, newComment];
-    setCommentArray(newCommentArray);
-    setComment(null);
+    if (comment && comment.id != "") {
+      const existComment = commentArray.map((row) => {
+        if (row.id === comment.id) {
+          return { name: comment.name, id: comment.id };
+        }
+        return row;
+      });
+      const existCommentArray = [...commentArray, existComment];
+      setCommentArray(existCommentArray);
+    } else {
+      const newComment = {
+        name: comment.name,
+        id: Date.now(),
+      };
+      const newCommentArray = [...commentArray, newComment];
+      setCommentArray(newCommentArray);
+    }
+
+    setComment(intialComment);
   }
 
   return (
@@ -156,7 +173,7 @@ const Share = () => {
                   <TextArea
                     name="commentTextArea"
                     onChange={commentChange}
-                    value={comment}
+                    value={comment.name}
                   ></TextArea>
                   <button onClick={() => postCommnet()} disabled={!comment}>
                     Post

@@ -53,7 +53,7 @@ function DataTable({ rows, setRows, setComment }) {
   };
 
   const handleEdit = (id) => {
-    setComment(rows.find((row) => row.id === id).name);
+    setComment(rows.find((row) => row.id === id));
   };
 
   return (
