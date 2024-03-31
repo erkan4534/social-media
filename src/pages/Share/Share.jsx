@@ -189,9 +189,13 @@ const Share = () => {
                     onChange={commentChange}
                     value={comment.name}
                   ></TextArea>
-                  <button onClick={() => postCommnet()} disabled={!comment}>
+                  <Button
+                    onClick={() => postCommnet()}
+                    disabled={comment.name == ""}
+                    variant="contained"
+                  >
                     Post
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
