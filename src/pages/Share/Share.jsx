@@ -63,14 +63,14 @@ const Share = () => {
   };
 
   function postCommnet() {
-    if (comment && comment.id != "") {
-      const existComment = commentArray.map((row) => {
+    if (comment && comment.id != "" && comment.name != "") {
+      const existCommentArray = commentArray.map((row) => {
         if (row.id === comment.id) {
           return { name: comment.name, id: comment.id };
         }
         return row;
       });
-      const existCommentArray = [...commentArray, existComment];
+
       setCommentArray(existCommentArray);
     } else {
       const newComment = {
