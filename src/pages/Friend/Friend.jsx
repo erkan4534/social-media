@@ -1,6 +1,7 @@
+import "./Friend.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../../redux/action/authActions";
-import "./Friend.css";
+
 const Friend = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();

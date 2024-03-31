@@ -1,6 +1,6 @@
+import "./Member.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/action/authActions";
-import "./Member.css";
 
 const Member = () => {
   const { userDataArray, user } = useSelector((state) => state.auth);
