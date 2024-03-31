@@ -20,7 +20,7 @@ function DataTable({ rows, setRows, setComment }) {
       headerName: "Actions",
       width: 10,
       getActions: (params) => [
-        <div key={params.id}>
+        <div key={params.id} className="flex">
           <GridActionsCellItem
             icon={<EditIcon />}
             label="Edit"

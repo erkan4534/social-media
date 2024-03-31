@@ -8,3 +8,9 @@
   overflow-wrap: break-word;
   word-break: break-word;
 }
+
+.css-qcqlck-MuiDataGrid-root .MuiDataGrid-cell--textLeft {
+  display: grid;
+  align-items: center;
+  padding-left: 10px;
+}
