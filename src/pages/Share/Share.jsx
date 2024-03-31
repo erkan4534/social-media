@@ -29,7 +29,6 @@ const Share = () => {
   const [comment, setComment] = useState(intialComment);
   const [commentArray, setCommentArray] = useState([]);
 
-  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handlePostSubmit = (event) => {
