@@ -60,8 +60,7 @@ const Share = () => {
     const newPost = posts.filter((post) => post.id !== id);
     setPosts(newPost);
     dispatch(removeUserPost(newPost));
-
-    setPostContent();
+    setCommentArray([]);
   };
 
   const commentChange = (event) => {
