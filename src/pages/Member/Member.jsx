@@ -1,6 +1,7 @@
 import "./Member.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../redux/action/authActions";
+import { Link } from "react-router-dom";
 
 const Member = () => {
   const { userDataArray, user } = useSelector((state) => state.auth);
@@ -28,13 +29,15 @@ const Member = () => {
         .map((friend) => (
           <div key={friend.id} className="closeFriendList">
             <div className="closeFriend">
-              <img
-                src={friend.profilePicture}
-                alt={`${friend.name} ${friend.surname}`}
-              />
-              <span>
-                {friend.name} {friend.surname}
-              </span>
+              <Link to={`/Profile/${friend.id}`} className="linkFriendMember">
+                <img
+                  src={friend.profilePicture}
+                  alt={`${friend.name} ${friend.surname}`}
+                />
+                <span className="mt-1">
+                  {friend.name} {friend.surname}
+                </span>
+              </Link>
             </div>
 
             <button
