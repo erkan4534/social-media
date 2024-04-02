@@ -33,6 +33,13 @@ export const setUserPost = (userPost) => {
   };
 };
 
+export const setUserLike = (post) => {
+  return {
+    type: "SET_USER_LIKE",
+    payload: post,
+  };
+};
+
 export const removeUser = (userData) => {
   return {
     type: "REMOVE_USER",

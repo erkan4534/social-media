@@ -7,8 +7,12 @@ import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import DataTable from "../../components/UI/DataTable/DataTable";
-import { useDispatch } from "react-redux";
-import { removeUserPost, setUserPost } from "../../redux/action/authActions";
+import {
+  removeUserPost,
+  setUserLike,
+  setUserPost,
+} from "../../redux/action/authActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const { Meta } = Card;
 
@@ -29,6 +33,7 @@ const Share = () => {
   const [comment, setComment] = useState(intialComment);
   const [commentArray, setCommentArray] = useState([]);
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -88,6 +93,15 @@ const Share = () => {
 
     setComment(intialComment);
   }
+
+  const postLike = (post) => {
+    const newPost = {
+      ...post,
+      likes: [user],
+    };
+
+    dispatch(setUserLike(newPost));
+  };
 
   return (
     <div className="shareContainer">
@@ -160,7 +174,11 @@ const Share = () => {
               </div>
 
               <div className="card-actions">
-                <Button className="commentAndLikeButton" startIcon={<BiLike />}>
+                <Button
+                  className="commentAndLikeButton"
+                  onClick={() => postLike(post)}
+                  startIcon={<BiLike />}
+                >
                   Like
                 </Button>
 

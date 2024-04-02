@@ -51,6 +51,15 @@ function authReducer(state = initialState, action) {
         },
       };
 
+    case "SET_USER_LIKE":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          posts: [...state.user.posts, action.payload],
+        },
+      };
+
     case "SET_USER_DATA_ARRAY":
       return {
         ...state,
