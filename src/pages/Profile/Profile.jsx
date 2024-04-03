@@ -2,6 +2,7 @@ import "./Profile.css";
 import Header from "../../layouts/Header/Header";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Friend from "../Friend/Friend";
 
 const Profile = () => {
   let { userId } = useParams();
@@ -23,6 +24,10 @@ const Profile = () => {
             src={user.profilePicture}
             alt="profile image"
           />
+
+          <div className="myFriendList">
+            <Friend />
+          </div>
         </div>
 
         <div className="profileInfo">

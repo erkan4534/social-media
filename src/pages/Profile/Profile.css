@@ -37,3 +37,12 @@
 .profileInfoDesc {
   font-weight: 300;
 }
+
+.myFriendList {
+  width: 300px;
+  height: calc(100vh - 250px);
+  position: absolute;
+  right: 0;
+  top: 250px;
+  overflow-y: scroll;
+}
