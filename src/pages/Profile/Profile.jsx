@@ -1,14 +1,27 @@
-import { useParams } from "react-router-dom";
 import "./Profile.css";
 
-const Profile = () => {
-  let { userId } = useParams();
+import Header from "../../layouts/Header/Header";
 
+const Profile = () => {
   return (
-    <div>
-      <h1>{userId} Profile</h1>
-      {/* Profil detayları burada yer alacak */}
-    </div>
+    <>
+      <Header />
+      <div className="profileContainer">
+        <div className="profileCover">
+          <img className="profileCoverImg" src="/assets/post/3.jpeg" alt="" />
+          <img
+            className="profileUserImg"
+            src="/assets/person/10.jpeg"
+            alt="profile image"
+          />
+        </div>
+
+        <div className="profileInfo">
+          <h4 className="profileInfoName">Safak Kocaoglu</h4>
+          <span className="profileInfoDesc">Hello my friends!</span>
+        </div>
+      </div>
+    </>
   );
 };
 
