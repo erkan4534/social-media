@@ -1,6 +1,6 @@
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
-import PersonIcon from "@mui/icons-material/Person";
+import HomeIcon from "@mui/icons-material/Home";
 import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 //import { AuthContext } from "../../context/AuthContext";
@@ -28,10 +28,16 @@ function Header() {
     dispatch(logout(null));
   }
 
+  const mainPage = () => {
+    navigate("/home");
+  };
+
   return (
     <div className="headerContainer">
       <div className="headerLeft">
-        <span className="logo">Social Media</span>
+        <span className="logo" onClick={mainPage}>
+          Social Media
+        </span>
       </div>
 
       <div className="headerCenter">
@@ -44,7 +50,7 @@ function Header() {
       <div className="headerRight">
         <div className="headerRightIcon">
           <div>
-            <PersonIcon className="font-size" />
+            <HomeIcon className="homeIcon" onClick={mainPage} />
           </div>
           <div>
             <MarkUnreadChatAltIcon />

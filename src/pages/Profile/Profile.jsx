@@ -8,7 +8,6 @@ const Profile = () => {
 
   const { userDataArray } = useSelector((state) => state.auth);
   const user = userDataArray.find((usr) => usr.id === Number(userId));
-  debugger;
   return (
     <>
       <Header />
