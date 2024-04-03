@@ -1,5 +1,4 @@
 import "./Profile.css";
-
 import Header from "../../layouts/Header/Header";
 
 const Profile = () => {

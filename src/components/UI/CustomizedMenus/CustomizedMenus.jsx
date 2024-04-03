@@ -7,6 +7,8 @@ import Divider from "@mui/material/Divider";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PropTypes from "prop-types";
 import "./CustomizedMenus.css";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -58,11 +60,14 @@ export default function CustomizedMenus({
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const { user } = useSelector((state) => state.auth);
   const handleClose = () => {
     setAnchorEl(null);
+    navigate(`/Profile/${user.id}`);
   };
 
   return (
