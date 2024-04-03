@@ -8,7 +8,11 @@ const Profile = () => {
       <Header />
       <div className="profileContainer">
         <div className="profileCover">
-          <img className="profileCoverImg" src="/assets/post/3.jpeg" alt="" />
+          <img
+            className="profileCoverImg"
+            src="/assets/post/3.jpeg"
+            alt="post image"
+          />
           <img
             className="profileUserImg"
             src="/assets/person/10.jpeg"
