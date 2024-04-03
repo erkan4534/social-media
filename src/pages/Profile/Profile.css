@@ -40,7 +40,7 @@
 
 .myFriendList {
   width: 300px;
-  height: calc(100vh - 250px);
+  height: calc(100vh - 350px);
   position: absolute;
   right: 0;
   top: 250px;

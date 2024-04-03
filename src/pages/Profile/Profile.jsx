@@ -25,7 +25,7 @@ const Profile = () => {
             alt="profile image"
           />
 
-          <div className="myFriendList">
+          <div className="myFriendList mt-4">
             <Friend />
           </div>
         </div>

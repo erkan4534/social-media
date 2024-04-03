@@ -7,6 +7,10 @@ const Friend = () => {
   const dispatch = useDispatch();
   return (
     <div>
+      <div className="friendTitle">
+        <span>Friends</span>
+      </div>
+
       {user &&
         user.friends &&
         user.friends.map((friend) => (

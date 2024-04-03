@@ -5,6 +5,7 @@
   margin-top: 20px;
   padding: 10px;
   margin-right: 12px;
+  background-color: #f5f6fa;
 }
 
 .friendList:hover {
@@ -16,13 +17,17 @@
   align-items: center;
 }
 
+.friend span {
+  font-weight: bold;
+  color: #333; /* Koyu gri metin rengi */
+}
+
 .friend img {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 8px;
-  transition: width 0.3s ease, height 0.3s ease;
+  margin-right: 10px;
 }
 
 .removeFriendButton {
@@ -36,6 +41,11 @@
   cursor: pointer;
   padding: 0 12px;
   margin-right: 10px;
+  transition: background-color 0.2s;
+}
+
+.removeFriendButton:hover {
+  background-color: #bf3f3f;
 }
 
 @media (max-width: 768px), (max-width: 1159px) {
@@ -58,4 +68,10 @@
     width: 40px;
     height: 40px;
   }
+}
+
+.friendTitle {
+  color: #34568b;
+  font-size: 24px;
+  text-align: center;
 }
