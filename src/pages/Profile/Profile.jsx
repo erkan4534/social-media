@@ -8,7 +8,7 @@ const Profile = () => {
 
   const { userDataArray } = useSelector((state) => state.auth);
   const user = userDataArray.find((usr) => usr.id === Number(userId));
-
+  debugger;
   return (
     <>
       <Header />
@@ -21,7 +21,7 @@ const Profile = () => {
           />
           <img
             className="profileUserImg"
-            src="/assets/person/10.jpeg"
+            src={`/${user.profilePicture}`}
             alt="profile image"
           />
         </div>
