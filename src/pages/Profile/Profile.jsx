@@ -21,7 +21,7 @@ const Profile = () => {
           />
           <img
             className="profileUserImg"
-            src={`/${user.profilePicture}`}
+            src={user.profilePicture}
             alt="profile image"
           />
         </div>
