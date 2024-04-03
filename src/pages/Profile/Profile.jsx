@@ -1,7 +1,14 @@
 import "./Profile.css";
 import Header from "../../layouts/Header/Header";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  let { userId } = useParams();
+
+  const { userDataArray } = useSelector((state) => state.auth);
+  const user = userDataArray.find((usr) => usr.id === Number(userId));
+
   return (
     <>
       <Header />
@@ -20,8 +27,10 @@ const Profile = () => {
         </div>
 
         <div className="profileInfo">
-          <h4 className="profileInfoName">Safak Kocaoglu</h4>
-          <span className="profileInfoDesc">Hello my friends!</span>
+          <h4 className="profileInfoName">
+            {user.name} {user.surname}
+          </h4>
+          <span className="profileInfoDesc">{user.username}</span>
         </div>
       </div>
     </>
