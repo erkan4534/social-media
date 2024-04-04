@@ -117,11 +117,11 @@ const Share = () => {
             value={postContent.textAreaContent}
           ></textarea>
           <input
+            placeholder="Text Url"
             type="text"
             name="inputContent"
             className="shareInput"
             onChange={handleChange}
-            placeholder="Text Url"
             value={postContent.inputContent}
           />
 
