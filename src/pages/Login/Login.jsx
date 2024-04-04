@@ -70,9 +70,7 @@ const Login = () => {
   return (
     <div className="flex">
       <div className="flex-1 h-dvh flex justify-center items-center">
-        <span className=" text-[#1775ee] font-bold text-[60px]">
-          Social Media
-        </span>
+        <span className="loginLogo">Social Media</span>
       </div>
       <div className="flex-1">
         {!isShowNewAccount && (

@@ -44,3 +44,21 @@
   font-weight: bold;
   font-size: 20px;
 }
+
+.loginLogo {
+  font-weight: 700;
+  color: #1877f2;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .loginLogo {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 769px) {
+  .loginLogo {
+    font-size: 60px;
+  }
+}
