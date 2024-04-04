@@ -43,7 +43,7 @@ function Header() {
       <div className="headerCenter">
         <div className="searchbar">
           <SearchIcon className="searchIcon" />
-          <input placeholder="Search for friend" />
+          <input className="searchBar" placeholder="Search for friend" />
         </div>
       </div>
 

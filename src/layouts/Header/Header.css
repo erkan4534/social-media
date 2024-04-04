@@ -129,3 +129,24 @@
     height: 30px;
   }
 }
+
+.searchBar::placeholder {
+  color: #aab8c2;
+  opacity: 1;
+  text-align: left;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .searchBar::placeholder {
+    font-size: 14px;
+    text-align: start;
+  }
+}
+
+@media (min-width: 769px) {
+  .searchBar::placeholder {
+    font-size: 16px;
+    text-align: start;
+  }
+}
