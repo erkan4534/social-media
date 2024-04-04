@@ -8,7 +8,7 @@ const Friend = () => {
   return (
     <div>
       <div className="friendTitle">
-        <span>Friends</span>
+        <span>friends</span>
       </div>
 
       {user &&
