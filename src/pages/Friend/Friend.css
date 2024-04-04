@@ -71,7 +71,11 @@
 }
 
 .friendTitle {
-  color: #34568b;
-  font-size: 24px;
+  color: #3b5998;
+  font-size: 20px;
   text-align: center;
+  background-color: transparent;
+  border-radius: 2px;
+  cursor: default;
+  font-weight: 400;
 }

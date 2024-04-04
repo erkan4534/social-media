@@ -40,13 +40,15 @@ const Member = () => {
               </Link>
             </div>
 
-            <button
-              disabled={isFriend(friend)}
-              onClick={() => addFirend(friend)}
-              className="addButton"
-            >
-              {isFriend(friend) ? "Followed" : "Add"}
-            </button>
+            {!isFriend(friend) && (
+              <button onClick={() => addFirend(friend)} className="addButton">
+                {isFriend(friend) ? "Followed" : "Add"}
+              </button>
+            )}
+
+            {isFriend(friend) && (
+              <span className="followed-text">Followed</span>
+            )}
           </div>
         ))}
     </div>
