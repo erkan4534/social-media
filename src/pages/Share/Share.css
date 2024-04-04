@@ -43,7 +43,7 @@
   width: 100%;
 }
 
-.inputContent::placeholder,
+.shareInput::placeholder,
 .shareTextArea::placeholder {
   color: #aab8c2;
   opacity: 1;
@@ -108,7 +108,7 @@
 
 @media (max-width: 768px) {
   .shareTextArea::placeholder,
-  .inputContent::placeholder {
+  .shareInput::placeholder {
     font-size: 14px;
     text-align: start;
   }
@@ -116,7 +116,7 @@
 
 @media (min-width: 769px) {
   .shareTextArea::placeholder,
-  .inputContent::placeholder {
+  .shareInput::placeholder {
     font-size: 16px;
     text-align: start;
   }
