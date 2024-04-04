@@ -42,15 +42,24 @@ function authReducer(state = initialState, action) {
         },
       };
 
-    case "SET_USER_POST":
+    case "SET_USER_POST": {
+      const updatedUserDataArray = state.userDataArray.map((usr) => {
+        if (usr.id === state.user.id) {
+          return { ...usr, posts: action.payload };
+        }
+
+        return usr;
+      });
+
       return {
         ...state,
         user: {
           ...state.user,
           posts: [...state.user.posts, action.payload],
         },
+        userDataArray: updatedUserDataArray,
       };
-
+    }
     case "SET_USER_LIKE":
       return {
         ...state,

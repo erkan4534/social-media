@@ -13,6 +13,8 @@
   top: 50px;
   overflow-y: scroll;
   height: calc(100vh - 50px);
+  scrollbar-width: 20px;
+  scrollbar-color: #3b5998 #e1e1e1;
 }
 
 .leftHamburgerMenu {
@@ -43,6 +45,8 @@
   top: 50px;
   overflow-y: scroll;
   height: calc(100vh - 50px);
+  scrollbar-width: 20px;
+  scrollbar-color: #3b5998 #f0f0f0;
 }
 
 .rightHamburgerMenu {
@@ -92,6 +96,8 @@
     z-index: 99;
     overflow-y: scroll;
     height: calc(100vh - 50px);
+    scrollbar-width: 20px;
+    scrollbar-color: #3b5998 #f0f0f0;
   }
 
   .rightbarWithHamburgeMenu {
@@ -103,6 +109,8 @@
     z-index: 99;
     overflow-y: scroll;
     height: calc(100vh - 50px);
+    scrollbar-width: 20px;
+    scrollbar-color: #3b5998 #f0f0f0;
   }
 }
 

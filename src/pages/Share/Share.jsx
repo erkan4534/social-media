@@ -45,9 +45,9 @@ const Share = () => {
       imageUrl: "https://picsum.photos/200",
     };
 
-    setPosts([newPost, ...posts]);
+    setPosts([...posts, newPost]);
     setPostContent(inputData);
-    dispatch(setUserPost(posts));
+    dispatch(setUserPost(newPost));
   };
 
   const showComment = () => {

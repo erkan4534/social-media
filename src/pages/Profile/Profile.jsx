@@ -25,6 +25,11 @@ const Profile = () => {
             alt="profile image"
           />
 
+          <div className="totsalInfo">
+            <span>Posts {user.posts && user.posts.length}</span>
+            <span>Friends {user.friends && user.friends.length}</span>
+          </div>
+
           <div className="myFriendList mt-4">
             <Friend />
           </div>
