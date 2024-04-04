@@ -25,7 +25,7 @@ const Member = () => {
   return (
     <div>
       <div className="memberTitle">
-        <span>all members</span>
+        <span>All members</span>
       </div>
       {userDataArray
         .filter((friend) => friend.id != user.id)
