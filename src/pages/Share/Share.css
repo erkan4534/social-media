@@ -55,9 +55,18 @@
 }
 
 .shareTextArea::placeholder {
+  color: #aab8c2;
+  opacity: 1;
   text-align: left;
+  font-style: italic;
 }
 
+.inputContent::placeholder {
+  color: #aab8c2;
+  opacity: 1;
+  text-align: left;
+  font-style: italic;
+}
 .ant-card-meta-title {
   color: #007bff !important;
   font-weight: bold !important;
@@ -112,4 +121,20 @@
 
 .metaUrl {
   font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .shareTextArea::placeholder,
+  .inputContent::placeholder {
+    font-size: 14px;
+    text-align: start;
+  }
+}
+
+@media (min-width: 769px) {
+  .shareTextArea::placeholder,
+  .inputContent::placeholder {
+    font-size: 16px;
+    text-align: start;
+  }
 }
