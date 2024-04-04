@@ -7,29 +7,8 @@
   row-gap: 15px;
 }
 
-.loginInput {
-  height: 50px;
-  width: 300px;
-  border-radius: 6px;
-  border: 1px solid gray;
-  font-size: 18px;
-  padding-left: 20px;
-}
-
 .loginInput:focus {
   outline: none;
-}
-
-.loginButton {
-  height: 30px;
-  border-radius: 5px;
-  border: none;
-  background-color: #1775ee !important;
-  color: white;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0px 12px;
 }
 
 .loginForm span {
@@ -51,14 +30,55 @@
   cursor: default;
 }
 
+.loginInput {
+  border: 1px solid gray;
+}
+.loginButton {
+  border: none;
+  background-color: #1775ee !important;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
 @media (max-width: 768px) {
   .loginLogo {
     font-size: 30px;
+  }
+
+  .loginInput {
+    height: 25px;
+    width: 200px;
+    border-radius: 6px;
+    font-size: 13px;
+    padding-left: 20px;
+  }
+
+  .loginButton {
+    height: 30px;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 0px 8px;
   }
 }
 
 @media (min-width: 769px) {
   .loginLogo {
     font-size: 60px;
+  }
+
+  .loginInput {
+    height: 50px;
+    width: 300px;
+    border-radius: 6px;
+    font-size: 18px;
+    padding-left: 20px;
+  }
+
+  .loginButton {
+    height: 30px;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 0px 12px;
   }
 }
