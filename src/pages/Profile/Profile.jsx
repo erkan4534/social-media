@@ -9,6 +9,9 @@ const Profile = () => {
 
   const { userDataArray } = useSelector((state) => state.auth);
   const user = userDataArray.find((usr) => usr.id === Number(userId));
+  console.log(user); // user nesnesini loglayın
+  console.log(user.posts); // user.posts'u loglayın
+
   return (
     <>
       <Header />
@@ -26,8 +29,8 @@ const Profile = () => {
           />
 
           <div className="totsalInfo">
-            <span>Posts {user.posts && user.posts.length}</span>
-            <span>Friends {user.friends && user.friends.length}</span>
+            <span>Posts {user.posts && Array(user.posts).length}</span>
+            <span>Friends {user.friends && Array(user.friends).length}</span>
           </div>
 
           <div className="myFriendList mt-4">
