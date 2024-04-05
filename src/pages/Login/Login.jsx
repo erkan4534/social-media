@@ -68,11 +68,11 @@ const Login = () => {
   const showLogin = () => setIsShowNewAccount(false);
 
   return (
-    <div className="flex">
-      <div className="flex-1 h-dvh flex justify-center items-center">
+    <div className="homeContainer">
+      <div className="loginLogoPart">
         <span className="loginLogo">Social Media</span>
       </div>
-      <div className="flex-1">
+      <div className="loginInputPart">
         {!isShowNewAccount && (
           <div className="loginForm">
             <span id="loginTitle">Login In</span>

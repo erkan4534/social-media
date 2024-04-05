@@ -1,3 +1,7 @@
+.homeContainer {
+  display: flex;
+}
+
 .loginForm {
   display: flex;
   justify-content: center;
@@ -21,7 +25,6 @@
 #loginTitle {
   color: #1775ee;
   font-weight: bold;
-  font-size: 20px;
 }
 
 .loginLogo {
@@ -42,13 +45,20 @@
 }
 
 @media (max-width: 768px) {
+  .homeContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
   .loginLogo {
     font-size: 30px;
   }
 
   .loginInput {
-    height: 25px;
-    width: 200px;
+    height: 35px;
+    width: 250px;
     border-radius: 6px;
     font-size: 13px;
     padding-left: 20px;
@@ -58,11 +68,19 @@
     height: 30px;
     border-radius: 5px;
     font-size: 12px;
-    padding: 0px 8px;
+    padding: 0px 5px;
+  }
+
+  #loginTitle {
+    font-size: 13px;
   }
 }
 
 @media (min-width: 769px) {
+  .homeContainer {
+    flex-direction: row;
+  }
+
   .loginLogo {
     font-size: 60px;
   }
@@ -80,5 +98,24 @@
     border-radius: 5px;
     font-size: 15px;
     padding: 0px 12px;
+  }
+
+  .loginLogoPart {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loginInputPart {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #loginTitle {
+    font-size: 20px;
   }
 }
