@@ -98,7 +98,7 @@ function authReducer(state = initialState, action) {
         return usr;
       });
 
-      if (user == state.user) {
+      if (user.id == state.user.id) {
         return {
           ...state,
           user: {
