@@ -28,7 +28,7 @@ const intialComment = {
 
 const Share = () => {
   const [postContent, setPostContent] = useState(inputData);
-  const [posts, setPosts] = useState([]);
+  //const [posts, setPosts] = useState([]);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
   const [commentArray, setCommentArray] = useState([]);
@@ -39,15 +39,17 @@ const Share = () => {
     event.preventDefault();
 
     const newPost = {
-      id: posts.length + 1,
+      id: user.posts.length + 1,
       content: postContent,
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
     };
 
-    setPosts([...posts, newPost]);
+    //setPosts([...posts, newPost]);
     setPostContent(inputData);
     dispatch(setUserPost(newPost));
+
+    debugger;
   };
 
   const showComment = () => {
@@ -62,8 +64,8 @@ const Share = () => {
   };
 
   const removePost = (id) => {
-    const newPost = posts.filter((post) => post.id !== id);
-    setPosts(newPost);
+    const newPost = user.posts.filter((post) => post.id !== id);
+    //setPosts(newPost);
     dispatch(removeUserPost(newPost));
     setCommentArray([]);
   };
@@ -144,7 +146,7 @@ const Share = () => {
         </div>
       </form>
       <div>
-        {posts.map((post) => (
+        {user.posts.map((post) => (
           <Card className="mt-5 cardContainer" key={post.id}>
             <CardHeader
               action={

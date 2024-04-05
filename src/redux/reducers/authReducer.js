@@ -45,7 +45,7 @@ function authReducer(state = initialState, action) {
     case "SET_USER_POST": {
       const updatedUserDataArray = state.userDataArray.map((usr) => {
         if (usr.id === state.user.id) {
-          return { ...usr, posts: action.payload };
+          return { ...usr, posts: [...usr.posts, action.payload] };
         }
 
         return usr;
