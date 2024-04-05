@@ -1,9 +1,9 @@
 import "./Friend.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeUser } from "../../redux/action/authActions";
+import PropTypes from "prop-types";
 
-const Friend = () => {
-  const { user } = useSelector((state) => state.auth);
+const Friend = ({ user }) => {
   const dispatch = useDispatch();
   return (
     <div>
@@ -31,6 +31,10 @@ const Friend = () => {
         ))}
     </div>
   );
+};
+
+Friend.propTypes = {
+  user: PropTypes.object,
 };
 
 export default Friend;

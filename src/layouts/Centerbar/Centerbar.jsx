@@ -8,6 +8,4 @@ const Centerbar = () => {
   );
 };
 
-Centerbar.propTypes = {};
-
 export default Centerbar;

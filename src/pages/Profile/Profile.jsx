@@ -32,7 +32,7 @@ const Profile = () => {
           </div>
 
           <div className="myFriendList mt-4">
-            <Friend />
+            <Friend user={user} />
           </div>
         </div>
 
