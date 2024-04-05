@@ -40,10 +40,10 @@ export const setUserLike = (post) => {
   };
 };
 
-export const removeUser = (userData) => {
+export const removeUser = (userId, user) => {
   return {
     type: "REMOVE_USER",
-    payload: userData,
+    payload: { userId, user },
   };
 };
 

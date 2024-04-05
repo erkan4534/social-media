@@ -86,17 +86,33 @@ function authReducer(state = initialState, action) {
       };
 
     case "REMOVE_USER": {
-      const newFriends = state.user.friends.filter(
-        (user) => user.id != action.payload
-      );
+      const { userId, user } = action.payload;
 
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          friends: newFriends,
-        },
-      };
+      const newFriends = user.friends.filter((user) => user.id != userId);
+
+      const updatedUserDataArray = state.userDataArray.map((usr) => {
+        if (usr.id === user.id) {
+          return { ...usr, friends: newFriends };
+        }
+
+        return usr;
+      });
+
+      if (user == state.user) {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            friends: newFriends,
+          },
+          userDataArray: updatedUserDataArray,
+        };
+      } else {
+        return {
+          ...state,
+          userDataArray: updatedUserDataArray,
+        };
+      }
     }
 
     case "REMOVE_USER_POST": {
