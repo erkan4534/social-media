@@ -141,81 +141,83 @@ const Share = () => {
         </div>
       </form>
       <div>
-        {user.posts.map((post) => (
-          <Card className="mt-5 cardContainer" key={post.id}>
-            <CardHeader
-              action={
-                <IconButton
-                  onClick={() => removePost(post.id)}
-                  aria-label="settings"
-                >
-                  <RiDeleteBin6Line />
-                </IconButton>
-              }
-            />
-
-            <CardMedia component="img" image={post.imageUrl} alt="Preview" />
-
-            <div className=" block">
-              <div className="flex flex-col mt-4">
-                <Meta
-                  className="metaUrl"
-                  description={post.content.inputContent}
-                  title="Url"
-                />
-                <Meta
-                  className="metaDescribe"
-                  description={post.content.textAreaContent}
-                  title="Describe"
-                />
-              </div>
-
-              <div className="card-actions">
-                <Button
-                  className="commentAndLikeButton"
-                  onClick={() => postLike(post)}
-                  startIcon={<BiLike />}
-                >
-                  Like
-                </Button>
-
-                <Button
-                  type="button"
-                  className="commentAndLikeButton"
-                  onClick={showComment}
-                  startIcon={<FaRegComment />}
-                >
-                  comment
-                </Button>
-              </div>
-
-              {commentArray && commentArray.length > 0 && (
-                <DataTable
-                  rows={commentArray}
-                  setRows={setCommentArray}
-                  setComment={setComment}
-                />
-              )}
-
-              {isShowComment && (
-                <div className="commentArea">
-                  <TextArea
-                    name="commentTextArea"
-                    onChange={commentChange}
-                    value={comment.name}
-                  ></TextArea>
-                  <Button
-                    onClick={() => postCommnet()}
-                    disabled={comment.name == ""}
-                    variant="contained"
+        {user &&
+          user.posts &&
+          user.posts.map((post) => (
+            <Card className="mt-5 cardContainer" key={post.id}>
+              <CardHeader
+                action={
+                  <IconButton
+                    onClick={() => removePost(post.id)}
+                    aria-label="settings"
                   >
-                    Post
+                    <RiDeleteBin6Line />
+                  </IconButton>
+                }
+              />
+
+              <CardMedia component="img" image={post.imageUrl} alt="Preview" />
+
+              <div className=" block">
+                <div className="flex flex-col mt-4">
+                  <Meta
+                    className="metaUrl"
+                    description={post.content.inputContent}
+                    title="Url"
+                  />
+                  <Meta
+                    className="metaDescribe"
+                    description={post.content.textAreaContent}
+                    title="Describe"
+                  />
+                </div>
+
+                <div className="card-actions">
+                  <Button
+                    className="commentAndLikeButton"
+                    onClick={() => postLike(post)}
+                    startIcon={<BiLike />}
+                  >
+                    Like
+                  </Button>
+
+                  <Button
+                    type="button"
+                    className="commentAndLikeButton"
+                    onClick={showComment}
+                    startIcon={<FaRegComment />}
+                  >
+                    comment
                   </Button>
                 </div>
-              )}
-            </div>
-          </Card>
-        ))}
+
+                {commentArray && commentArray.length > 0 && (
+                  <DataTable
+                    rows={commentArray}
+                    setRows={setCommentArray}
+                    setComment={setComment}
+                  />
+                )}
+
+                {isShowComment && (
+                  <div className="commentArea">
+                    <TextArea
+                      name="commentTextArea"
+                      onChange={commentChange}
+                      value={comment.name}
+                    ></TextArea>
+                    <Button
+                      onClick={() => postCommnet()}
+                      disabled={comment.name == ""}
+                      variant="contained"
+                    >
+                      Post
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </Card>
+          ))}
       </div>
     </div>
   );
