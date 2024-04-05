@@ -61,7 +61,6 @@ const Share = () => {
 
   const removePost = (id) => {
     const newPost = user.posts.filter((post) => post.id !== id);
-    debugger;
     dispatch(removeUserPost(newPost));
     setCommentArray([]);
   };
