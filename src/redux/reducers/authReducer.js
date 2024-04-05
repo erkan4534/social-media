@@ -33,15 +33,24 @@ function authReducer(state = initialState, action) {
         isLoggedIn: false,
       };
 
-    case "SET_USER":
+    case "SET_USER": {
+      const updatedUserDataArray = state.userDataArray.map((usr) => {
+        if (usr.id === state.user.id) {
+          return { ...usr, friends: [...usr.friends, action.payload] };
+        }
+
+        return usr;
+      });
+
       return {
         ...state,
         user: {
           ...state.user,
           friends: [...state.user.friends, action.payload],
         },
+        userDataArray: updatedUserDataArray,
       };
-
+    }
     case "SET_USER_POST": {
       const updatedUserDataArray = state.userDataArray.map((usr) => {
         if (usr.id === state.user.id) {
