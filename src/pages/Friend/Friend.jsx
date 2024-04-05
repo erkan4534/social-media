@@ -2,6 +2,7 @@ import "./Friend.css";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../../redux/action/authActions";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const Friend = ({ user }) => {
   const dispatch = useDispatch();
@@ -16,10 +17,15 @@ const Friend = ({ user }) => {
         user.friends.map((friend) => (
           <div key={friend.id} className="friendList">
             <div className="friend">
-              <img src={friend.profilePicture} />
-              <span>
-                {friend.name} {friend.surname}
-              </span>
+              <Link to={`/Profile/${friend.id}`} className="linkFriend">
+                <img
+                  src={friend.profilePicture}
+                  alt={`${friend.name} ${friend.surname}`}
+                />
+                <span className="mt-1">
+                  {friend.name} {friend.surname}
+                </span>
+              </Link>
             </div>
             <button
               className="removeFriendButton"
