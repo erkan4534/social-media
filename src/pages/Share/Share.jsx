@@ -28,7 +28,6 @@ const intialComment = {
 
 const Share = () => {
   const [postContent, setPostContent] = useState(inputData);
-  //const [posts, setPosts] = useState([]);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
   const [commentArray, setCommentArray] = useState([]);
@@ -45,11 +44,8 @@ const Share = () => {
       imageUrl: "https://picsum.photos/200",
     };
 
-    //setPosts([...posts, newPost]);
     setPostContent(inputData);
     dispatch(setUserPost(newPost));
-
-    debugger;
   };
 
   const showComment = () => {
@@ -65,7 +61,7 @@ const Share = () => {
 
   const removePost = (id) => {
     const newPost = user.posts.filter((post) => post.id !== id);
-    //setPosts(newPost);
+    debugger;
     dispatch(removeUserPost(newPost));
     setCommentArray([]);
   };

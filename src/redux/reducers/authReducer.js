@@ -91,12 +91,21 @@ function authReducer(state = initialState, action) {
     }
 
     case "REMOVE_USER_POST": {
+      const newUserDataArray = state.userDataArray.map((usr) => {
+        if (usr.id === state.user.id) {
+          return { ...usr, posts: action.payload };
+        }
+
+        return usr;
+      });
+
       return {
         ...state,
         user: {
           ...state.user,
           posts: action.payload,
         },
+        userDataArray: newUserDataArray,
       };
     }
 
