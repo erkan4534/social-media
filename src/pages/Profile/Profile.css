@@ -46,3 +46,10 @@
   top: 250px;
   overflow-y: scroll;
 }
+
+.totalInfo {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 150px;
+}

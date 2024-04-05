@@ -24,7 +24,7 @@ const Profile = () => {
             alt="profile image"
           />
 
-          <div className="totsalInfo">
+          <div className="totalInfo">
             <span>Posts {user.posts && Object.keys(user.posts).length}</span>
             <span>
               Friends {user.friends && Object.keys(user.friends).length}
