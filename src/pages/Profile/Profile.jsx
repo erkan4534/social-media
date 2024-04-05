@@ -6,12 +6,8 @@ import Friend from "../Friend/Friend";
 
 const Profile = () => {
   let { userId } = useParams();
-
   const { userDataArray } = useSelector((state) => state.auth);
   const user = userDataArray.find((usr) => usr.id === Number(userId));
-  console.log(user); // user nesnesini loglayın
-  console.log(user.posts); // user.posts'u loglayın
-
   return (
     <>
       <Header />
