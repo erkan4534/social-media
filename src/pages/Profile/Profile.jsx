@@ -14,11 +14,9 @@ const Profile = () => {
   return (
     <>
       <div className="profileContainer">
+        <Header />
         <div className="profileHeader">
-          <div className="profileHeaderTop">
-            <Header />
-          </div>
-
+          <div className="profileHeaderTop"></div>
           <div className="profileHeaderBottom">
             <div className="profileCover">
               <img
