@@ -54,7 +54,7 @@ const Profile = () => {
 
         <div className="profileBody ">
           <div className="profileLeft">
-            {userInfo.id === user.id && (
+            {userInfo && user && userInfo.id === user.id && (
               <div className="myMemberList">
                 <Member user={user} userDataArray={userDataArray} />
               </div>

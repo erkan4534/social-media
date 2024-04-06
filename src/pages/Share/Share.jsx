@@ -107,7 +107,7 @@ const Share = ({ userInfo }) => {
 
   return (
     <div className="shareContainer">
-      {userInfo.id === user.id && (
+      {userInfo && user && userInfo.id === user.id && (
         <form onSubmit={handlePostSubmit} noValidate>
           <div className="flex flex-col gap-2 mb-3">
             <textarea
