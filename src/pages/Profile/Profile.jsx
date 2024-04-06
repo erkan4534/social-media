@@ -61,7 +61,7 @@ const Profile = () => {
             )}
           </div>
           <div className="profileCenter">
-            <Share user={userInfo} />
+            <Share userInfo={userInfo} />
           </div>
           <div className="profileRight">
             <div className="myFriendList">

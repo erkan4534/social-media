@@ -5,7 +5,7 @@ const Centerbar = () => {
   const { user } = useSelector((state) => state.auth);
   return (
     <div>
-      <Share user={user} />
+      <Share userInfo={user} />
     </div>
   );
 };

@@ -13,7 +13,7 @@ import {
   setUserLike,
   setUserPost,
 } from "../../redux/action/authActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const { Meta } = Card;
 
@@ -27,19 +27,19 @@ const intialComment = {
   name: "",
 };
 
-const Share = ({ user }) => {
+const Share = ({ userInfo }) => {
   const [postContent, setPostContent] = useState(inputData);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
   const [commentArray, setCommentArray] = useState([]);
   const dispatch = useDispatch();
-  //const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
 
     const newPost = {
-      id: user.posts.length + 1,
+      id: userInfo.posts.length + 1,
       content: postContent,
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
@@ -61,7 +61,7 @@ const Share = ({ user }) => {
   };
 
   const removePost = (id) => {
-    const newPost = user.posts.filter((post) => post.id !== id);
+    const newPost = userInfo.posts.filter((post) => post.id !== id);
     dispatch(removeUserPost(newPost));
     setCommentArray([]);
   };
@@ -95,56 +95,62 @@ const Share = ({ user }) => {
   const postLike = (post) => {
     const newPost = {
       ...post,
-      likes: [user],
+      likes: [userInfo],
     };
 
     dispatch(setUserLike(newPost));
   };
 
+  if (userInfo && userInfo.posts && userInfo.posts.length == 0) {
+    return <></>;
+  }
+
   return (
     <div className="shareContainer">
-      <form onSubmit={handlePostSubmit} noValidate>
-        <div className="flex flex-col gap-2 mb-3">
-          <textarea
-            placeholder="Write someting"
-            className="shareTextArea"
-            rows={3}
-            cols={50}
-            onChange={handleChange}
-            name="textAreaContent"
-            value={postContent.textAreaContent}
-          ></textarea>
-          <input
-            placeholder="Text Url"
-            type="text"
-            name="inputContent"
-            className="shareInput"
-            onChange={handleChange}
-            value={postContent.inputContent}
-          />
+      {userInfo.id === user.id && (
+        <form onSubmit={handlePostSubmit} noValidate>
+          <div className="flex flex-col gap-2 mb-3">
+            <textarea
+              placeholder="Write someting"
+              className="shareTextArea"
+              rows={3}
+              cols={50}
+              onChange={handleChange}
+              name="textAreaContent"
+              value={postContent.textAreaContent}
+            ></textarea>
+            <input
+              placeholder="Text Url"
+              type="text"
+              name="inputContent"
+              className="shareInput"
+              onChange={handleChange}
+              value={postContent.inputContent}
+            />
 
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={
-              postContent.inputContent === "" &&
-              postContent.textAreaContent === ""
-            }
-            className={
-              postContent.inputContent === "" &&
-              postContent.textAreaContent === ""
-                ? ""
-                : "shareButton"
-            }
-          >
-            Post
-          </Button>
-        </div>
-      </form>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={
+                postContent.inputContent === "" &&
+                postContent.textAreaContent === ""
+              }
+              className={
+                postContent.inputContent === "" &&
+                postContent.textAreaContent === ""
+                  ? ""
+                  : "shareButton"
+              }
+            >
+              Post
+            </Button>
+          </div>
+        </form>
+      )}
       <div>
-        {user &&
-          user.posts &&
-          user.posts.map((post) => (
+        {userInfo &&
+          userInfo.posts &&
+          userInfo.posts.map((post) => (
             <Card className="mt-5 cardContainer" key={post.id}>
               <CardHeader
                 action={
@@ -225,7 +231,7 @@ const Share = ({ user }) => {
 };
 
 Share.propTypes = {
-  user: PropTypes.object,
+  userInfo: PropTypes.object,
 };
 
 export default Share;
