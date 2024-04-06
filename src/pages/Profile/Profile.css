@@ -49,7 +49,7 @@
 }
 
 .myFriendList {
-  width: 300px;
+  width: 100%;
   height: calc(100vh - 350px);
   position: absolute;
   right: 0;
@@ -57,7 +57,7 @@
 }
 
 .myMemberList {
-  width: 300px;
+  width: 100%;
   height: calc(100vh - 350px);
   position: absolute;
   left: 0;
@@ -67,6 +67,8 @@
 .profileHeader {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  margin-bottom: 70px;
 }
 
 .profileContainer {
@@ -76,6 +78,7 @@
 
 .profileBody {
   display: flex;
+  flex: 1;
 }
 
 .profileLeft {
@@ -84,10 +87,18 @@
 }
 
 .profileCenter {
-  flex: 1;
+  flex: 2;
 }
 
 .profileRight {
   flex: 1;
   position: relative;
+}
+
+.profileHeaderBottom {
+  flex: 1;
+}
+
+.profileHeaderTop {
+  flex: 1;
 }

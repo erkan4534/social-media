@@ -7,12 +7,13 @@ import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import DataTable from "../../components/UI/DataTable/DataTable";
+import PropTypes from "prop-types";
 import {
   removeUserPost,
   setUserLike,
   setUserPost,
 } from "../../redux/action/authActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const { Meta } = Card;
 
@@ -26,13 +27,13 @@ const intialComment = {
   name: "",
 };
 
-const Share = () => {
+const Share = ({ user }) => {
   const [postContent, setPostContent] = useState(inputData);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
   const [commentArray, setCommentArray] = useState([]);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  //const { user } = useSelector((state) => state.auth);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -221,6 +222,10 @@ const Share = () => {
       </div>
     </div>
   );
+};
+
+Share.propTypes = {
+  user: PropTypes.object,
 };
 
 export default Share;

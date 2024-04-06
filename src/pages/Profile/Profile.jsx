@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Friend from "../Friend/Friend";
 import Member from "../Member/Member";
+import Share from "../Share/Share";
 
 const Profile = () => {
   let { userId } = useParams();
@@ -14,8 +15,11 @@ const Profile = () => {
     <>
       <div className="profileContainer">
         <div className="profileHeader">
-          <Header />
-          <div className="profileBanner">
+          <div className="profileHeaderTop">
+            <Header />
+          </div>
+
+          <div className="profileHeaderBottom">
             <div className="profileCover">
               <img
                 className="profileCoverImg"
@@ -48,7 +52,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="profileBody">
+        <div className="profileBody ">
           <div className="profileLeft">
             {userInfo.id === user.id && (
               <div className="myMemberList">
@@ -56,7 +60,9 @@ const Profile = () => {
               </div>
             )}
           </div>
-          <div className="profileCenter"></div>
+          <div className="profileCenter">
+            <Share user={userInfo} />
+          </div>
           <div className="profileRight">
             <div className="myFriendList">
               <Friend user={userInfo} />
