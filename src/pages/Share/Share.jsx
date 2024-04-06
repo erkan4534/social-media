@@ -101,7 +101,13 @@ const Share = ({ userInfo }) => {
     dispatch(setUserLike(newPost));
   };
 
-  if (userInfo && userInfo.posts && userInfo.posts.length == 0) {
+  if (
+    userInfo &&
+    user &&
+    userInfo.id != user.id &&
+    userInfo.posts &&
+    userInfo.posts.length == 0
+  ) {
     return <></>;
   }
 
