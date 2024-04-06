@@ -3,6 +3,7 @@ import Header from "../../layouts/Header/Header";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Friend from "../Friend/Friend";
+import Member from "../Member/Member";
 
 const Profile = () => {
   let { userId } = useParams();
@@ -10,37 +11,53 @@ const Profile = () => {
   const user = userDataArray.find((usr) => usr.id === Number(userId));
   return (
     <>
-      <Header />
       <div className="profileContainer">
-        <div className="profileCover">
-          <img
-            className="profileCoverImg"
-            src="/assets/post/3.jpeg"
-            alt="post image"
-          />
-          <img
-            className="profileUserImg"
-            src={user.profilePicture}
-            alt="profile image"
-          />
+        <div className="profileHeader">
+          <Header />
+          <div className="profileBanner">
+            <div className="profileCover">
+              <img
+                className="profileCoverImg"
+                src="/assets/post/3.jpeg"
+                alt="post image"
+              />
+              <img
+                className="profileUserImg"
+                src={user.profilePicture}
+                alt="profile image"
+              />
 
-          <div className="totalInfo">
-            <span>Posts {user.posts && Object.keys(user.posts).length}</span>
-            <span>
-              Friends {user.friends && Object.keys(user.friends).length}
-            </span>
-          </div>
+              <div className="profileInfo">
+                <h4 className="profileInfoName">
+                  {user.name} {user.surname}
+                </h4>
+                <span className="profileInfoDesc">{user.username}</span>
 
-          <div className="myFriendList mt-4">
-            <Friend user={user} />
+                <div className="totalInfo">
+                  <span>
+                    Posts {user.posts && Object.keys(user.posts).length}
+                  </span>
+                  <span>
+                    Friends {user.friends && Object.keys(user.friends).length}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="profileInfo">
-          <h4 className="profileInfoName">
-            {user.name} {user.surname}
-          </h4>
-          <span className="profileInfoDesc">{user.username}</span>
+        <div className="profileBody">
+          <div className="profileLeft">
+            <div className="myMemberList">
+              <Member />
+            </div>
+          </div>
+          <div className="profileCenter"></div>
+          <div className="profileRight">
+            <div className="myFriendList">
+              <Friend user={user} />
+            </div>
+          </div>
         </div>
       </div>
     </>

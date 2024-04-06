@@ -29,6 +29,15 @@
   align-items: center;
   justify-content: center;
   cursor: default;
+  margin-top: 50px;
+}
+
+.totalInfo {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+  cursor: default;
 }
 
 .profileInfoName {
@@ -44,14 +53,41 @@
   height: calc(100vh - 350px);
   position: absolute;
   right: 0;
-  top: 250px;
   overflow-y: scroll;
 }
 
-.totalInfo {
+.myMemberList {
+  width: 300px;
+  height: calc(100vh - 350px);
+  position: absolute;
+  left: 0;
+  overflow-y: scroll;
+}
+
+.profileHeader {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 150px;
-  cursor: default;
+  flex-direction: column;
+}
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileBody {
+  display: flex;
+}
+
+.profileLeft {
+  flex: 1;
+  position: relative;
+}
+
+.profileCenter {
+  flex: 1;
+}
+
+.profileRight {
+  flex: 1;
+  position: relative;
 }
