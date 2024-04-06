@@ -43,7 +43,7 @@ const Home = () => {
             ? "rightHamburgerMenu"
             : "rightHamburgerMenuChangeBg"
         }
-        disabled={user && user.firends && user.firends.length == 0}
+        disabled={user && user.friends && user.friends.length == 0}
         onClick={() => setIsRightbarVisible(!isRightbarVisible)}
       >
         <GiHamburgerMenu />
