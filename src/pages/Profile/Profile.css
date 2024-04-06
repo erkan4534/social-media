@@ -57,7 +57,7 @@
 
 .myMemberList {
   width: 100%;
-  height: calc(100vh - 350px);
+  max-height: calc(100vh - 350px);
   position: absolute;
   left: 0;
 }
