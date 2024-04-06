@@ -24,22 +24,23 @@ const Profile = () => {
               />
               <img
                 className="profileUserImg"
-                src={user.profilePicture}
+                src={userInfo.profilePicture}
                 alt="profile image"
               />
 
               <div className="profileInfo">
                 <h4 className="profileInfoName">
-                  {user.name} {user.surname}
+                  {userInfo.name} {userInfo.surname}
                 </h4>
-                <span className="profileInfoDesc">{user.username}</span>
+                <span className="profileInfoDesc">{userInfo.username}</span>
 
                 <div className="totalInfo">
                   <span>
-                    Posts {user.posts && Object.keys(user.posts).length}
+                    Posts {userInfo.posts && Object.keys(userInfo.posts).length}
                   </span>
                   <span>
-                    Friends {user.friends && Object.keys(user.friends).length}
+                    Friends{" "}
+                    {userInfo.friends && Object.keys(userInfo.friends).length}
                   </span>
                 </div>
               </div>
