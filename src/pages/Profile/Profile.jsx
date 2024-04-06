@@ -7,8 +7,9 @@ import Member from "../Member/Member";
 
 const Profile = () => {
   let { userId } = useParams();
-  const { userDataArray } = useSelector((state) => state.auth);
-  const user = userDataArray.find((usr) => usr.id === Number(userId));
+  const { userDataArray, user } = useSelector((state) => state.auth);
+  const userInfo = userDataArray.find((usr) => usr.id === Number(userId));
+
   return (
     <>
       <div className="profileContainer">
@@ -48,14 +49,16 @@ const Profile = () => {
 
         <div className="profileBody">
           <div className="profileLeft">
-            <div className="myMemberList">
-              <Member />
-            </div>
+            {userInfo.id === user.id && (
+              <div className="myMemberList">
+                <Member user={user} userDataArray={userDataArray} />
+              </div>
+            )}
           </div>
           <div className="profileCenter"></div>
           <div className="profileRight">
             <div className="myFriendList">
-              <Friend user={user} />
+              <Friend user={userInfo} />
             </div>
           </div>
         </div>

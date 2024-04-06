@@ -1,10 +1,10 @@
 import "./Member.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/action/authActions";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Member = () => {
-  const { userDataArray, user } = useSelector((state) => state.auth);
+const Member = ({ user, userDataArray }) => {
   const dispatch = useDispatch();
   if (!user) {
     return <></>;
@@ -56,6 +56,11 @@ const Member = () => {
         ))}
     </div>
   );
+};
+
+Member.propTypes = {
+  user: PropTypes.object,
+  userDataArray: PropTypes.func,
 };
 
 export default Member;
