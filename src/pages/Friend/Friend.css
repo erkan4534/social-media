@@ -5,7 +5,6 @@
   margin-top: 20px;
   padding: 10px;
   margin-right: 12px;
-  background-color: #f5f6fa;
 }
 
 .friendList:hover {
@@ -19,7 +18,7 @@
 
 .friend span {
   font-weight: bold;
-  color: #333; /* Koyu gri metin rengi */
+  color: #333;
 }
 
 .friend img {
