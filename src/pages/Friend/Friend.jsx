@@ -11,30 +11,31 @@ const Friend = ({ user }) => {
       <div className="friendTitle">
         <span>Friends</span>
       </div>
-
-      {user &&
-        user.friends &&
-        user.friends.map((friend) => (
-          <div key={friend.id} className="friendList">
-            <div className="friend">
-              <Link to={`/Profile/${friend.id}`} className="linkFriend">
-                <img
-                  src={friend.profilePicture}
-                  alt={`${friend.name} ${friend.surname}`}
-                />
-                <span className="mt-1">
-                  {friend.name} {friend.surname}
-                </span>
-              </Link>
+      <div className="friendsContainer">
+        {user &&
+          user.friends &&
+          user.friends.map((friend) => (
+            <div key={friend.id} className="friendList">
+              <div className="friend">
+                <Link to={`/Profile/${friend.id}`} className="linkFriend">
+                  <img
+                    src={friend.profilePicture}
+                    alt={`${friend.name} ${friend.surname}`}
+                  />
+                  <span className="mt-1">
+                    {friend.name} {friend.surname}
+                  </span>
+                </Link>
+              </div>
+              <button
+                className="removeFriendButton"
+                onClick={() => dispatch(removeUser(friend.id, user))}
+              >
+                UnFollowed
+              </button>
             </div>
-            <button
-              className="removeFriendButton"
-              onClick={() => dispatch(removeUser(friend.id, user))}
-            >
-              UnFollowed
-            </button>
-          </div>
-        ))}
+          ))}
+      </div>
     </div>
   );
 };

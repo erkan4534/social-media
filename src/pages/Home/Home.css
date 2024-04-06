@@ -11,7 +11,6 @@
   flex: 1;
   position: sticky;
   top: 50px;
-  overflow-y: scroll;
   height: calc(100vh - 50px);
   scrollbar-width: 20px;
   scrollbar-color: #3b5998 #e1e1e1;
@@ -43,7 +42,6 @@
   flex: 1;
   position: sticky;
   top: 50px;
-  overflow-y: scroll;
   height: calc(100vh - 50px);
   scrollbar-width: 20px;
   scrollbar-color: #3b5998 #f0f0f0;

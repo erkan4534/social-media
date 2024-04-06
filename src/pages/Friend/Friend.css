@@ -77,9 +77,17 @@
   cursor: default;
   font-weight: 400;
   font-style: italic;
+  position: sticky;
+  top: 50px;
 }
 
 .linkFriend {
   display: flex;
   cursor: pointer !important;
+}
+
+.friendsContainer {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-bottom: 50px;
 }

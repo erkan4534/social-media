@@ -27,33 +27,36 @@ const Member = ({ user, userDataArray }) => {
       <div className="memberTitle">
         <span>All members</span>
       </div>
-      {userDataArray
-        .filter((friend) => friend.id != user.id)
-        .map((friend) => (
-          <div key={friend.id} className="closeFriendList">
-            <div className="closeFriend">
-              <Link to={`/Profile/${friend.id}`} className="linkFriendMember">
-                <img
-                  src={friend.profilePicture}
-                  alt={`${friend.name} ${friend.surname}`}
-                />
-                <span className="mt-1">
-                  {friend.name} {friend.surname}
-                </span>
-              </Link>
+
+      <div className="memberContainer">
+        {userDataArray
+          .filter((friend) => friend.id != user.id)
+          .map((friend) => (
+            <div key={friend.id} className="closeFriendList">
+              <div className="closeFriend">
+                <Link to={`/Profile/${friend.id}`} className="linkFriendMember">
+                  <img
+                    src={friend.profilePicture}
+                    alt={`${friend.name} ${friend.surname}`}
+                  />
+                  <span className="mt-1">
+                    {friend.name} {friend.surname}
+                  </span>
+                </Link>
+              </div>
+
+              {!isFriend(friend) && (
+                <button onClick={() => addFirend(friend)} className="addButton">
+                  {isFriend(friend) ? "Followed" : "Add"}
+                </button>
+              )}
+
+              {isFriend(friend) && (
+                <span className="followed-text">Followed</span>
+              )}
             </div>
-
-            {!isFriend(friend) && (
-              <button onClick={() => addFirend(friend)} className="addButton">
-                {isFriend(friend) ? "Followed" : "Add"}
-              </button>
-            )}
-
-            {isFriend(friend) && (
-              <span className="followed-text">Followed</span>
-            )}
-          </div>
-        ))}
+          ))}
+      </div>
     </div>
   );
 };

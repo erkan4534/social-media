@@ -90,3 +90,9 @@
   font-weight: 400;
   font-style: italic;
 }
+
+.memberContainer {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-bottom: 50px;
+}
