@@ -49,15 +49,11 @@ const Share = ({ userInfo }) => {
     dispatch(setUserPost(newPost));
   };
 
-  const showComment = () => {
-    setIsShowComment(!isShowComment);
-  };
+  const showComment = () => setIsShowComment(!isShowComment);
 
   const handleChange = (event) => {
-    setPostContent({
-      ...postContent,
-      [event.target.name]: event.target.value,
-    });
+    const { name, value } = event.target;
+    setPostContent({ ...postContent, [name]: value });
   };
 
   const removePost = (id) => {
@@ -66,93 +62,66 @@ const Share = ({ userInfo }) => {
     setCommentArray([]);
   };
 
-  const commentChange = (event) => {
+  const commentChange = (event) =>
     setComment({ ...comment, name: event.target.value });
-  };
 
-  function postCommnet() {
-    if (comment && comment.id != "" && comment.name != "") {
-      const existCommentArray = commentArray.map((row) => {
-        if (row.id === comment.id) {
-          return { name: comment.name, id: comment.id };
-        }
-        return row;
-      });
-
-      setCommentArray(existCommentArray);
-    } else {
-      const newComment = {
-        name: comment.name,
-        id: Date.now(),
-      };
-      const newCommentArray = [...commentArray, newComment];
-      setCommentArray(newCommentArray);
-    }
-
-    setComment(intialComment);
-  }
-
-  const postLike = (post) => {
-    const newPost = {
-      ...post,
-      likes: [userInfo],
+  const postComment = () => {
+    const newComment = {
+      name: comment.name,
+      id: comment.id || Date.now(),
     };
-
-    dispatch(setUserLike(newPost));
+    const existCommentArray = commentArray.map((row) =>
+      row.id === comment.id ? newComment : row
+    );
+    setCommentArray(existCommentArray);
+    setComment({ id: "", name: "" });
   };
 
-  if (
-    userInfo &&
-    user &&
-    userInfo.id != user.id &&
-    userInfo.posts &&
-    userInfo.posts.length == 0
-  ) {
-    return <></>;
-  }
+  const postLike = (post) =>
+    dispatch(setUserLike({ ...post, likes: [userInfo] }));
+
+  if (userInfo && user && userInfo.id !== user.id) return null;
 
   return (
     <div className="shareContainer">
-      {userInfo && user && userInfo.id === user.id && (
-        <form onSubmit={handlePostSubmit} noValidate>
-          <div className="flex flex-col gap-2 mb-3">
-            <textarea
-              placeholder="Write someting"
-              className="shareTextArea"
-              rows={3}
-              cols={50}
-              onChange={handleChange}
-              name="textAreaContent"
-              value={postContent.textAreaContent}
-            ></textarea>
-            <input
-              placeholder="Text Url"
-              type="text"
-              name="inputContent"
-              className="shareInput"
-              onChange={handleChange}
-              value={postContent.inputContent}
-            />
+      <form onSubmit={handlePostSubmit} noValidate>
+        <div className="flex flex-col gap-2 mb-3">
+          <textarea
+            placeholder="Write someting"
+            className="shareTextArea"
+            rows={3}
+            cols={50}
+            onChange={handleChange}
+            name="textAreaContent"
+            value={postContent.textAreaContent}
+          ></textarea>
+          <input
+            placeholder="Text Url"
+            type="text"
+            name="inputContent"
+            className="shareInput"
+            onChange={handleChange}
+            value={postContent.inputContent}
+          />
 
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={
-                postContent.inputContent === "" &&
-                postContent.textAreaContent === ""
-              }
-              className={
-                postContent.inputContent === "" &&
-                postContent.textAreaContent === ""
-                  ? ""
-                  : "shareButton"
-              }
-            >
-              Post
-            </Button>
-          </div>
-        </form>
-      )}
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={
+              postContent.inputContent === "" &&
+              postContent.textAreaContent === ""
+            }
+            className={
+              postContent.inputContent === "" &&
+              postContent.textAreaContent === ""
+                ? ""
+                : "shareButton"
+            }
+          >
+            Post
+          </Button>
+        </div>
+      </form>
       <div>
         {userInfo &&
           userInfo.posts &&
@@ -220,8 +189,8 @@ const Share = ({ userInfo }) => {
                       value={comment.name}
                     ></TextArea>
                     <Button
-                      onClick={() => postCommnet()}
-                      disabled={comment.name == ""}
+                      onClick={postComment}
+                      disabled={!comment.name}
                       variant="contained"
                     >
                       Post
