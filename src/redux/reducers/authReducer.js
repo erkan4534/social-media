@@ -88,7 +88,7 @@ function authReducer(state = initialState, action) {
     case "REMOVE_USER": {
       const { userId, user } = action.payload;
 
-      const newFriends = user.friends.filter((user) => user.id != userId);
+      const newFriends = user.friends.filter((friendId) => friendId != userId);
 
       const updatedUserDataArray = state.userDataArray.map((usr) => {
         if (usr.id === user.id) {

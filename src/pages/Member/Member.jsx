@@ -10,15 +10,15 @@ const Member = ({ user, userDataArray }) => {
     return <></>;
   }
 
-  const addFirend = (friend) => {
-    if (!isFriend(friend)) {
-      dispatch(setUser(friend));
+  const addFirend = (friendId) => {
+    if (!isFriend(friendId)) {
+      dispatch(setUser(friendId));
     }
   };
 
-  const isFriend = (friend) => {
+  const isFriend = (friendId) => {
     return (
-      user && user.friends && user.friends.some((usr) => usr.id === friend.id)
+      user && user.friends && user.friends.some((userId) => userId === friendId)
     );
   };
 
@@ -45,13 +45,16 @@ const Member = ({ user, userDataArray }) => {
                 </Link>
               </div>
 
-              {!isFriend(friend) && (
-                <button onClick={() => addFirend(friend)} className="addButton">
-                  {isFriend(friend) ? "Followed" : "Add"}
+              {!isFriend(friend.id) && (
+                <button
+                  onClick={() => addFirend(friend.id)}
+                  className="addButton"
+                >
+                  {isFriend(friend.id) ? "Followed" : "Add"}
                 </button>
               )}
 
-              {isFriend(friend) && (
+              {isFriend(friend.id) && (
                 <span className="followed-text">Followed</span>
               )}
             </div>

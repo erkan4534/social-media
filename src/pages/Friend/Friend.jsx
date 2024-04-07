@@ -4,8 +4,9 @@ import { removeUser } from "../../redux/action/authActions";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Friend = ({ user }) => {
+const Friend = ({ user, userDataArray }) => {
   const dispatch = useDispatch();
+
   return (
     <div>
       <div className="friendTitle">
@@ -14,27 +15,32 @@ const Friend = ({ user }) => {
       <div className="friendsContainer">
         {user &&
           user.friends &&
-          user.friends.map((friend) => (
-            <div key={friend.id} className="friendList">
-              <div className="friend">
-                <Link to={`/Profile/${friend.id}`} className="linkFriend">
-                  <img
-                    src={friend.profilePicture}
-                    alt={`${friend.name} ${friend.surname}`}
-                  />
-                  <span className="mt-1">
-                    {friend.name} {friend.surname}
-                  </span>
-                </Link>
+          user.friends.map((friendId) => {
+            const userInfo = userDataArray.find(
+              (usr) => usr.id === Number(friendId)
+            );
+            return (
+              <div key={friendId} className="friendList">
+                <div className="friend">
+                  <Link to={`/Profile/${friendId}`} className="linkFriend">
+                    <img
+                      src={userInfo.profilePicture}
+                      alt={`${userInfo.name} ${userInfo.surname}`}
+                    />
+                    <span className="mt-1">
+                      {userInfo.name} {userInfo.surname}
+                    </span>
+                  </Link>
+                </div>
+                <button
+                  className="removeFriendButton"
+                  onClick={() => dispatch(removeUser(friendId, user))}
+                >
+                  UnFollowed
+                </button>
               </div>
-              <button
-                className="removeFriendButton"
-                onClick={() => dispatch(removeUser(friend.id, user))}
-              >
-                UnFollowed
-              </button>
-            </div>
-          ))}
+            );
+          })}
       </div>
     </div>
   );
@@ -42,6 +48,7 @@ const Friend = ({ user }) => {
 
 Friend.propTypes = {
   user: PropTypes.object,
+  userDataArray: PropTypes.array,
 };
 
 export default Friend;

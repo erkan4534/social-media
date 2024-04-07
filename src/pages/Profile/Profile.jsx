@@ -8,6 +8,7 @@ import Share from "../Share/Share";
 
 const Profile = () => {
   let { userId } = useParams();
+
   const { userDataArray, user } = useSelector((state) => state.auth);
   const userInfo = userDataArray.find((usr) => usr.id === Number(userId));
 
@@ -63,7 +64,7 @@ const Profile = () => {
           </div>
           <div className="profileRight">
             <div className="myFriendList">
-              <Friend user={userInfo} />
+              <Friend user={userInfo} userDataArray={userDataArray} />
             </div>
           </div>
         </div>
