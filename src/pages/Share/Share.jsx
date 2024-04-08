@@ -80,27 +80,31 @@ const Share = ({ userInfo, userDataArray }) => {
   const postLike = (post) =>
     dispatch(setUserLike({ ...post, likes: [userInfo] }));
 
-  const friendPostDataArray = userDataArray.filter((usr) =>
-    userInfo?.friends.includes(usr.id)
-  );
+  const getPosts = () => {
+    let allPost = [];
 
-  const friendArray = friendPostDataArray.filter(
-    (friend) => friend.posts.length > 0
-  );
+    const friendPostDataArray = userDataArray.filter((usr) =>
+      userInfo?.friends.includes(usr.id)
+    );
 
-  let allPost = [];
+    const friendArray = friendPostDataArray.filter(
+      (friend) => friend.posts.length > 0
+    );
 
-  if (userInfo?.id === user?.id) {
-    friendArray.map((friend) => {
-      friend.posts.map((post) => allPost.push(post));
-    });
+    if (userInfo?.id === user?.id) {
+      friendArray.map((friend) => {
+        friend.posts.map((post) => allPost.push(post));
+      });
 
-    if (user?.posts.length > 0) {
-      user.posts.map((post) => allPost.push(post));
+      if (user?.posts.length > 0) {
+        user.posts.map((post) => allPost.push(post));
+      }
+    } else {
+      allPost = userInfo.posts;
     }
-  } else {
-    allPost = userInfo.posts;
-  }
+
+    return allPost;
+  };
 
   return (
     <div className="shareContainer">
@@ -145,7 +149,7 @@ const Share = ({ userInfo, userDataArray }) => {
         </form>
       )}
       <div>
-        {allPost.map((post) => (
+        {getPosts().map((post) => (
           <Card className="mt-5 cardContainer" key={post.id}>
             <CardHeader
               action={
