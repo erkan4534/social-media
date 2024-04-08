@@ -56,9 +56,9 @@ const Share = ({ userInfo, userDataArray }) => {
     setPostContent({ ...postContent, [name]: value });
   };
 
-  const removePost = (id) => {
-    const newPost = userInfo.posts.filter((post) => post.id !== id);
-    dispatch(removeUserPost(newPost));
+  const removePost = (postId) => {
+    const newPosts = userInfo.posts.filter((post) => post.id !== postId);
+    dispatch(removeUserPost(newPosts, userInfo.id));
     setCommentArray([]);
   };
 

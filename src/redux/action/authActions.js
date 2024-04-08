@@ -47,9 +47,9 @@ export const removeUser = (userId, user) => {
   };
 };
 
-export const removeUserPost = (post) => {
+export const removeUserPost = (posts, userId) => {
   return {
     type: "REMOVE_USER_POST",
-    payload: post,
+    payload: { posts, userId },
   };
 };
