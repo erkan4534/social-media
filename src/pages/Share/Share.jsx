@@ -44,7 +44,7 @@ const Share = ({ userInfo, userDataArray }) => {
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
     };
-    console.log(newPost);
+
     setPostContent(inputData);
     dispatch(setUserPost(newPost));
   };
