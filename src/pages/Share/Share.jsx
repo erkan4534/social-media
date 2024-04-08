@@ -39,7 +39,7 @@ const Share = ({ userInfo, userDataArray }) => {
     event.preventDefault();
 
     const newPost = {
-      id: userInfo.posts.length + 1,
+      id: new Date().toISOString(),
       content: postContent,
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
@@ -80,8 +80,6 @@ const Share = ({ userInfo, userDataArray }) => {
   const postLike = (post) =>
     dispatch(setUserLike({ ...post, likes: [userInfo] }));
 
-  if (userInfo && user && userInfo.id !== user.id) return null;
-
   const friendPostDataArray = userDataArray.filter((usr) =>
     userInfo?.friends.includes(usr.id)
   );
@@ -92,54 +90,60 @@ const Share = ({ userInfo, userDataArray }) => {
 
   let allPost = [];
 
-  friendArray.map((friend) => {
-    friend.posts.map((post) => allPost.push(post));
-  });
+  if (userInfo?.id === user?.id) {
+    friendArray.map((friend) => {
+      friend.posts.map((post) => allPost.push(post));
+    });
 
-  if (user?.posts.length > 0) {
-    user.posts.map((post) => allPost.push(post));
+    if (user?.posts.length > 0) {
+      user.posts.map((post) => allPost.push(post));
+    }
+  } else {
+    allPost = userInfo.posts;
   }
 
   return (
     <div className="shareContainer">
-      <form onSubmit={handlePostSubmit} noValidate>
-        <div className="flex flex-col gap-2 mb-3">
-          <textarea
-            placeholder="Write someting"
-            className="shareTextArea"
-            rows={3}
-            cols={50}
-            onChange={handleChange}
-            name="textAreaContent"
-            value={postContent.textAreaContent}
-          ></textarea>
-          <input
-            placeholder="Text Url"
-            type="text"
-            name="inputContent"
-            className="shareInput"
-            onChange={handleChange}
-            value={postContent.inputContent}
-          />
+      {userInfo?.id === user?.id && (
+        <form onSubmit={handlePostSubmit} noValidate>
+          <div className="flex flex-col gap-2 mb-3">
+            <textarea
+              placeholder="Write someting"
+              className="shareTextArea"
+              rows={3}
+              cols={50}
+              onChange={handleChange}
+              name="textAreaContent"
+              value={postContent.textAreaContent}
+            ></textarea>
+            <input
+              placeholder="Text Url"
+              type="text"
+              name="inputContent"
+              className="shareInput"
+              onChange={handleChange}
+              value={postContent.inputContent}
+            />
 
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={
-              postContent.inputContent === "" &&
-              postContent.textAreaContent === ""
-            }
-            className={
-              postContent.inputContent === "" &&
-              postContent.textAreaContent === ""
-                ? ""
-                : "shareButton"
-            }
-          >
-            Post
-          </Button>
-        </div>
-      </form>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={
+                postContent.inputContent === "" &&
+                postContent.textAreaContent === ""
+              }
+              className={
+                postContent.inputContent === "" &&
+                postContent.textAreaContent === ""
+                  ? ""
+                  : "shareButton"
+              }
+            >
+              Post
+            </Button>
+          </div>
+        </form>
+      )}
       <div>
         {allPost.map((post) => (
           <Card className="mt-5 cardContainer" key={post.id}>
