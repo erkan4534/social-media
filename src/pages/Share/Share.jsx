@@ -106,8 +106,14 @@ const Share = ({ userInfo, userDataArray }) => {
     return allPost;
   };
 
+  const posts = getPosts();
+
   return (
-    <div className="shareContainer">
+    <di
+      className={`${
+        userInfo?.id === user?.id || posts.length > 0 ? "shareContainer" : ""
+      }`}
+    >
       {userInfo?.id === user?.id && (
         <form onSubmit={handlePostSubmit} noValidate>
           <div className="flex flex-col gap-2 mb-3">
@@ -149,7 +155,7 @@ const Share = ({ userInfo, userDataArray }) => {
         </form>
       )}
       <div>
-        {getPosts().map((post) => (
+        {posts.map((post) => (
           <Card className="mt-5 cardContainer" key={post.id}>
             <CardHeader
               action={
@@ -225,7 +231,7 @@ const Share = ({ userInfo, userDataArray }) => {
           </Card>
         ))}
       </div>
-    </div>
+    </di>
   );
 };
 
