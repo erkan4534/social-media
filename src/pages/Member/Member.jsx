@@ -66,7 +66,7 @@ const Member = ({ user, userDataArray }) => {
 
 Member.propTypes = {
   user: PropTypes.object,
-  userDataArray: PropTypes.func,
+  userDataArray: PropTypes.array,
 };
 
 export default Member;

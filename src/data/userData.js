@@ -19,7 +19,20 @@ export const userData = [
     email: "erkan2.yildirim@gmail.com",
     profilePicture: "/assets/person/2.jpeg",
     friends: [],
-    posts: [],
+    posts: [
+      {
+        content: { inputContent: "sebnem", textAreaContent: "durmaz" },
+        id: 1,
+        imageUrl: "https://picsum.photos/200",
+        timestamp: "2024-04-08T14:42:51.885Z",
+      },
+      {
+        content: { inputContent: "sebnem2", textAreaContent: "durmaz2" },
+        id: 2,
+        imageUrl: "https://picsum.photos/200",
+        timestamp: "2024-04-08T14:42:51.885Z",
+      },
+    ],
   },
 
   {

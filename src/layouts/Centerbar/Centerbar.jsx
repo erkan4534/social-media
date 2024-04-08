@@ -2,10 +2,10 @@ import { useSelector } from "react-redux";
 import Share from "../../pages/Share/Share";
 
 const Centerbar = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, userDataArray } = useSelector((state) => state.auth);
   return (
     <div>
-      <Share userInfo={user} />
+      <Share userInfo={user} userDataArray={userDataArray} />
     </div>
   );
 };

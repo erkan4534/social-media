@@ -27,7 +27,7 @@ const intialComment = {
   name: "",
 };
 
-const Share = ({ userInfo }) => {
+const Share = ({ userInfo, userDataArray }) => {
   const [postContent, setPostContent] = useState(inputData);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
@@ -44,7 +44,7 @@ const Share = ({ userInfo }) => {
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
     };
-
+    console.log(newPost);
     setPostContent(inputData);
     dispatch(setUserPost(newPost));
   };
@@ -81,6 +81,24 @@ const Share = ({ userInfo }) => {
     dispatch(setUserLike({ ...post, likes: [userInfo] }));
 
   if (userInfo && user && userInfo.id !== user.id) return null;
+
+  const friendPostDataArray = userDataArray.filter((usr) =>
+    userInfo?.friends.includes(usr.id)
+  );
+
+  const friendArray = friendPostDataArray.filter(
+    (friend) => friend.posts.length > 0
+  );
+
+  let allPost = [];
+
+  friendArray.map((friend) => {
+    friend.posts.map((post) => allPost.push(post));
+  });
+
+  if (user?.posts.length > 0) {
+    user.posts.map((post) => allPost.push(post));
+  }
 
   return (
     <div className="shareContainer">
@@ -123,7 +141,7 @@ const Share = ({ userInfo }) => {
         </div>
       </form>
       <div>
-        {userInfo.posts.map((post) => (
+        {allPost.map((post) => (
           <Card className="mt-5 cardContainer" key={post.id}>
             <CardHeader
               action={
@@ -142,12 +160,12 @@ const Share = ({ userInfo }) => {
               <div className="flex flex-col mt-4">
                 <Meta
                   className="metaUrl"
-                  description={post.content.inputContent}
+                  description={post.content && post.content.inputContent}
                   title="Url"
                 />
                 <Meta
                   className="metaDescribe"
-                  description={post.content.textAreaContent}
+                  description={post.content && post.content.textAreaContent}
                   title="Describe"
                 />
               </div>
@@ -205,6 +223,7 @@ const Share = ({ userInfo }) => {
 
 Share.propTypes = {
   userInfo: PropTypes.object,
+  userDataArray: PropTypes.array,
 };
 
 export default Share;

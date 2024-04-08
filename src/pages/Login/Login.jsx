@@ -19,7 +19,7 @@ const Login = () => {
   const [isShowNewAccount, setIsShowNewAccount] = useState(false);
   const [isNewAccountMessage, setIsNewAccountMessage] = useState(false);
   const dispatch = useDispatch();
-  const { isLoggedIn, isLoginInValidMessage } = useSelector(
+  const { isLoggedIn, isLoginInValidMessage, user } = useSelector(
     (state) => state.auth
   );
 

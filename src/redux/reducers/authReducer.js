@@ -14,6 +14,7 @@ function authReducer(state = initialState, action) {
       const userDetailData = state.userDataArray.find(
         (usr) => usr.password === password && usr.email === email
       );
+
       return userDetailData
         ? {
             ...state,
@@ -31,6 +32,8 @@ function authReducer(state = initialState, action) {
         ...state,
         user: null,
         isLoggedIn: false,
+        isLoginInValidMessage: false,
+        userDataArray: userData,
       };
 
     case "SET_USER": {
