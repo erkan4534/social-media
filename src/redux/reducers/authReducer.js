@@ -37,7 +37,7 @@ function authReducer(state = initialState, action) {
         userDataArray: userData,
       };
 
-    case "ADD_FIREND": {
+    case "ADD_NEW_FIREND": {
       const updatedUserDataArray = state.userDataArray.map((usr) => {
         if (usr.id === state.user.id) {
           return { ...usr, friends: [...usr.friends, action.payload] };

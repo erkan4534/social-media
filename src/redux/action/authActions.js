@@ -14,7 +14,7 @@ export const logout = (userInfo) => {
 
 export const addNewFriend = (userInfo) => {
   return {
-    type: "ADD_FIREND",
+    type: "ADD_NEW_FIREND",
     payload: userInfo,
   };
 };
