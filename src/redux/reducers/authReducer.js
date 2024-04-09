@@ -89,7 +89,7 @@ function authReducer(state = initialState, action) {
         isLoginInValidMessage: false,
       };
 
-    case "REMOVE_USER": {
+    case "REMOVE_FRIEND": {
       const { userId, user } = action.payload;
 
       const newFriends = user.friends.filter((friendId) => friendId != userId);

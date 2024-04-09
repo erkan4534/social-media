@@ -1,6 +1,6 @@
 import "./Friend.css";
 import { useDispatch } from "react-redux";
-import { removeUser } from "../../redux/action/authActions";
+import { removeFriend } from "../../redux/action/authActions";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -34,7 +34,7 @@ const Friend = ({ user, userDataArray }) => {
                 </div>
                 <button
                   className="removeFriendButton"
-                  onClick={() => dispatch(removeUser(friendId, user))}
+                  onClick={() => dispatch(removeFriend(friendId, user))}
                 >
                   UnFollowed
                 </button>
