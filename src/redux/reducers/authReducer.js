@@ -2,6 +2,7 @@ import { userData } from "../../data/userData";
 
 const initialState = {
   user: null,
+  posts: [],
   isLoggedIn: false,
   isLoginInValidMessage: false,
   userDataArray: userData,
@@ -36,7 +37,7 @@ function authReducer(state = initialState, action) {
         userDataArray: userData,
       };
 
-    case "SET_USER": {
+    case "ADD_FIREND": {
       const updatedUserDataArray = state.userDataArray.map((usr) => {
         if (usr.id === state.user.id) {
           return { ...usr, friends: [...usr.friends, action.payload] };

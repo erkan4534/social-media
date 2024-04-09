@@ -12,9 +12,9 @@ export const logout = (userInfo) => {
   };
 };
 
-export const setUser = (userInfo) => {
+export const addNewFriend = (userInfo) => {
   return {
-    type: "SET_USER",
+    type: "ADD_FIREND",
     payload: userInfo,
   };
 };

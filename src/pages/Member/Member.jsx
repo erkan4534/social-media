@@ -1,6 +1,6 @@
 import "./Member.css";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/action/authActions";
+import { addNewFriend } from "../../redux/action/authActions";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -10,9 +10,9 @@ const Member = ({ user, userDataArray }) => {
     return <></>;
   }
 
-  const addFirend = (friendId) => {
+  const addFriend = (friendId) => {
     if (!isFriend(friendId)) {
-      dispatch(setUser(friendId));
+      dispatch(addNewFriend(friendId));
     }
   };
 
@@ -47,7 +47,7 @@ const Member = ({ user, userDataArray }) => {
 
               {!isFriend(friend.id) && (
                 <button
-                  onClick={() => addFirend(friend.id)}
+                  onClick={() => addFriend(friend.id)}
                   className="addButton"
                 >
                   {isFriend(friend.id) ? "Followed" : "Add"}
