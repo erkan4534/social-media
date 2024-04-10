@@ -2,7 +2,7 @@ import { userData } from "../../data/userData";
 
 const initialState = {
   user: null,
-  posts: [],
+  allPosts: [],
   isLoggedIn: false,
   isLoginInValidMessage: false,
   userDataArray: userData,
@@ -16,12 +16,28 @@ function authReducer(state = initialState, action) {
         (usr) => usr.password === password && usr.email === email
       );
 
+      const friendPostDataArray =
+        userDetailData &&
+        state.userDataArray.filter((usr) =>
+          userDetailData?.friends.includes(usr.id)
+        );
+
+      const allFriendPosts = [];
+      friendPostDataArray.forEach((friend) => {
+        allFriendPosts.push(...friend.posts);
+      });
+
+      if (userDetailData.posts.length > 0) {
+        allFriendPosts.push(...userDetailData.posts);
+      }
+
       return userDetailData
         ? {
             ...state,
             user: userDetailData,
             isLoggedIn: true,
             isLoginInValidMessage: false,
+            allPosts: allFriendPosts,
           }
         : {
             ...state,
@@ -35,6 +51,7 @@ function authReducer(state = initialState, action) {
         isLoggedIn: false,
         isLoginInValidMessage: false,
         userDataArray: userData,
+        allPosts: [],
       };
 
     case "ADD_NEW_FIREND": {
@@ -119,28 +136,30 @@ function authReducer(state = initialState, action) {
       }
     }
 
-    case "REMOVE_USER_POST": {
+    case "REMOVE_USER_POST_AND_ALL_POST": {
       const newUserDataArray = state.userDataArray.map((usr) => {
         if (usr.id === action.payload.userId) {
-          return { ...usr, posts: action.payload.posts };
+          return { ...usr, posts: action.payload.userPosts };
         }
         return usr;
       });
 
-      if (state.user.id === action.payload.userId) {
-        return {
-          ...state,
-          user: {
-            ...state.user,
-            posts: action.payload.posts,
-          },
-          userDataArray: newUserDataArray,
-        };
-      }
-
       return {
         ...state,
+        allPosts: action.payload.allPosts,
+        user: {
+          ...state.user,
+          posts: action.payload.userPosts,
+        },
         userDataArray: newUserDataArray,
+      };
+    }
+
+    case "REMOVE_ALL_POST": {
+      debugger;
+      return {
+        ...state,
+        allPosts: action.payload,
       };
     }
 

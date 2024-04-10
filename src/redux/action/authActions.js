@@ -47,9 +47,16 @@ export const removeFriend = (userId, user) => {
   };
 };
 
-export const removeUserPost = (posts, userId) => {
+export const removeUserPostAndAllPost = (allPosts, userPosts, userId) => {
   return {
-    type: "REMOVE_USER_POST",
-    payload: { posts, userId },
+    type: "REMOVE_USER_POST_AND_ALL_POST",
+    payload: { allPosts, userPosts, userId },
+  };
+};
+
+export const removeAllPost = (allPosts) => {
+  return {
+    type: "REMOVE_ALL_POST",
+    payload: allPosts,
   };
 };

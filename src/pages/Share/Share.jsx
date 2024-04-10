@@ -9,7 +9,8 @@ import TextArea from "antd/es/input/TextArea";
 import DataTable from "../../components/UI/DataTable/DataTable";
 import PropTypes from "prop-types";
 import {
-  removeUserPost,
+  removeAllPost,
+  removeUserPostAndAllPost,
   setUserLike,
   setUserPost,
 } from "../../redux/action/authActions";
@@ -27,13 +28,13 @@ const intialComment = {
   name: "",
 };
 
-const Share = ({ userInfo, userDataArray }) => {
+const Share = ({ userInfo }) => {
   const [postContent, setPostContent] = useState(inputData);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
   const [commentArray, setCommentArray] = useState([]);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const { user, allPosts } = useSelector((state) => state.auth);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -43,6 +44,7 @@ const Share = ({ userInfo, userDataArray }) => {
       content: postContent,
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
+      userId: user.id,
     };
 
     setPostContent(inputData);
@@ -56,9 +58,18 @@ const Share = ({ userInfo, userDataArray }) => {
     setPostContent({ ...postContent, [name]: value });
   };
 
-  const removePost = (postId) => {
-    const newPosts = userInfo.posts.filter((post) => post.id !== postId);
-    dispatch(removeUserPost(newPosts, userInfo.id));
+  const removePost = (removePost) => {
+    if (userInfo.id === removePost.userId) {
+      const userPosts = userInfo.posts.filter(
+        (post) => post.userId !== userInfo.id
+      );
+      const allnewPosts = allPosts.filter((post) => post.id !== removePost.id);
+      dispatch(removeUserPostAndAllPost(allnewPosts, userPosts, userInfo.id));
+    } else if (userInfo.id !== removePost.userId) {
+      const allnewPosts = allPosts.filter((post) => post.id !== removePost.id);
+      dispatch(removeAllPost(allnewPosts));
+    }
+
     setCommentArray([]);
   };
 
@@ -66,9 +77,10 @@ const Share = ({ userInfo, userDataArray }) => {
     setComment({ ...comment, name: event.target.value });
 
   const postComment = () => {
+    debugger;
     const newComment = {
       name: comment.name,
-      id: comment.id || Date.now(),
+      id: new Date().toISOString(),
     };
     const existCommentArray = commentArray.map((row) =>
       row.id === comment.id ? newComment : row
@@ -80,38 +92,14 @@ const Share = ({ userInfo, userDataArray }) => {
   const postLike = (post) =>
     dispatch(setUserLike({ ...post, likes: [userInfo] }));
 
-  const getPosts = () => {
-    let allPost = [];
-
-    const friendPostDataArray = userDataArray.filter((usr) =>
-      userInfo?.friends.includes(usr.id)
-    );
-
-    const friendArray = friendPostDataArray.filter(
-      (friend) => friend.posts.length > 0
-    );
-
-    if (userInfo?.id === user?.id) {
-      friendArray.map((friend) => {
-        friend.posts.map((post) => allPost.push(post));
-      });
-
-      if (user?.posts.length > 0) {
-        user.posts.map((post) => allPost.push(post));
-      }
-    } else {
-      allPost = userInfo.posts;
-    }
-
-    return allPost;
-  };
-
-  const posts = getPosts();
+  const sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
 
   return (
-    <di
+    <div
       className={`${
-        userInfo?.id === user?.id || posts.length > 0 ? "shareContainer" : ""
+        userInfo?.id === user?.id || sharePosts.length > 0
+          ? "shareContainer"
+          : ""
       }`}
     >
       {userInfo?.id === user?.id && (
@@ -155,83 +143,86 @@ const Share = ({ userInfo, userDataArray }) => {
         </form>
       )}
       <div>
-        {posts.map((post) => (
-          <Card className="mt-5 cardContainer" key={post.id}>
-            <CardHeader
-              action={
-                <IconButton
-                  onClick={() => removePost(post.id)}
-                  aria-label="settings"
-                >
-                  <RiDeleteBin6Line />
-                </IconButton>
-              }
-            />
-
-            <CardMedia component="img" image={post.imageUrl} alt="Preview" />
-
-            <div className=" block">
-              <div className="flex flex-col mt-4">
-                <Meta
-                  className="metaUrl"
-                  description={post.content && post.content.inputContent}
-                  title="Url"
-                />
-                <Meta
-                  className="metaDescribe"
-                  description={post.content && post.content.textAreaContent}
-                  title="Describe"
-                />
-              </div>
-
-              <div className="card-actions">
-                <Button
-                  className="commentAndLikeButton"
-                  onClick={() => postLike(post)}
-                  startIcon={<BiLike />}
-                >
-                  Like
-                </Button>
-
-                <Button
-                  type="button"
-                  className="commentAndLikeButton"
-                  onClick={showComment}
-                  startIcon={<FaRegComment />}
-                >
-                  comment
-                </Button>
-              </div>
-
-              {commentArray && commentArray.length > 0 && (
-                <DataTable
-                  rows={commentArray}
-                  setRows={setCommentArray}
-                  setComment={setComment}
+        {sharePosts &&
+          sharePosts.map((post) => (
+            <Card className="mt-5 cardContainer" key={post.id}>
+              {userInfo.id === user.id && (
+                <CardHeader
+                  action={
+                    <IconButton
+                      onClick={() => removePost(post)}
+                      aria-label="settings"
+                    >
+                      <RiDeleteBin6Line />
+                    </IconButton>
+                  }
                 />
               )}
 
-              {isShowComment && (
-                <div className="commentArea">
-                  <TextArea
-                    name="commentTextArea"
-                    onChange={commentChange}
-                    value={comment.name}
-                  ></TextArea>
+              <CardMedia component="img" image={post.imageUrl} alt="Preview" />
+
+              <div className=" block">
+                <div className="flex flex-col mt-4">
+                  <Meta
+                    className="metaUrl"
+                    description={post.content && post.content.inputContent}
+                    title="Url"
+                  />
+                  <Meta
+                    className="metaDescribe"
+                    description={post.content && post.content.textAreaContent}
+                    title="Describe"
+                  />
+                </div>
+
+                <div className="card-actions">
                   <Button
-                    onClick={postComment}
-                    disabled={!comment.name}
-                    variant="contained"
+                    className="commentAndLikeButton"
+                    onClick={() => postLike(post)}
+                    startIcon={<BiLike />}
                   >
-                    Post
+                    Like
+                  </Button>
+
+                  <Button
+                    type="button"
+                    className="commentAndLikeButton"
+                    onClick={showComment}
+                    startIcon={<FaRegComment />}
+                  >
+                    comment
                   </Button>
                 </div>
-              )}
-            </div>
-          </Card>
-        ))}
+
+                {commentArray && commentArray.length > 0 && (
+                  <DataTable
+                    rows={commentArray}
+                    setRows={setCommentArray}
+                    setComment={setComment}
+                  />
+                )}
+
+                {isShowComment && (
+                  <div className="commentArea">
+                    <TextArea
+                      name="commentTextArea"
+                      onChange={commentChange}
+                      value={comment.name}
+                    ></TextArea>
+                    <Button
+                      onClick={postComment}
+                      disabled={!comment.name}
+                      variant="contained"
+                    >
+                      Post
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </Card>
+          ))}
       </div>
-    </di>
+    </div>
   );
 };
 
