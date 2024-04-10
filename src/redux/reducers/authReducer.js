@@ -156,7 +156,6 @@ function authReducer(state = initialState, action) {
     }
 
     case "REMOVE_ALL_POST": {
-      debugger;
       return {
         ...state,
         allPosts: action.payload,
