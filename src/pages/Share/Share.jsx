@@ -28,7 +28,7 @@ const intialComment = {
   name: "",
 };
 
-const Share = ({ userInfo }) => {
+const Share = ({ userInfo, userDataArray }) => {
   const [postContent, setPostContent] = useState(inputData);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
@@ -76,16 +76,16 @@ const Share = ({ userInfo }) => {
   const commentChange = (event) =>
     setComment({ ...comment, name: event.target.value });
 
-  const postComment = () => {
-    debugger;
+  const postComment = (post) => {
     const newComment = {
       name: comment.name,
       id: new Date().toISOString(),
+      postId: post.id,
     };
-    const existCommentArray = commentArray.map((row) =>
-      row.id === comment.id ? newComment : row
-    );
-    setCommentArray(existCommentArray);
+    //const existCommentArray = commentArray.map((row) =>
+    // row.id === comment.id ? newComment : row
+    //);
+    //setCommentArray(existCommentArray);
     setComment({ id: "", name: "" });
   };
 
@@ -93,6 +93,11 @@ const Share = ({ userInfo }) => {
     dispatch(setUserLike({ ...post, likes: [userInfo] }));
 
   const sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
+
+  const findUser = (userId) => {
+    const userInfo = userDataArray.find((user) => user.id === userId);
+    return userInfo.name + " " + userInfo.surname;
+  };
 
   return (
     <div
@@ -173,6 +178,12 @@ const Share = ({ userInfo }) => {
                     description={post.content && post.content.textAreaContent}
                     title="Describe"
                   />
+
+                  <Meta
+                    className="metaDescribe"
+                    description={findUser(post?.userId)}
+                    title="Shared"
+                  />
                 </div>
 
                 <div className="card-actions">
@@ -210,7 +221,7 @@ const Share = ({ userInfo }) => {
                       value={comment.name}
                     ></TextArea>
                     <Button
-                      onClick={postComment}
+                      onClick={() => postComment(post)}
                       disabled={!comment.name}
                       variant="contained"
                     >

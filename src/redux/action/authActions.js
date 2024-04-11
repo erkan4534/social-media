@@ -60,3 +60,10 @@ export const removeAllPost = (allPosts) => {
     payload: allPosts,
   };
 };
+
+export const postComment = (allPosts) => {
+  return {
+    type: "POST_COMMENT",
+    payload: allPosts,
+  };
+};

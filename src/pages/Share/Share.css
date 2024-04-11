@@ -53,6 +53,8 @@
 .ant-card-meta-title {
   color: #007bff !important;
   font-weight: bold !important;
+  font-size: 15px !important;
+  margin-right: 5px !important;
 }
 
 .commentAndLikeButton {
@@ -100,6 +102,10 @@
 .metaDescribe {
   margin-top: 8px !important;
   font-weight: bold;
+}
+
+.ant-card-meta-detail {
+  display: flex;
 }
 
 .metaUrl {
