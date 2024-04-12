@@ -15,6 +15,7 @@ export const userData = [
         imageUrl: "https://picsum.photos/200",
         timestamp: "2024-04-08T14:42:53.885Z",
         userId: 1,
+        comments: [],
       },
     ],
   },
@@ -34,6 +35,7 @@ export const userData = [
         imageUrl: "https://picsum.photos/200",
         timestamp: "2024-04-08T14:41:51.885Z",
         userId: 2,
+        comments: [],
       },
       {
         content: { inputContent: "sebnem2", textAreaContent: "durmaz2" },
@@ -41,6 +43,7 @@ export const userData = [
         imageUrl: "https://picsum.photos/200",
         timestamp: "2024-04-08T14:40:51.885Z",
         userId: 2,
+        comments: [],
       },
     ],
   },

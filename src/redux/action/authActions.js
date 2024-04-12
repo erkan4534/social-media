@@ -61,9 +61,9 @@ export const removeAllPost = (allPosts) => {
   };
 };
 
-export const postComment = (allPosts) => {
+export const postComment = (comment, post) => {
   return {
     type: "POST_COMMENT",
-    payload: allPosts,
+    payload: { comment, post },
   };
 };

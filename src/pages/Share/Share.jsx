@@ -9,6 +9,7 @@ import TextArea from "antd/es/input/TextArea";
 import DataTable from "../../components/UI/DataTable/DataTable";
 import PropTypes from "prop-types";
 import {
+  postComment,
   removeAllPost,
   removeUserPostAndAllPost,
   setUserLike,
@@ -32,7 +33,6 @@ const Share = ({ userInfo, userDataArray }) => {
   const [postContent, setPostContent] = useState(inputData);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
-  const [commentArray, setCommentArray] = useState([]);
   const dispatch = useDispatch();
   const { user, allPosts } = useSelector((state) => state.auth);
 
@@ -45,6 +45,7 @@ const Share = ({ userInfo, userDataArray }) => {
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
       userId: user.id,
+      comments: [],
     };
 
     setPostContent(inputData);
@@ -69,14 +70,12 @@ const Share = ({ userInfo, userDataArray }) => {
       const allnewPosts = allPosts.filter((post) => post.id !== removePost.id);
       dispatch(removeAllPost(allnewPosts));
     }
-
-    setCommentArray([]);
   };
 
   const commentChange = (event) =>
     setComment({ ...comment, name: event.target.value });
 
-  const postComment = (post) => {
+  const postNewComment = (post) => {
     const newComment = {
       name: comment.name,
       id: new Date().toISOString(),
@@ -86,6 +85,7 @@ const Share = ({ userInfo, userDataArray }) => {
     // row.id === comment.id ? newComment : row
     //);
     //setCommentArray(existCommentArray);
+    dispatch(postComment(newComment, post));
     setComment({ id: "", name: "" });
   };
 
@@ -205,10 +205,10 @@ const Share = ({ userInfo, userDataArray }) => {
                   </Button>
                 </div>
 
-                {commentArray && commentArray.length > 0 && (
+                {post.comments && post.comments.length > 0 && (
                   <DataTable
-                    rows={commentArray}
-                    setRows={setCommentArray}
+                    rows={post.comments}
+                    setRows={post.comments}
                     setComment={setComment}
                   />
                 )}
@@ -221,7 +221,7 @@ const Share = ({ userInfo, userDataArray }) => {
                       value={comment.name}
                     ></TextArea>
                     <Button
-                      onClick={() => postComment(post)}
+                      onClick={() => postNewComment(post)}
                       disabled={!comment.name}
                       variant="contained"
                     >

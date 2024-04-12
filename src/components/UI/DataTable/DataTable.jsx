@@ -24,7 +24,7 @@ function DataTable({ rows, setRows, setComment }) {
           <GridActionsCellItem
             icon={<EditIcon />}
             label="Edit"
-            onClick={() => handleEdit(params.id)}
+            onClick={() => handleEdit(params)}
             color="inherit"
           />
 
@@ -52,8 +52,8 @@ function DataTable({ rows, setRows, setComment }) {
     setRows((prevRows) => prevRows.filter((row) => row.id !== id));
   };
 
-  const handleEdit = (id) => {
-    setComment(rows.find((row) => row.id === id));
+  const handleEdit = (params) => {
+    setComment(rows.find((row) => row.id === params.id));
   };
 
   return (

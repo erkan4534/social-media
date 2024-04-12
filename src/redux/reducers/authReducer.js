@@ -163,9 +163,32 @@ function authReducer(state = initialState, action) {
     }
 
     case "POST_COMMENT": {
+      const allNewPosts = state.allPosts.map((post) => {
+        if (post.id === action.payload.post.id) {
+          return {
+            ...post,
+            comments: [...post.comments, action.payload.comment],
+          };
+        } else {
+          return post;
+        }
+      });
+
+      const userDataNewArray = state.userDataArray.map((post) => {
+        if (post.id === action.payload.post.id) {
+          return {
+            ...post,
+            comments: [...post.comments, action.payload.comment],
+          };
+        } else {
+          return post;
+        }
+      });
+
       return {
         ...state,
-        allPosts: action.payload,
+        allPosts: allNewPosts,
+        userDataArray: userDataNewArray,
       };
     }
 
