@@ -10,6 +10,7 @@ import DataTable from "../../components/UI/DataTable/DataTable";
 import PropTypes from "prop-types";
 import {
   postComment,
+  postEditComment,
   removeAllPost,
   removeUserPostAndAllPost,
   setUserLike,
@@ -80,11 +81,8 @@ const Share = ({ userInfo, userDataArray }) => {
       name: comment.name,
       id: new Date().toISOString(),
       postId: post.id,
+      comments: [],
     };
-    //const existCommentArray = commentArray.map((row) =>
-    // row.id === comment.id ? newComment : row
-    //);
-    //setCommentArray(existCommentArray);
     dispatch(postComment(newComment, post));
     setComment({ id: "", name: "" });
   };
@@ -97,6 +95,10 @@ const Share = ({ userInfo, userDataArray }) => {
   const findUser = (userId) => {
     const userInfo = userDataArray.find((user) => user.id === userId);
     return userInfo.name + " " + userInfo.surname;
+  };
+
+  const editComment = (post, comment) => {
+    dispatch(postEditComment(comment, post));
   };
 
   return (
@@ -210,6 +212,7 @@ const Share = ({ userInfo, userDataArray }) => {
                     rows={post.comments}
                     setRows={post.comments}
                     setComment={setComment}
+                    editComment={editComment}
                   />
                 )}
 

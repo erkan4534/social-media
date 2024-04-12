@@ -192,6 +192,13 @@ function authReducer(state = initialState, action) {
       };
     }
 
+    case "POST_EDIT_COMMENT": {
+      return {
+        ...state,
+        allPosts: action.payload,
+      };
+    }
+
     default:
       return state;
   }

@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import PropTypes from "prop-types";
 
-function DataTable({ rows, setRows, setComment }) {
+function DataTable({ rows, setRows, setComment, editComment }) {
   const columns = [
     {
       field: "name",
@@ -53,6 +53,8 @@ function DataTable({ rows, setRows, setComment }) {
   };
 
   const handleEdit = (params) => {
+    debugger;
+    //editComment();
     setComment(rows.find((row) => row.id === params.id));
   };
 

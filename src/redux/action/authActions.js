@@ -67,3 +67,10 @@ export const postComment = (comment, post) => {
     payload: { comment, post },
   };
 };
+
+export const postEditComment = (comment, post) => {
+  return {
+    type: "POST_EDIT_COMMENT",
+    payload: { comment, post },
+  };
+};
