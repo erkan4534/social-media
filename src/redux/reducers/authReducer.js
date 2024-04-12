@@ -163,7 +163,6 @@ function authReducer(state = initialState, action) {
     }
 
     case "POST_COMMENT": {
-      debugger;
       const allNewPosts = state.allPosts.map((post) => {
         if (post.id === action.payload.post.id) {
           return {
@@ -177,7 +176,7 @@ function authReducer(state = initialState, action) {
 
       const userDataNewArray = state.userDataArray.map((userInfo) => {
         if (userInfo.id === action.payload.post.userId) {
-          userInfo.posts.map((post) => {
+          const newPost = userInfo.posts.map((post) => {
             if (post.id === action.payload.post.id) {
               return {
                 ...post,
@@ -186,6 +185,11 @@ function authReducer(state = initialState, action) {
             }
             return post;
           });
+
+          return {
+            ...userInfo,
+            posts: newPost,
+          };
         }
         return userInfo;
       });
@@ -208,12 +212,17 @@ function authReducer(state = initialState, action) {
 
       const userDataNewArray = state.userDataArray.map((userInfo) => {
         if (userInfo.id === action.payload.userId) {
-          userInfo.posts.map((post) => {
+          const updatePost = userInfo.posts.map((post) => {
             if (post.id === action.payload.id) {
               return action.payload;
             }
             return post;
           });
+
+          return {
+            ...userInfo,
+            posts: updatePost,
+          };
         }
         return userInfo;
       });
