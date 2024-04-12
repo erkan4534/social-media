@@ -16,6 +16,7 @@ export const userData = [
         timestamp: "2024-04-08T14:42:53.885Z",
         userId: 1,
         comments: [],
+        likes: [],
       },
     ],
   },
@@ -36,6 +37,7 @@ export const userData = [
         timestamp: "2024-04-08T14:41:51.885Z",
         userId: 2,
         comments: [],
+        likes: [],
       },
       {
         content: { inputContent: "sebnem2", textAreaContent: "durmaz2" },
@@ -44,6 +46,7 @@ export const userData = [
         timestamp: "2024-04-08T14:40:51.885Z",
         userId: 2,
         comments: [],
+        likes: [],
       },
     ],
   },

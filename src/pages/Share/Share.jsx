@@ -47,6 +47,7 @@ const Share = ({ userInfo, userDataArray }) => {
       imageUrl: "https://picsum.photos/200",
       userId: user.id,
       comments: [],
+      likes: [],
     };
 
     setPostContent(inputData);
