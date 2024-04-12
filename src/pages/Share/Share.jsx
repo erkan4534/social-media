@@ -111,7 +111,7 @@ const Share = ({ userInfo, userDataArray }) => {
   };
 
   const postLike = (post) =>
-    dispatch(setUserLike({ ...post, likes: [userInfo] }));
+    dispatch(setUserLike({ ...post, likes: [userInfo.id] }));
 
   const sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
 
@@ -120,6 +120,17 @@ const Share = ({ userInfo, userDataArray }) => {
     return userInfo.name + " " + userInfo.surname;
   };
 
+  const likeCheck = (post) => {
+    if (post.likes.length === 0) {
+      return false;
+    }
+
+    if (post.likes.find((like) => like === user.id)) {
+      return false;
+    }
+
+    return true;
+  };
   return (
     <div
       className={`${
@@ -212,6 +223,7 @@ const Share = ({ userInfo, userDataArray }) => {
                     className="commentAndLikeButton"
                     onClick={() => postLike(post)}
                     startIcon={<BiLike />}
+                    disabled={likeCheck(post)}
                   >
                     Like
                   </Button>

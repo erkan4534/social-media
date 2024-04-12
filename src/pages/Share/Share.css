@@ -68,6 +68,10 @@
   background-color: whitesmoke !important;
 }
 
+.commentAndLikeButton:disabled {
+  color: #1877f2 !important;
+}
+
 .card-actions {
   display: flex;
 }
