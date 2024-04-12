@@ -220,6 +220,7 @@ const Share = ({ userInfo, userDataArray }) => {
                     rows={post.comments}
                     setRows={post.comments}
                     setComment={setComment}
+                    showComment={showComment}
                   />
                 )}
 
