@@ -99,6 +99,16 @@ const Share = ({ userInfo, userDataArray }) => {
     setComment({ id: "", name: "" });
   };
 
+  const removeComment = (comment, post) => {
+    const updatedCommments = post.comments.filter((com) => {
+      if (com.id !== comment.id) {
+        return comment;
+      }
+    });
+    post.comments = updatedCommments;
+    dispatch(postEditComment(post));
+  };
+
   const postLike = (post) =>
     dispatch(setUserLike({ ...post, likes: [userInfo] }));
 
@@ -221,6 +231,8 @@ const Share = ({ userInfo, userDataArray }) => {
                     setRows={post.comments}
                     setComment={setComment}
                     showComment={showComment}
+                    post={post}
+                    removeComment={removeComment}
                   />
                 )}
 

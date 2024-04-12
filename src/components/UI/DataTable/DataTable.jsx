@@ -4,7 +4,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import PropTypes from "prop-types";
 
-function DataTable({ rows, setRows, setComment, showComment }) {
+function DataTable({
+  rows,
+  setRows,
+  setComment,
+  showComment,
+  removeComment,
+  post,
+}) {
   const columns = [
     {
       field: "name",
@@ -31,7 +38,7 @@ function DataTable({ rows, setRows, setComment, showComment }) {
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
-            onClick={() => handleDelete(params.id)}
+            onClick={() => handleDelete(params)}
             color="inherit"
           />
         </div>,
@@ -48,12 +55,11 @@ function DataTable({ rows, setRows, setComment, showComment }) {
     return newRow;
   };
 
-  const handleDelete = (id) => {
-    setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+  const handleDelete = (params) => {
+    removeComment(params.row, post);
   };
 
   const handleEdit = (params) => {
-    debugger;
     showComment();
     setComment(rows.find((row) => row.id === params.id));
   };
@@ -80,6 +86,8 @@ DataTable.propTypes = {
   setRows: PropTypes.func,
   setComment: PropTypes.func,
   showComment: PropTypes.func,
+  removeComment: PropTypes.func,
+  post: PropTypes.object,
 };
 
 export default DataTable;
