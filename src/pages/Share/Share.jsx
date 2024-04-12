@@ -81,7 +81,7 @@ const Share = ({ userInfo, userDataArray }) => {
       name: comment.name,
       id: new Date().toISOString(),
       postId: post.id,
-      comments: [],
+      userId: user.id,
     };
     dispatch(postComment(newComment, post));
     setComment({ id: "", name: "" });

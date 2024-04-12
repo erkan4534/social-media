@@ -174,15 +174,19 @@ function authReducer(state = initialState, action) {
         }
       });
 
-      const userDataNewArray = state.userDataArray.map((post) => {
-        if (post.id === action.payload.post.id) {
-          return {
-            ...post,
-            comments: [...post.comments, action.payload.comment],
-          };
-        } else {
-          return post;
+      const userDataNewArray = state.userDataArray.map((userInfo) => {
+        if (userInfo.id === action.payload.post.userId) {
+          userInfo.posts.map((post) => {
+            if (post.id === action.payload.post.id) {
+              return {
+                ...post,
+                comments: [...post.comments, action.payload.comment],
+              };
+            }
+            return post;
+          });
         }
+        return userInfo;
       });
 
       return {
