@@ -68,9 +68,9 @@ export const postComment = (comment, post) => {
   };
 };
 
-export const postEditComment = (comment, post) => {
+export const postEditComment = (post) => {
   return {
     type: "POST_EDIT_COMMENT",
-    payload: { comment, post },
+    payload: post,
   };
 };

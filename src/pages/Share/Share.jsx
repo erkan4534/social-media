@@ -77,13 +77,25 @@ const Share = ({ userInfo, userDataArray }) => {
     setComment({ ...comment, name: event.target.value });
 
   const postNewComment = (post) => {
-    const newComment = {
-      name: comment.name,
-      id: new Date().toISOString(),
-      postId: post.id,
-      userId: user.id,
-    };
-    dispatch(postComment(newComment, post));
+    if (!comment.id) {
+      const newComment = {
+        name: comment.name,
+        id: new Date().toISOString(),
+        postId: post.id,
+        userId: user.id,
+      };
+      dispatch(postComment(newComment, post));
+    } else {
+      const updatedCommments = post.comments.map((com) => {
+        if (com.id === comment.id) {
+          return comment;
+        }
+        return com;
+      });
+      post.comments = updatedCommments;
+      dispatch(postEditComment(post));
+    }
+
     setComment({ id: "", name: "" });
   };
 
@@ -97,8 +109,9 @@ const Share = ({ userInfo, userDataArray }) => {
     return userInfo.name + " " + userInfo.surname;
   };
 
-  const editComment = (post, comment) => {
-    dispatch(postEditComment(comment, post));
+  const editComment = (comment) => {
+    debugger;
+    dispatch(postEditComment(comment));
   };
 
   return (
@@ -213,6 +226,7 @@ const Share = ({ userInfo, userDataArray }) => {
                     setRows={post.comments}
                     setComment={setComment}
                     editComment={editComment}
+                    post={post}
                   />
                 )}
 

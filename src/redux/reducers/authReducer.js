@@ -163,6 +163,7 @@ function authReducer(state = initialState, action) {
     }
 
     case "POST_COMMENT": {
+      debugger;
       const allNewPosts = state.allPosts.map((post) => {
         if (post.id === action.payload.post.id) {
           return {
@@ -197,9 +198,30 @@ function authReducer(state = initialState, action) {
     }
 
     case "POST_EDIT_COMMENT": {
+      const allNewPosts = state.allPosts.map((post) => {
+        if (post.id === action.payload.id) {
+          return action.payload;
+        } else {
+          return post;
+        }
+      });
+
+      const userDataNewArray = state.userDataArray.map((userInfo) => {
+        if (userInfo.id === action.payload.userId) {
+          userInfo.posts.map((post) => {
+            if (post.id === action.payload.id) {
+              return action.payload;
+            }
+            return post;
+          });
+        }
+        return userInfo;
+      });
+
       return {
         ...state,
-        allPosts: action.payload,
+        allPosts: allNewPosts,
+        userDataArray: userDataNewArray,
       };
     }
 
