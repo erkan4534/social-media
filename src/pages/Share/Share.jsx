@@ -109,11 +109,6 @@ const Share = ({ userInfo, userDataArray }) => {
     return userInfo.name + " " + userInfo.surname;
   };
 
-  const editComment = (comment) => {
-    debugger;
-    dispatch(postEditComment(comment));
-  };
-
   return (
     <div
       className={`${
@@ -225,8 +220,6 @@ const Share = ({ userInfo, userDataArray }) => {
                     rows={post.comments}
                     setRows={post.comments}
                     setComment={setComment}
-                    editComment={editComment}
-                    post={post}
                   />
                 )}
 
