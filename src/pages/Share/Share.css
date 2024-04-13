@@ -72,23 +72,27 @@
   color: #1877f2 !important;
 }
 
-.likeButton {
+.likeButton,
+.likedButton {
   font-size: 25px;
   font-weight: bold;
   width: 100%;
+}
+
+.likeButton {
   color: gray !important;
+}
+.likedButton {
+  color: #1877f2 !important;
 }
 
 .likeButtonDiv {
   width: 50%;
 }
 
-.likeButton:hover {
+.likeButton:hover,
+.likedButton:hover {
   background-color: whitesmoke !important;
-}
-
-.likeButton:disabled {
-  color: #1877f2 !important;
 }
 
 .card-actions {

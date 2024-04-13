@@ -233,7 +233,9 @@ const Share = ({ userInfo, userDataArray }) => {
                   <div id={"postLike" + post.id} className="likeButtonDiv">
                     <Button
                       type="button"
-                      className="likeButton"
+                      className={`${
+                        likeCheck(post) ? "likedButton" : "likeButton"
+                      }`}
                       onClick={() => postLike(post)}
                       startIcon={<BiLike />}
                     >
