@@ -224,28 +224,30 @@ const Share = ({ userInfo, userDataArray }) => {
                 </div>
 
                 <div className="card-actions">
-                  <Button
-                    className="commentAndLikeButton"
-                    onClick={() => postLike(post)}
-                    startIcon={<BiLike />}
-                    disabled={likeCheck(post)}
-                    id={"postLike" + post.id}
-                  >
-                    Like
-                  </Button>
+                  <div id={"postLike" + post.id} className="likeButtonDiv">
+                    <Button
+                      type="button"
+                      className="likeButton"
+                      onClick={() => postLike(post)}
+                      startIcon={<BiLike />}
+                      disabled={likeCheck(post)}
+                    >
+                      Like
+                    </Button>
 
-                  <Tooltip
-                    placement="bottom"
-                    isOpen={tooltipOpen}
-                    target={"postLike" + post.id}
-                    toggle={toggle}
-                  >
-                    {post.likes}
-                  </Tooltip>
+                    <Tooltip
+                      placement="bottom"
+                      isOpen={tooltipOpen}
+                      target={"postLike" + post.id}
+                      toggle={toggle}
+                    >
+                      {post.likes}
+                    </Tooltip>
+                  </div>
 
                   <Button
                     type="button"
-                    className="commentAndLikeButton"
+                    className="commentButton"
                     onClick={showComment}
                     startIcon={<FaRegComment />}
                   >

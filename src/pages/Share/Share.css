@@ -57,18 +57,37 @@
   margin-right: 5px !important;
 }
 
-.commentAndLikeButton {
+.commentButton {
   font-size: 25px;
   font-weight: bold;
   width: 50%;
   color: gray !important;
 }
 
-.commentAndLikeButton:hover {
+.commentButton:hover {
   background-color: whitesmoke !important;
 }
 
-.commentAndLikeButton:disabled {
+.commentButton:disabled {
+  color: #1877f2 !important;
+}
+
+.likeButton {
+  font-size: 25px;
+  font-weight: bold;
+  width: 100%;
+  color: gray !important;
+}
+
+.likeButtonDiv {
+  width: 50%;
+}
+
+.likeButton:hover {
+  background-color: whitesmoke !important;
+}
+
+.likeButton:disabled {
   color: #1877f2 !important;
 }
 
