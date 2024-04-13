@@ -136,6 +136,13 @@ const Share = ({ userInfo, userDataArray }) => {
 
     return false;
   };
+
+  const likeToolTip = (likes) => {
+    return userDataArray
+      .filter((user) => likes.includes(user.id))
+      .map((user) => <div key={user.id}>{user.name + " " + user.surname}</div>);
+  };
+
   return (
     <div
       className={`${
@@ -241,7 +248,7 @@ const Share = ({ userInfo, userDataArray }) => {
                       target={"postLike" + post.id}
                       toggle={toggle}
                     >
-                      {post.likes}
+                      {likeToolTip(post.likes)}
                     </Tooltip>
                   </div>
 
