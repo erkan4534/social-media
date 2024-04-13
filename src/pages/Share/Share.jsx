@@ -2,6 +2,7 @@ import "./Share.css";
 import { useState } from "react";
 import { Card } from "antd";
 import { Button, CardHeader, CardMedia, IconButton } from "@mui/material";
+import { Tooltip } from "reactstrap";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
@@ -36,6 +37,8 @@ const Share = ({ userInfo, userDataArray }) => {
   const [comment, setComment] = useState(intialComment);
   const dispatch = useDispatch();
   const { user, allPosts } = useSelector((state) => state.auth);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const toggle = () => setTooltipOpen(!tooltipOpen);
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -224,9 +227,19 @@ const Share = ({ userInfo, userDataArray }) => {
                     onClick={() => postLike(post)}
                     startIcon={<BiLike />}
                     disabled={likeCheck(post)}
+                    id={"likeButton" + post.id}
                   >
                     Like
                   </Button>
+
+                  <Tooltip
+                    placement="bottom"
+                    isOpen={tooltipOpen}
+                    target={"likeButton" + post.id}
+                    toggle={toggle}
+                  >
+                    Tooltip Content!
+                  </Tooltip>
 
                   <Button
                     type="button"
