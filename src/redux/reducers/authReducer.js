@@ -92,24 +92,42 @@ function authReducer(state = initialState, action) {
     }
     case "SET_USER_LIKE": {
       const allNewPosts = state.allPosts.map((post) => {
-        if (post.id === action.payload.id) {
-          return {
-            ...post,
-            likes: action.payload.likes,
-          };
+        if (post.id === action.payload.post.id) {
+          if (post.likes.find((like) => like === action.payload.userId)) {
+            return {
+              ...post,
+              likes: post.likes.filter(
+                (like) => like !== action.payload.userId
+              ),
+            };
+          } else {
+            return {
+              ...post,
+              likes: [...post.likes, action.payload.userId],
+            };
+          }
         } else {
           return post;
         }
       });
 
       const userDataNewArray = state.userDataArray.map((userInfo) => {
-        if (userInfo.id === action.payload.userId) {
+        if (userInfo.id === action.payload.post.userId) {
           const newPost = userInfo.posts.map((post) => {
-            if (post.id === action.payload.id) {
-              return {
-                ...post,
-                likes: action.payload.likes,
-              };
+            if (post.id === action.payload.post.id) {
+              if (post.likes.find((like) => like === action.payload.userId)) {
+                return {
+                  ...post,
+                  likes: post.likes.filter(
+                    (like) => like !== action.payload.userId
+                  ),
+                };
+              } else {
+                return {
+                  ...post,
+                  likes: [...post.likes, action.payload.userId],
+                };
+              }
             }
             return post;
           });

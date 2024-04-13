@@ -113,8 +113,7 @@ const Share = ({ userInfo, userDataArray }) => {
     dispatch(postEditComment(post));
   };
 
-  const postLike = (post) =>
-    dispatch(setUserLike({ ...post, likes: [...post.likes, userInfo.id] }));
+  const postLike = (post) => dispatch(setUserLike(post, userInfo.id));
 
   const sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
 
@@ -237,7 +236,6 @@ const Share = ({ userInfo, userDataArray }) => {
                       className="likeButton"
                       onClick={() => postLike(post)}
                       startIcon={<BiLike />}
-                      disabled={likeCheck(post)}
                     >
                       Like
                     </Button>

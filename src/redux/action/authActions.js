@@ -33,10 +33,10 @@ export const setUserPost = (userPost) => {
   };
 };
 
-export const setUserLike = (post) => {
+export const setUserLike = (post, userId) => {
   return {
     type: "SET_USER_LIKE",
-    payload: post,
+    payload: { post, userId },
   };
 };
 
