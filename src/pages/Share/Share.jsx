@@ -114,7 +114,7 @@ const Share = ({ userInfo, userDataArray }) => {
   };
 
   const postLike = (post) =>
-    dispatch(setUserLike({ ...post, likes: [userInfo.id] }));
+    dispatch(setUserLike({ ...post, likes: [...post.likes, userInfo.id] }));
 
   const sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
 
@@ -128,11 +128,13 @@ const Share = ({ userInfo, userDataArray }) => {
       return false;
     }
 
-    if (post.likes.find((like) => like === user.id)) {
-      return false;
+    let userInfo = post.likes.find((like) => like === user.id);
+
+    if (userInfo) {
+      return true;
     }
 
-    return true;
+    return false;
   };
   return (
     <div
@@ -227,7 +229,7 @@ const Share = ({ userInfo, userDataArray }) => {
                     onClick={() => postLike(post)}
                     startIcon={<BiLike />}
                     disabled={likeCheck(post)}
-                    id={"likeButton" + post.id}
+                    id={"postLike" + post.id}
                   >
                     Like
                   </Button>
@@ -235,10 +237,10 @@ const Share = ({ userInfo, userDataArray }) => {
                   <Tooltip
                     placement="bottom"
                     isOpen={tooltipOpen}
-                    target={"likeButton" + post.id}
+                    target={"postLike" + post.id}
                     toggle={toggle}
                   >
-                    Tooltip Content!
+                    {post.likes}
                   </Tooltip>
 
                   <Button

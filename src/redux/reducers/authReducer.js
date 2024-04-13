@@ -95,7 +95,7 @@ function authReducer(state = initialState, action) {
         if (post.id === action.payload.id) {
           return {
             ...post,
-            likes: [...post.likes, action.payload.likes],
+            likes: action.payload.likes,
           };
         } else {
           return post;
@@ -108,7 +108,7 @@ function authReducer(state = initialState, action) {
             if (post.id === action.payload.id) {
               return {
                 ...post,
-                likes: [...post.likes, action.payload.likes],
+                likes: action.payload.likes,
               };
             }
             return post;
