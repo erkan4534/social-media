@@ -16,7 +16,7 @@ const Friend = ({ user, userDataArray }) => {
         {user &&
           user.friends &&
           user.friends.map((friendId) => {
-            const userInfo = userDataArray.find(
+            const findUser = userDataArray.find(
               (usr) => usr.id === Number(friendId)
             );
             return (
@@ -24,11 +24,11 @@ const Friend = ({ user, userDataArray }) => {
                 <div className="friend">
                   <Link to={`/Profile/${friendId}`} className="linkFriend">
                     <img
-                      src={userInfo.profilePicture}
-                      alt={`${userInfo.name} ${userInfo.surname}`}
+                      src={findUser.profilePicture}
+                      alt={`${findUser.name} ${findUser.surname}`}
                     />
                     <span className="mt-1">
-                      {userInfo.name} {userInfo.surname}
+                      {findUser.name} {findUser.surname}
                     </span>
                   </Link>
                 </div>
