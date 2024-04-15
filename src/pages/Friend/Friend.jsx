@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { removeFriend } from "../../redux/action/authActions";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const Friend = ({ userInfo, userDataArray }) => {
   const dispatch = useDispatch();
-
+  const { user } = useSelector((state) => state.auth);
   return (
     <div>
       <div className="friendTitle">
@@ -32,12 +32,18 @@ const Friend = ({ userInfo, userDataArray }) => {
                     </span>
                   </Link>
                 </div>
-                <button
-                  className="removeFriendButton"
-                  onClick={() => dispatch(removeFriend(friendId, userInfo))}
-                >
-                  UnFollowed
-                </button>
+                {user.id === userInfo.id && (
+                  <button
+                    className="removeFriendButton"
+                    onClick={() => dispatch(removeFriend(friendId, userInfo))}
+                  >
+                    UnFollowed
+                  </button>
+                )}
+
+                {user.id !== userInfo.id && (
+                  <span className="followed-text-for-friend">Followed</span>
+                )}
               </div>
             );
           })}
