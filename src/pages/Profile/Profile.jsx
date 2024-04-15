@@ -64,7 +64,7 @@ const Profile = () => {
           </div>
           <div className="profileRight">
             <div className="myFriendList">
-              <Friend user={userInfo} userDataArray={userDataArray} />
+              <Friend userInfo={userInfo} userDataArray={userDataArray} />
             </div>
           </div>
         </div>

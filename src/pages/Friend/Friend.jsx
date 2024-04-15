@@ -4,7 +4,7 @@ import { removeFriend } from "../../redux/action/authActions";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Friend = ({ user, userDataArray }) => {
+const Friend = ({ userInfo, userDataArray }) => {
   const dispatch = useDispatch();
 
   return (
@@ -13,9 +13,9 @@ const Friend = ({ user, userDataArray }) => {
         <span>Friends</span>
       </div>
       <div className="friendsContainer">
-        {user &&
-          user.friends &&
-          user.friends.map((friendId) => {
+        {userInfo &&
+          userInfo.friends &&
+          userInfo.friends.map((friendId) => {
             const findUser = userDataArray.find(
               (usr) => usr.id === Number(friendId)
             );
@@ -34,7 +34,7 @@ const Friend = ({ user, userDataArray }) => {
                 </div>
                 <button
                   className="removeFriendButton"
-                  onClick={() => dispatch(removeFriend(friendId, user))}
+                  onClick={() => dispatch(removeFriend(friendId, userInfo))}
                 >
                   UnFollowed
                 </button>
@@ -47,7 +47,7 @@ const Friend = ({ user, userDataArray }) => {
 };
 
 Friend.propTypes = {
-  user: PropTypes.object,
+  userInfo: PropTypes.object,
   userDataArray: PropTypes.array,
 };
 

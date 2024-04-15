@@ -6,7 +6,7 @@ const Rightbar = () => {
 
   return (
     <div className="mt-10 ml-5">
-      <Friend user={user} userDataArray={userDataArray} />
+      <Friend userInfo={user} userDataArray={userDataArray} />
     </div>
   );
 };
