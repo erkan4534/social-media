@@ -1,5 +1,4 @@
 import "./Profile.css";
-import Header from "../../layouts/Header/Header";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Friend from "../Friend/Friend";

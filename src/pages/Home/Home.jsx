@@ -1,11 +1,11 @@
 import "./Home.css";
-import Header from "../../layouts/Header/Header";
 import Rightbar from "../../layouts/Rightbar/Rightbar";
 import Leftbar from "../../layouts/Leftbar/Leftbar";
 import Centerbar from "../../layouts/Centerbar/Centerbar";
 import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useSelector } from "react-redux";
+
 const Home = () => {
   const [isleftbarVisible, setIsleftbarVisible] = useState(true);
   const [isRightbarVisible, setIsRightbarVisible] = useState(true);
