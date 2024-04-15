@@ -25,7 +25,8 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/home");
+      //navigate("/home");
+      navigate("/admin");
     }
   }, [isLoggedIn, navigate]);
 

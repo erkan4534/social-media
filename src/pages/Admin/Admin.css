@@ -1,0 +1,11 @@
+.adminContainer {
+  display: flex;
+}
+
+.adminLeftBar {
+  flex: 1;
+}
+
+.adminShare {
+  flex: 3;
+}

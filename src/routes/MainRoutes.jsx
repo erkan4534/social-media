@@ -1,4 +1,5 @@
 import MainLayout from "../layouts/layouts/MainLayout";
+import { Admin } from "../pages/Admin/Admin";
 import ErrorPage from "../pages/Error/ErrorPage";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
@@ -24,5 +25,10 @@ export const MainRoutes = [
         element: <Profile />,
       },
     ],
+  },
+
+  {
+    path: "/admin",
+    element: <Admin />,
   },
 ];
