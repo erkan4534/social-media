@@ -34,7 +34,7 @@ const Member = ({ user, userDataArray }) => {
           .map((friend) => (
             <div key={friend.id} className="closeFriendList">
               <div className="closeFriend">
-                <Link to={`/Profile/${friend.id}`} className="linkFriendMember">
+                <Link to={`/profile/${friend.id}`} className="linkFriendMember">
                   <img
                     src={friend.profilePicture}
                     alt={`${friend.name} ${friend.surname}`}

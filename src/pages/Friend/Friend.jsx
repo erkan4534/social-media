@@ -22,7 +22,7 @@ const Friend = ({ userInfo, userDataArray }) => {
             return (
               <div key={friendId} className="friendList">
                 <div className="friend">
-                  <Link to={`/Profile/${friendId}`} className="linkFriend">
+                  <Link to={`/profile/${friendId}`} className="linkFriend">
                     <img
                       src={findUser.profilePicture}
                       alt={`${findUser.name} ${findUser.surname}`}

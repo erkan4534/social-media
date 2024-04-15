@@ -27,7 +27,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <button
         className={
           isleftbarVisible ? "leftHamburgerMenu" : "leftHamburgerMenuChangeBg"
