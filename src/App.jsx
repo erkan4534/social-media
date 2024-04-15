@@ -1,31 +1,14 @@
 import "./App.css";
-import {
-  // BrowserRouter,
-  // Routes,
-  // Route,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
-// import Home from "./pages/Home/Home";
-// import Login from "./pages/Login/Login";
-// import Profile from "./pages/Profile/Profile";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { MainRoutes } from "./routes/MainRoutes";
+import { AdminRoutes } from "./routes/AdminRoutes";
 
 function App() {
-  const router = createBrowserRouter([...MainRoutes]);
+  const router = createBrowserRouter([...MainRoutes, ...AdminRoutes]);
 
   return (
     <div>
-      {/* <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/Profile/:userId" element={<Profile />} />
-        </Routes>
-      </BrowserRouter> */}
       <RouterProvider router={router} />
     </div>
   );
