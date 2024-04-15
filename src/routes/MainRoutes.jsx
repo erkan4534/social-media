@@ -5,10 +5,6 @@ import Profile from "../pages/Profile/Profile";
 
 export const MainRoutes = [
   {
-    path: "/",
-    element: <Login />,
-  },
-  {
     path: "/login",
     element: <Login />,
   },

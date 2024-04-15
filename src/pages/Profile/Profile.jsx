@@ -15,41 +15,6 @@ const Profile = () => {
   return (
     <>
       <div className="profileContainer">
-        <div className="profileHeader">
-          <div className="profileHeaderTop"></div>
-          <div className="profileHeaderBottom">
-            <div className="profileCover">
-              <img
-                className="profileCoverImg"
-                src="/assets/post/3.jpeg"
-                alt="post image"
-              />
-              <img
-                className="profileUserImg"
-                src={userInfo.profilePicture}
-                alt="profile image"
-              />
-
-              <div className="profileInfo">
-                <h4 className="profileInfoName">
-                  {userInfo.name} {userInfo.surname}
-                </h4>
-                <span className="profileInfoDesc">{userInfo.username}</span>
-
-                <div className="totalInfo">
-                  <span>
-                    Posts {userInfo.posts && Object.keys(userInfo.posts).length}
-                  </span>
-                  <span>
-                    Friends{" "}
-                    {userInfo.friends && Object.keys(userInfo.friends).length}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="profileBody ">
           <div className="profileLeft">
             {userInfo && user && userInfo.id === user.id && (
