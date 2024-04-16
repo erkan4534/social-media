@@ -30,31 +30,31 @@ const Member = ({ user, userDataArray }) => {
 
       <div className="memberContainer">
         {userDataArray
-          .filter((friend) => friend.id != user.id)
-          .map((friend) => (
-            <div key={friend.id} className="closeFriendList">
+          .filter((member) => member.id != user.id)
+          .map((member) => (
+            <div key={member.id} className="closeFriendList">
               <div className="closeFriend">
-                <Link to={`/profile/${friend.id}`} className="linkFriendMember">
+                <Link to={`/profile/${member.id}`} className="linkFriendMember">
                   <img
-                    src={friend.profilePicture}
-                    alt={`${friend.name} ${friend.surname}`}
+                    src={member.profilePicture}
+                    alt={`${member.name} ${member.surname}`}
                   />
                   <span className="mt-1">
-                    {friend.name} {friend.surname}
+                    {member.name} {member.surname}
                   </span>
                 </Link>
               </div>
 
-              {!isFriend(friend.id) && (
+              {!isFriend(member.id) && (
                 <button
-                  onClick={() => addFriend(friend.id)}
+                  onClick={() => addFriend(member.id)}
                   className="addButton"
                 >
-                  {isFriend(friend.id) ? "Followed" : "Add"}
+                  {isFriend(member.id) ? "Followed" : "Add"}
                 </button>
               )}
 
-              {isFriend(friend.id) && (
+              {isFriend(member.id) && (
                 <span className="followed-text">Followed</span>
               )}
             </div>
