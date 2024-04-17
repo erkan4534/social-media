@@ -42,6 +42,23 @@
   cursor: default !important;
 }
 
+.deleteButton {
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ee1717;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0 12px;
+  margin-right: 10px;
+}
+
+.deleteButton:hover {
+  background-color: #da2121;
+}
+
 @media (max-width: 768px), (max-width: 1159px) {
   .closeFriendList {
     flex-direction: column;

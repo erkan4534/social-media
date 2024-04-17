@@ -52,7 +52,7 @@ const Member = ({ user, userDataArray }) => {
               {user.role === "adminUser" && (
                 <button
                   onClick={() => deleteMember(member.id)}
-                  className="addButton"
+                  className="deleteButton"
                 >
                   Remove
                 </button>
