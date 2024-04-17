@@ -62,7 +62,7 @@ const Home = () => {
             isRightbarVisible ? "rightbar" : "rightbarWithHamburgeMenu"
           }
         >
-          {user.role === "memberUser" && <Rightbar />}
+          {user?.role === "memberUser" && <Rightbar />}
         </div>
       </div>
     </>

@@ -94,10 +94,14 @@ export default function CustomizedMenus({
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
-          Profile
-        </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
+        {user?.role === "memberUser" && (
+          <div>
+            <MenuItem onClick={handleClose} disableRipple>
+              Profile
+            </MenuItem>
+            <Divider sx={{ my: 0.5 }} />
+          </div>
+        )}
 
         <MenuItem onClick={userLogout} disableRipple>
           Logout
