@@ -74,3 +74,10 @@ export const postEditComment = (post) => {
     payload: post,
   };
 };
+
+export const removeMember = (memberId) => {
+  return {
+    type: "REMOVE_MEMBER",
+    payload: memberId,
+  };
+};

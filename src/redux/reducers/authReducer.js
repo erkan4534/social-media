@@ -288,6 +288,22 @@ function authReducer(state = initialState, action) {
       };
     }
 
+    case "REMOVE_MEMBER": {
+      const userDataNewArray = state.userDataArray.filter(
+        (user) => user.id !== action.payload
+      );
+
+      const newAllPost = state.allPosts.filter(
+        (post) => post.userId !== action.payload
+      );
+
+      return {
+        ...state,
+        allPosts: newAllPost,
+        userDataArray: userDataNewArray,
+      };
+    }
+
     default:
       return state;
   }
