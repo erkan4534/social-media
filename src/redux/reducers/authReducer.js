@@ -16,19 +16,25 @@ function authReducer(state = initialState, action) {
         (usr) => usr.password === password && usr.email === email
       );
 
-      const friendPostDataArray =
-        userDetailData &&
-        state.userDataArray.filter((usr) =>
-          userDetailData?.friends.includes(usr.id)
-        );
-
       const allFriendPosts = [];
-      friendPostDataArray.forEach((friend) => {
-        allFriendPosts.push(...friend.posts);
-      });
+      if (userDetailData && userDetailData.role === "memberUser") {
+        const friendPostDataArray =
+          userDetailData &&
+          state.userDataArray.filter((usr) =>
+            userDetailData?.friends.includes(usr.id)
+          );
 
-      if (userDetailData.posts.length > 0) {
-        allFriendPosts.push(...userDetailData.posts);
+        friendPostDataArray.forEach((friend) => {
+          allFriendPosts.push(...friend.posts);
+        });
+
+        if (userDetailData.posts.length > 0) {
+          allFriendPosts.push(...userDetailData.posts);
+        }
+      } else {
+        state.userDataArray.forEach((member) => {
+          allFriendPosts.push(...member.posts);
+        });
       }
 
       return userDetailData

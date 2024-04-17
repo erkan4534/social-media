@@ -30,22 +30,37 @@ const Member = ({ user, userDataArray }) => {
 
       <div className="memberContainer">
         {userDataArray
-          .filter((member) => member.id != user.id)
+          .filter((userData) => userData.id != user.id)
           .map((member) => (
             <div key={member.id} className="closeFriendList">
               <div className="closeFriend">
-                <Link to={`/profile/${member.id}`} className="linkFriendMember">
-                  <img
-                    src={member.profilePicture}
-                    alt={`${member.name} ${member.surname}`}
-                  />
-                  <span className="mt-1">
+                {user.role === "memberUser" && (
+                  <Link
+                    to={`/profile/${member.id}`}
+                    className="linkFriendMember"
+                  >
+                    <img
+                      src={member.profilePicture}
+                      alt={`${member.name} ${member.surname}`}
+                    />
+                    <span className="mt-1">
+                      {member.name} {member.surname}
+                    </span>
+                  </Link>
+                )}
+
+                {user.role === "adminUser" && (
+                  <span className="flex">
+                    <img
+                      src={member.profilePicture}
+                      alt={`${member.name} ${member.surname}`}
+                    />
                     {member.name} {member.surname}
                   </span>
-                </Link>
+                )}
               </div>
 
-              {!isFriend(member.id) && (
+              {!isFriend(member.id) && user.role === "memberUser" && (
                 <button
                   onClick={() => addFriend(member.id)}
                   className="addButton"
@@ -54,7 +69,7 @@ const Member = ({ user, userDataArray }) => {
                 </button>
               )}
 
-              {isFriend(member.id) && (
+              {isFriend(member.id) && user.role === "memberUser" && (
                 <span className="followed-text">Followed</span>
               )}
             </div>
