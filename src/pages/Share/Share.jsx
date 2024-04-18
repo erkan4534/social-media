@@ -18,6 +18,7 @@ import {
   setUserPost,
 } from "../../redux/action/authActions";
 import { useDispatch, useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 
 const { Meta } = Card;
 
@@ -39,6 +40,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const { user, allPosts } = useSelector((state) => state.auth);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => setTooltipOpen(!tooltipOpen);
+  const { searchTerm } = useOutletContext();
 
   const handlePostSubmit = (event) => {
     event.preventDefault();
@@ -115,7 +117,13 @@ const Share = ({ userInfo, userDataArray }) => {
 
   const postLike = (post) => dispatch(setUserLike(post, user.id));
 
-  const sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
+  let sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
+
+  if (searchTerm) {
+    sharePosts = sharePosts.filter((post) =>
+      post.content.inputContent.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
 
   const findUser = (userId) => {
     const userInfo = userDataArray.find((user) => user.id === userId);

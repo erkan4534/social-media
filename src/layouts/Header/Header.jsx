@@ -1,4 +1,5 @@
 import "./Header.css";
+import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
@@ -11,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/action/authActions";
 import CustomizedMenus from "../../components/UI/CustomizedMenus/CustomizedMenus";
 
-function Header() {
+function Header({ searchTerm, setSearchTerm }) {
   //const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
 
   const { isLoggedIn, user } = useSelector((state) => state.auth);
@@ -23,6 +24,10 @@ function Header() {
       navigate("/login");
     }
   }, [navigate, isLoggedIn]);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   function userLogout() {
     dispatch(logout(null));
@@ -43,7 +48,12 @@ function Header() {
       <div className="headerCenter">
         <div className="searchbar">
           <SearchIcon className="searchIcon" />
-          <input className="searchBar" placeholder="Search for friend" />
+          <input
+            className="searchBar"
+            placeholder="Search post"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
         </div>
       </div>
 
@@ -78,3 +88,8 @@ function Header() {
 }
 
 export default Header;
+
+Header.propTypes = {
+  searchTerm: PropTypes.object,
+  setSearchTerm: PropTypes.func,
+};
