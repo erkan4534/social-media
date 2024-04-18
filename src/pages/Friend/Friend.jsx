@@ -32,7 +32,7 @@ const Friend = ({ userInfo, userDataArray }) => {
                     </span>
                   </Link>
                 </div>
-                {user.id === userInfo.id && (
+                {user?.id === userInfo.id && (
                   <button
                     className="removeFriendButton"
                     onClick={() => dispatch(removeFriend(friendId, userInfo))}
@@ -41,7 +41,7 @@ const Friend = ({ userInfo, userDataArray }) => {
                   </button>
                 )}
 
-                {user.id !== userInfo.id && (
+                {user?.id !== userInfo.id && (
                   <span className="followed-text-for-friend">Followed</span>
                 )}
               </div>

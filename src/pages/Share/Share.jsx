@@ -127,7 +127,7 @@ const Share = ({ userInfo, userDataArray }) => {
       return false;
     }
 
-    let userInfo = post.likes.find((like) => like === user.id);
+    let userInfo = post.likes.find((like) => like === user?.id);
 
     if (userInfo) {
       return true;
@@ -194,7 +194,7 @@ const Share = ({ userInfo, userDataArray }) => {
         {sharePosts &&
           sharePosts.map((post) => (
             <Card className="mt-5 cardContainer" key={post.id}>
-              {userInfo.id === user.id && (
+              {userInfo.id === user?.id && (
                 <CardHeader
                   action={
                     <IconButton
