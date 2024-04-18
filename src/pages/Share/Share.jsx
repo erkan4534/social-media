@@ -246,6 +246,7 @@ const Share = ({ userInfo, userDataArray }) => {
                       }`}
                       onClick={() => postLike(post)}
                       startIcon={<BiLike />}
+                      id={`postLike${post.id}`}
                     >
                       Like
                     </Button>
@@ -253,7 +254,7 @@ const Share = ({ userInfo, userDataArray }) => {
                     <Tooltip
                       placement="bottom"
                       isOpen={tooltipOpen}
-                      target={"postLike" + post.id}
+                      target={`postLike${post.id}`}
                       toggle={toggle}
                     >
                       {likeToolTip(post.likes)}
