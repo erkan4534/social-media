@@ -82,7 +82,7 @@ function authReducer(state = initialState, action) {
     case "SET_USER_POST": {
       const updatedUserDataArray = state.userDataArray.map((usr) => {
         if (usr.id === state.user.id) {
-          return { ...usr, posts: [...usr.posts, action.payload] };
+          return { ...usr, posts: [action.payload, ...usr.posts] };
         }
 
         return usr;
@@ -90,19 +90,17 @@ function authReducer(state = initialState, action) {
 
       return {
         ...state,
-        allPosts: [...state.allPosts, action.payload],
+        allPosts: [action.payload, ...state.allPosts],
         user: {
           ...state.user,
-          posts: [...state.user.posts, action.payload],
+          posts: [action.payload, ...state.user.posts],
         },
         userDataArray: updatedUserDataArray,
       };
     }
     case "SET_USER_LIKE": {
-      debugger;
       const allNewPosts = state.allPosts.map((post) => {
         if (post.id === action.payload.post.id) {
-          debugger;
           if (post.likes.find((like) => like === action.payload.userId)) {
             return {
               ...post,

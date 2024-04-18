@@ -256,7 +256,7 @@ const Share = ({ userInfo, userDataArray }) => {
                       <Tooltip
                         placement="bottom"
                         isOpen={tooltipOpen}
-                        target={post.id}
+                        target={"postLike" + post.id}
                         toggle={toggle}
                       >
                         {post.likes.length > 0 && likeToolTip(post.likes)}
