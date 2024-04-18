@@ -30,7 +30,11 @@ const Friend = ({ userInfo, userDataArray }) => {
 
   return (
     <div>
-      <div className="searchFriendBar">
+      <div
+        className={
+          userInfo?.id === user?.id ? "searchFriendBar" : "searchFriend"
+        }
+      >
         <SearchIcon className="searchIconFriend" />
         <input
           className="searchFriendInput"
