@@ -251,14 +251,16 @@ const Share = ({ userInfo, userDataArray }) => {
                       Like
                     </Button>
 
-                    <Tooltip
-                      placement="bottom"
-                      isOpen={tooltipOpen}
-                      target={`postLike${post.id}`}
-                      toggle={toggle}
-                    >
-                      {likeToolTip(post.likes)}
-                    </Tooltip>
+                    {post.likes.length > 0 && (
+                      <Tooltip
+                        placement="bottom"
+                        isOpen={tooltipOpen}
+                        target={`postLike${post.id}`}
+                        toggle={toggle}
+                      >
+                        {likeToolTip(post.likes)}
+                      </Tooltip>
+                    )}
                   </div>
 
                   <Button
