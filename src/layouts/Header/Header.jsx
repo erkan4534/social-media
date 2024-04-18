@@ -63,9 +63,6 @@ function Header({ searchTerm, setSearchTerm }) {
             <HomeIcon className="homeIcon" onClick={mainPage} />
           </div>
           <div>
-            <MarkUnreadChatAltIcon />
-          </div>
-          <div>
             <NotificationsIcon />
           </div>
         </div>
