@@ -133,6 +133,10 @@
     font-size: 16px;
     text-align: start;
   }
+
+  .searchbar {
+    margin-left: 100px;
+  }
 }
 
 .searchBar::placeholder {
