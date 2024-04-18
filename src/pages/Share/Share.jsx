@@ -55,8 +55,8 @@ const Share = ({ userInfo, userDataArray }) => {
       likes: [],
     };
 
-    setPostContent(inputData);
     dispatch(setUserPost(newPost));
+    setPostContent(inputData);
   };
 
   const showComment = () => setIsShowComment(!isShowComment);
