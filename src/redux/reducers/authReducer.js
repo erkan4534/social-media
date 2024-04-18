@@ -75,10 +75,12 @@ function authReducer(state = initialState, action) {
           ...state.user,
           friends: [...state.user.friends, action.payload],
         },
+
         userDataArray: updatedUserDataArray,
       };
     }
     case "SET_USER_POST": {
+      debugger;
       const updatedUserDataArray = state.userDataArray.map((usr) => {
         if (usr.id === state.user.id) {
           return { ...usr, posts: [...usr.posts, action.payload] };
@@ -89,6 +91,7 @@ function authReducer(state = initialState, action) {
 
       return {
         ...state,
+        allPosts: [...state.allPosts, action.payload],
         user: {
           ...state.user,
           posts: [...state.user.posts, action.payload],
