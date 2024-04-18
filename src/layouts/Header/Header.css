@@ -128,6 +128,11 @@
     width: 60px;
     height: 30px;
   }
+
+  .searchBar::placeholder {
+    font-size: 16px;
+    text-align: start;
+  }
 }
 
 .searchBar::placeholder {
@@ -140,13 +145,6 @@
 @media (max-width: 768px) {
   .searchBar::placeholder {
     font-size: 14px;
-    text-align: start;
-  }
-}
-
-@media (min-width: 769px) {
-  .searchBar::placeholder {
-    font-size: 16px;
     text-align: start;
   }
 }
