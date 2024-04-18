@@ -97,19 +97,34 @@
   cursor: default;
 }
 
-.memberTitle {
-  color: #3b5998;
-  font-size: 20px;
-  text-align: center;
-  background-color: transparent;
-  border-radius: 2px;
-  cursor: default;
-  font-weight: 400;
-  font-style: italic;
-}
-
 .memberContainer {
   max-height: 400px;
   overflow-y: auto;
   padding-bottom: 50px;
+}
+
+.searchIconMember {
+  font-size: 20px;
+  padding-left: 5px;
+}
+
+.searchMemberInput::placeholder {
+  color: #aab8c2;
+  opacity: 1;
+  text-align: left;
+  font-style: italic;
+}
+.searchMemberInput {
+  width: 100%;
+  outline: none;
+}
+
+.searchMemberBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  padding: 5px 15px;
+  margin-right: 50px;
 }

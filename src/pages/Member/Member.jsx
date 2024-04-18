@@ -3,12 +3,20 @@ import { useDispatch } from "react-redux";
 import { addNewFriend, removeMember } from "../../redux/action/authActions";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import SearchIcon from "@mui/icons-material/Search";
+import { useState } from "react";
 
 const Member = ({ user, userDataArray }) => {
   const dispatch = useDispatch();
+  const [searchMemberTerm, setSearchMemberTerm] = useState("");
+
   if (!user) {
     return <></>;
   }
+
+  const handleSearchChange = (event) => {
+    setSearchMemberTerm(event.target.value.toLowerCase());
+  };
 
   const addFriend = (friendId) => {
     if (!isFriend(friendId)) {
@@ -26,10 +34,24 @@ const Member = ({ user, userDataArray }) => {
     );
   };
 
+  if (searchMemberTerm) {
+    userDataArray = userDataArray.filter((member) =>
+      `${member.name} ${member.surname}`
+        .toLowerCase()
+        .includes(searchMemberTerm)
+    );
+  }
+
   return (
     <div>
-      <div className="memberTitle">
-        <span>All members</span>
+      <div className="searchMemberBar">
+        <SearchIcon className="searchIconMember" />
+        <input
+          className="searchMemberInput"
+          onChange={handleSearchChange}
+          value={searchMemberTerm}
+          placeholder="Search members"
+        />
       </div>
 
       <div className="memberContainer">

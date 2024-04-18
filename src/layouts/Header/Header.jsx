@@ -90,6 +90,6 @@ function Header({ searchTerm, setSearchTerm }) {
 export default Header;
 
 Header.propTypes = {
-  searchTerm: PropTypes.object,
+  searchTerm: PropTypes.string,
   setSearchTerm: PropTypes.func,
 };
