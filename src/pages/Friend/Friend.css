@@ -68,17 +68,6 @@
   }
 }
 
-.friendTitle {
-  color: #3b5998;
-  font-size: 20px;
-  text-align: center;
-  background-color: transparent;
-  border-radius: 2px;
-  cursor: default;
-  font-weight: 400;
-  font-style: italic;
-}
-
 .linkFriend {
   display: flex;
   cursor: pointer !important;
@@ -99,4 +88,30 @@
   border-radius: 2px;
   margin-right: 5px;
   cursor: default;
+}
+
+.searchIconFriend {
+  font-size: 20px;
+  padding-left: 5px;
+}
+
+.searchFriendInput::placeholder {
+  color: #aab8c2;
+  opacity: 1;
+  text-align: left;
+  font-style: italic;
+}
+.searchFriendInput {
+  width: 100%;
+  outline: none;
+}
+
+.searchFriendBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #d9d9d9;
+  border-radius: 20px;
+  padding: 5px 15px;
+  margin-right: 50px;
 }
