@@ -163,7 +163,7 @@ const Share = ({ userInfo, userDataArray }) => {
     >
       {userInfo?.id === user?.id && (
         <form onSubmit={handlePostSubmit} noValidate>
-          <div className="flex flex-col gap-2 mb-3">
+          <div className="flex flex-col gap-2 mb-3 mt-20">
             <textarea
               placeholder="Write someting"
               className="shareTextArea"
