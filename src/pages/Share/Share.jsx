@@ -9,6 +9,7 @@ import { FaRegComment } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import DataTable from "../../components/UI/DataTable/DataTable";
 import PropTypes from "prop-types";
+import { v4 as uuidv4 } from "uuid";
 import {
   postComment,
   postEditComment,
@@ -46,7 +47,7 @@ const Share = ({ userInfo, userDataArray }) => {
     event.preventDefault();
 
     const newPost = {
-      id: new Date().toISOString(),
+      id: Math.random().toString(36).substring(2),
       content: postContent,
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
@@ -246,7 +247,7 @@ const Share = ({ userInfo, userDataArray }) => {
                       }`}
                       onClick={() => postLike(post)}
                       startIcon={<BiLike />}
-                      id={`postLike${post.id}`}
+                      id={post.id}
                     >
                       Like
                     </Button>
@@ -255,10 +256,10 @@ const Share = ({ userInfo, userDataArray }) => {
                       <Tooltip
                         placement="bottom"
                         isOpen={tooltipOpen}
-                        target={`postLike${post.id}`}
+                        target={post.id}
                         toggle={toggle}
                       >
-                        {likeToolTip(post.likes)}
+                        {post.likes.length > 0 && likeToolTip(post.likes)}
                       </Tooltip>
                     )}
                   </div>

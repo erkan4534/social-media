@@ -9,17 +9,7 @@ export const userData = [
     profilePicture: "/assets/person/1.jpeg",
     role: "memberUser",
     friends: [2],
-    posts: [
-      {
-        content: { inputContent: "Ali", textAreaContent: "Kaya" },
-        id: 6,
-        imageUrl: "https://picsum.photos/200",
-        timestamp: "2024-04-08T14:42:53.885Z",
-        userId: 1,
-        comments: [],
-        likes: [4],
-      },
-    ],
+    posts: [],
   },
   {
     id: 2,
@@ -31,26 +21,7 @@ export const userData = [
     profilePicture: "/assets/person/2.jpeg",
     role: "memberUser",
     friends: [3],
-    posts: [
-      {
-        content: { inputContent: "sebnem", textAreaContent: "durmaz" },
-        id: 1,
-        imageUrl: "https://picsum.photos/200",
-        timestamp: "2024-04-08T14:41:51.885Z",
-        userId: 2,
-        comments: [],
-        likes: [3, 1],
-      },
-      {
-        content: { inputContent: "sebnem2", textAreaContent: "durmaz2" },
-        id: 2,
-        imageUrl: "https://picsum.photos/200",
-        timestamp: "2024-04-08T14:40:51.885Z",
-        userId: 2,
-        comments: [],
-        likes: [3],
-      },
-    ],
+    posts: [],
   },
 
   {

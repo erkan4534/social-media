@@ -99,8 +99,10 @@ function authReducer(state = initialState, action) {
       };
     }
     case "SET_USER_LIKE": {
+      debugger;
       const allNewPosts = state.allPosts.map((post) => {
         if (post.id === action.payload.post.id) {
+          debugger;
           if (post.likes.find((like) => like === action.payload.userId)) {
             return {
               ...post,
