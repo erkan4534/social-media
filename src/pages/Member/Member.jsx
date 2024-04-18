@@ -56,7 +56,10 @@ const Member = ({ user, userDataArray }) => {
 
       <div className="memberContainer">
         {userDataArray
-          .filter((userData) => userData.id != user.id)
+          .filter(
+            (userData) =>
+              userData.id != user.id && userData.role !== "adminUser"
+          )
           .map((member) => (
             <div key={member.id} className="closeFriendList">
               <div className="closeFriend">

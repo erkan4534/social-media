@@ -9,7 +9,7 @@ import { FaRegComment } from "react-icons/fa";
 import TextArea from "antd/es/input/TextArea";
 import DataTable from "../../components/UI/DataTable/DataTable";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
+
 import {
   postComment,
   postEditComment,
@@ -41,7 +41,9 @@ const Share = ({ userInfo, userDataArray }) => {
   const { user, allPosts } = useSelector((state) => state.auth);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const toggle = () => setTooltipOpen(!tooltipOpen);
-  const { searchTerm } = useOutletContext();
+
+  const outletContext = useOutletContext();
+  const searchTerm = outletContext ? outletContext.searchTerm : "";
 
   const handlePostSubmit = (event) => {
     event.preventDefault();

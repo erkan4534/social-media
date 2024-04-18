@@ -55,10 +55,10 @@ export const userData = [
 
   {
     id: 3,
-    name: "Ramiz",
-    surname: "Dayi",
+    name: "Admin",
+    surname: "",
     password: "123",
-    username: "ramiz.dayi",
+    username: "admin",
     email: "erkan3.yildirim@gmail.com",
     profilePicture: "/assets/person/3.jpeg",
     role: "adminUser",
