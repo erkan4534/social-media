@@ -30,7 +30,7 @@ export const userData = [
     email: "erkan2.yildirim@gmail.com",
     profilePicture: "/assets/person/2.jpeg",
     role: "memberUser",
-    friends: [3],
+    friends: [8],
     posts: [
       {
         content: { inputContent: "sebnem", textAreaContent: "durmaz" },
