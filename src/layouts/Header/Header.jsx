@@ -45,6 +45,15 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
     isAdmin ? navigate("/admin") : navigate("/home");
   };
 
+  let optionsArray = [];
+
+  optionsArray = !isAdmin
+    ? [
+        { label: "Profile", action: goToProfile },
+        { label: "Logout", action: userLogout },
+      ]
+    : [{ label: "Logout", action: userLogout }];
+
   return (
     <div className="headerContainer">
       <div className="headerLeft">
@@ -76,14 +85,13 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
         </div>
 
         <div className="headerRightProfile">
+          {}
+
           <Dropdown
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             user={{ profilePicture: user?.profilePicture }}
-            options={[
-              { label: "Profile", action: goToProfile },
-              { label: "Logout", action: userLogout },
-            ]}
+            options={optionsArray}
           />
         </div>
       </div>
