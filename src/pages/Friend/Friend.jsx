@@ -62,7 +62,7 @@ const Friend = ({ userInfo, userDataArray }) => {
               {user?.id === userInfo.id && (
                 <button
                   className="removeFriendButton"
-                  onClick={() => dispatch(removeFriend(friend, userInfo))}
+                  onClick={() => dispatch(removeFriend(friend.id, userInfo))}
                 >
                   UnFollowed
                 </button>

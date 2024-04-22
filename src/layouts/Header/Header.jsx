@@ -2,20 +2,20 @@ import "./Header.css";
 import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
-import MarkUnreadChatAltIcon from "@mui/icons-material/MarkUnreadChatAlt";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 //import { AuthContext } from "../../context/AuthContext";
 //import { useContext, useEffect } from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/action/authActions";
-import CustomizedMenus from "../../components/UI/CustomizedMenus/CustomizedMenus";
+import Dropdown from "../../components/UI/Dropdown/Dropdown";
 
 function Header({ searchTerm, setSearchTerm }) {
   //const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
 
   const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,7 +31,13 @@ function Header({ searchTerm, setSearchTerm }) {
 
   function userLogout() {
     dispatch(logout(null));
+    setIsOpen(false);
   }
+
+  const goToProfile = () => {
+    navigate(`/profile/${user.id}`);
+    setIsOpen(false);
+  };
 
   const mainPage = () => {
     navigate("/home");
@@ -68,7 +74,7 @@ function Header({ searchTerm, setSearchTerm }) {
         </div>
 
         <div className="headerRightProfile">
-          <CustomizedMenus
+          {/* <CustomizedMenus
             customizedMenusClass="customizedMenus"
             userLogout={userLogout}
           >
@@ -77,7 +83,17 @@ function Header({ searchTerm, setSearchTerm }) {
               className="profil"
               alt="profil"
             />
-          </CustomizedMenus>
+          </CustomizedMenus> */}
+
+          <Dropdown
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            user={{ profilePicture: user?.profilePicture }}
+            options={[
+              { label: "Profile", action: goToProfile },
+              { label: "Logout", action: userLogout },
+            ]}
+          />
         </div>
       </div>
     </div>
