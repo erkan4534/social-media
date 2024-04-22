@@ -5,7 +5,7 @@ export const AdminLayout = () => {
   return (
     <div>
       <Header isAdmin={true} />
-      <Outlet />
+      <Outlet context={{ isAdmin: true }} />
     </div>
   );
 };

@@ -10,19 +10,9 @@ const ErrorPage = ({ isAdmin }) => {
           <p className="text-gray-600">
             Oops! The page you are looking for could not be found.
           </p>
-          {!isAdmin && (
-            <Link
-              to="/"
-              className="mt-4 inline-block rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
-            >
-              {" "}
-              Go back to Home{" "}
-            </Link>
-          )}
-
           {isAdmin && (
             <Link
-              to="/admin"
+              to={`${!isAdmin ? "/" : "/admin"}`}
               className="mt-4 inline-block rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
             >
               {" "}
