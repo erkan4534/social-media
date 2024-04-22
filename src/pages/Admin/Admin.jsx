@@ -9,7 +9,8 @@ export const Admin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const deleteMember = (memberId) => {
+  const deleteMember = (memberId, event) => {
+    event.stopPropagation();
     dispatch(removeMember(memberId));
   };
 
@@ -60,7 +61,7 @@ export const Admin = () => {
       width: 150,
       render: (text, record) => (
         <button
-          onClick={() => deleteMember(record.id)}
+          onClick={(event) => deleteMember(record.id, event)}
           className="deleteButton"
         >
           Remove
