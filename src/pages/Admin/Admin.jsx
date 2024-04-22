@@ -97,7 +97,7 @@ export const Admin = () => {
 
   return (
     <Table
-      className="mt-10"
+      className="adminTable"
       columns={columns}
       dataSource={userDataNewArray}
       onRow={(record) => {

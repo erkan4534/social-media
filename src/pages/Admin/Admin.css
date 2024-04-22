@@ -14,3 +14,7 @@
 .deleteButton:hover {
   background-color: #da2121;
 }
+.adminTable {
+  position: fixed;
+  top: 50px;
+}
