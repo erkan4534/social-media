@@ -31,14 +31,9 @@
 
 .headerRightIcon {
   display: flex;
-  flex: 12;
   color: white;
   font-weight: bold;
   justify-content: center;
-}
-
-.headerRightProfile {
-  flex: 1;
 }
 
 .searchbar {
@@ -65,20 +60,11 @@
   padding-left: 5px;
 }
 
-/* .profil {
-  border-radius: 50%;
-  object-fit: cover;
-} */
-
 .logo {
   color: white;
   font-weight: bold;
   cursor: pointer;
 }
-
-/* .customizedMenus {
-  background-color: #1877f2 !important;
-} */
 
 .homeIcon {
   cursor: pointer;
@@ -90,22 +76,19 @@
     margin-left: 35px;
   }
 
-  /* .profil {
-    margin-right: 40px;
-    width: 34px;
-    height: 35px;
-  } */
-
-  /* .customizedMenus {
-    width: 18px !important;
-    margin-left: 40px !important;
-  } */
   .css-i4bv87-MuiSvgIcon-root {
     width: 18px !important;
   }
 
   .headerRightIcon {
     column-gap: 10px;
+    flex: 4;
+    margin-right: 25px;
+  }
+
+  .headerRightProfile {
+    flex: 1;
+    margin-right: 5px;
   }
 }
 
@@ -115,18 +98,14 @@
     margin-left: 15px;
   }
 
-  /* .customizedMenus {
-    min-width: 90px !important;
-  } */
-
   .headerRightIcon {
     column-gap: 20px;
+    flex: 12;
   }
 
-  /* .profil {
-    width: 60px;
-    height: 30px;
-  } */
+  .headerRightProfile {
+    flex: 1;
+  }
 
   .searchBar::placeholder {
     font-size: 16px;
