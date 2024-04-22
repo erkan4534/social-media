@@ -110,7 +110,9 @@ export const Admin = () => {
       pagination={{
         pageSize: 50,
       }}
-      scroll={{ x: "max-content", y: "100%" }}
+      scroll={{
+        y: 240,
+      }}
     />
   );
 };
