@@ -55,7 +55,7 @@ export const Admin = () => {
     },
 
     {
-      title: "",
+      title: "Remove Member",
       dataIndex: "",
       width: 150,
       render: (text, record) => (
