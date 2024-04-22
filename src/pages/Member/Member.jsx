@@ -24,10 +24,6 @@ const Member = ({ user, userDataArray }) => {
     }
   };
 
-  const deleteMember = (memberId) => {
-    dispatch(removeMember(memberId));
-  };
-
   const isFriend = (friendId) => {
     return (
       user && user.friends && user.friends.some((userId) => userId === friendId)
@@ -73,15 +69,6 @@ const Member = ({ user, userDataArray }) => {
                   </span>
                 </Link>
               </div>
-
-              {user.role === "adminUser" && (
-                <button
-                  onClick={() => deleteMember(member.id)}
-                  className="deleteButton"
-                >
-                  Remove
-                </button>
-              )}
 
               {!isFriend(member.id) && user.role === "memberUser" && (
                 <button
