@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { removeMember } from "../../redux/action/authActions";
 
 export const Admin = () => {
-  const { userDataArray } = useSelector((state) => state.auth);
+  const { user, userDataArray } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -13,6 +13,10 @@ export const Admin = () => {
     event.stopPropagation();
     dispatch(removeMember(memberId));
   };
+
+  const userDataNewArray = userDataArray.filter(
+    (userInfo) => userInfo.id !== user.id
+  );
 
   const columns = [
     {
@@ -53,13 +57,21 @@ export const Admin = () => {
       width: "10%",
       align: "center",
       render: (text, record) => (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            minWidth: "50px",
+            minHeight: "50px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <img
             src={record.profilePicture || "no picture"}
             alt="Profile"
             style={{
-              width: "50px",
-              height: "50px",
+              maxWidth: "25%",
+              maxHeight: "25%",
               borderRadius: "50%",
             }}
           />
@@ -87,7 +99,7 @@ export const Admin = () => {
     <Table
       className="mt-10"
       columns={columns}
-      dataSource={userDataArray}
+      dataSource={userDataNewArray}
       onRow={(record) => {
         return {
           onClick: () => {
