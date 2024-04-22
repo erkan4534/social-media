@@ -15,7 +15,7 @@ export const Admin = () => {
   };
 
   const userDataNewArray = userDataArray.filter(
-    (userInfo) => userInfo.id !== user.id
+    (userInfo) => userInfo.id !== user?.id
   );
 
   const columns = [
