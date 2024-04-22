@@ -54,7 +54,7 @@ export const Admin = () => {
       className="mt-10"
       columns={columns}
       dataSource={userDataArray}
-      onRow={(record, rowIndex) => {
+      onRow={(record) => {
         return {
           onClick: () => {
             navigate(`/profile/${record.id}`);
