@@ -1,11 +1,18 @@
 import { Table } from "antd";
 import "./Admin.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const Admin = () => {
   const { userDataArray } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const columns = [
+    {
+      title: "Id",
+      dataIndex: "id",
+      width: 50,
+    },
     {
       title: "Name",
       dataIndex: "name",
@@ -47,6 +54,13 @@ export const Admin = () => {
       className="mt-10"
       columns={columns}
       dataSource={userDataArray}
+      onRow={(record, rowIndex) => {
+        return {
+          onClick: () => {
+            navigate(`/profile/${record.id}`);
+          },
+        };
+      }}
       pagination={{
         pageSize: 50,
       }}
