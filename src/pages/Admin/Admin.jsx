@@ -1,7 +1,10 @@
 import { Table } from "antd";
 import "./Admin.css";
+import { useSelector } from "react-redux";
 
 export const Admin = () => {
+  const { userDataArray } = useSelector((state) => state.auth);
+
   const columns = [
     {
       title: "Name",
@@ -9,30 +12,41 @@ export const Admin = () => {
       width: 150,
     },
     {
-      title: "Age",
-      dataIndex: "age",
+      title: "Surname",
+      dataIndex: "surname",
       width: 150,
     },
     {
-      title: "Address",
-      dataIndex: "address",
+      title: "Username",
+      dataIndex: "username",
+      width: 150,
+    },
+
+    {
+      title: "Email",
+      dataIndex: "email",
+      width: 150,
+    },
+
+    {
+      title: "Picture",
+      dataIndex: "profilePicture",
+      width: 150,
+      render: (text, record) => (
+        <img
+          src={record.profilePicture || "no picture"}
+          alt="Profile"
+          style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+        />
+      ),
     },
   ];
-  const data = [];
-  for (let i = 0; i < 100; i++) {
-    data.push({
-      key: i,
-      name: `Edward King ${i}`,
-      age: 32,
-      address: `London, Park Lane no. ${i}`,
-    });
-  }
 
   return (
     <Table
       className="mt-10"
       columns={columns}
-      dataSource={data}
+      dataSource={userDataArray}
       pagination={{
         pageSize: 50,
       }}
