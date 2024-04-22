@@ -67,7 +67,9 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
           <SearchIcon className="searchIcon" />
           <input
             className="searchBar"
-            placeholder={`${isAdmin ? "Search member" : "Search post"}`}
+            placeholder={`${
+              isAdmin ? "Search name and surname" : "Search post"
+            }`}
             value={searchTerm}
             onChange={handleSearchChange}
           />
