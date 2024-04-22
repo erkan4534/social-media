@@ -74,17 +74,6 @@ function Header({ searchTerm, setSearchTerm }) {
         </div>
 
         <div className="headerRightProfile">
-          {/* <CustomizedMenus
-            customizedMenusClass="customizedMenus"
-            userLogout={userLogout}
-          >
-            <img
-              src={user && user.profilePicture}
-              className="profil"
-              alt="profil"
-            />
-          </CustomizedMenus> */}
-
           <Dropdown
             isOpen={isOpen}
             setIsOpen={setIsOpen}
