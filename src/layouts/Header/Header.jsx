@@ -49,10 +49,10 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
 
   optionsArray = !isAdmin
     ? [
-        { label: "Profile", action: goToProfile },
-        { label: "Logout", action: userLogout },
+        { label: "Profile", value: 1, action: goToProfile },
+        { label: "Logout", value: 2, action: userLogout },
       ]
-    : [{ label: "Logout", action: userLogout }];
+    : [{ label: "Logout", value: 1, action: userLogout }];
 
   return (
     <div className="headerContainer">
