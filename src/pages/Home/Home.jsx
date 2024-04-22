@@ -28,20 +28,14 @@ const Home = () => {
   return (
     <>
       <button
-        className={
-          isleftbarVisible ? "leftHamburgerMenu" : "leftHamburgerMenuChangeBg"
-        }
+        className="leftHamburgerMenu"
         onClick={() => setIsleftbarVisible(!isleftbarVisible)}
       >
         <GiHamburgerMenu />
       </button>
 
       <button
-        className={
-          isRightbarVisible
-            ? "rightHamburgerMenu"
-            : "rightHamburgerMenuChangeBg"
-        }
+        className="rightHamburgerMenu"
         disabled={user && user.friends && user.friends.length == 0}
         onClick={() => setIsRightbarVisible(!isRightbarVisible)}
       >

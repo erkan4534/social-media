@@ -27,17 +27,6 @@
   margin-top: 7px;
 }
 
-.leftHamburgerMenuChangeBg {
-  z-index: 100;
-  cursor: pointer;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  color: black;
-  background-color: white;
-  margin-top: 7px;
-}
-
 .rightbar {
   flex: 1;
   position: sticky;
@@ -55,17 +44,6 @@
   right: 10px;
   color: white;
   background-color: #1775ee;
-  margin-top: 7px;
-}
-
-.rightHamburgerMenuChangeBg {
-  z-index: 100;
-  cursor: pointer;
-  position: fixed;
-  top: 10px;
-  right: 270px;
-  color: black;
-  background-color: white;
   margin-top: 7px;
 }
 
@@ -88,7 +66,7 @@
   .leftbarWithHamburgeMenu {
     display: block;
     position: fixed;
-    top: 0;
+    top: 50px;
     left: 0;
     background-color: white;
     z-index: 99;
@@ -101,7 +79,7 @@
   .rightbarWithHamburgeMenu {
     display: block;
     position: fixed;
-    top: 0;
+    top: 50px;
     right: 0;
     background-color: white;
     z-index: 99;
