@@ -111,7 +111,7 @@ export const Admin = () => {
         pageSize: 50,
       }}
       scroll={{
-        y: 240,
+        y: "100vh",
       }}
     />
   );
