@@ -100,3 +100,70 @@
 .profileHeaderTop {
   flex: 1;
 }
+
+@media (max-width: 768px) {
+  .hamburgerMenuProfileLeft {
+    display: block;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    transition: transform 0.3s ease;
+  }
+
+  .hamburgerMenuProfileLeft .myMemberList .searchMemberBar {
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+
+  .hamburgerMenuProfileRight {
+    display: block;
+    position: fixed;
+    top: 50px;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    transition: transform 0.3s ease;
+  }
+
+  .hamburgerMenuProfileRight .myFriendList .searchFriendBar,
+  .hamburgerMenuProfileRight .myFriendList .searchFriend {
+    margin-top: 10px;
+    margin-left: 25px;
+  }
+
+  .profileLeft {
+    display: none;
+  }
+
+  .profileRight {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburgerMenuProfileLeft {
+    display: none;
+  }
+
+  .hamburgerMenuProfileRight {
+    display: none;
+  }
+
+  .profileLeft {
+    display: block;
+  }
+
+  .profileRight {
+    display: block;
+  }
+}
