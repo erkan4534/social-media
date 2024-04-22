@@ -18,34 +18,34 @@ export const Admin = () => {
     {
       title: "Id",
       dataIndex: "id",
-      width: 50,
+      width: "10%",
     },
     {
       title: "Name",
       dataIndex: "name",
-      width: 150,
+      width: "15%",
     },
     {
       title: "Surname",
       dataIndex: "surname",
-      width: 150,
+      width: "15%",
     },
     {
       title: "Username",
       dataIndex: "username",
-      width: 150,
+      width: "15%",
     },
 
     {
       title: "Email",
       dataIndex: "email",
-      width: 150,
+      width: "18%",
     },
 
     {
       title: "Picture",
       dataIndex: "profilePicture",
-      width: 150,
+      width: "10%",
       render: (text, record) => (
         <img
           src={record.profilePicture || "no picture"}
@@ -58,7 +58,7 @@ export const Admin = () => {
     {
       title: "Remove Member",
       dataIndex: "",
-      width: 150,
+      width: "17%",
       render: (text, record) => (
         <button
           onClick={(event) => deleteMember(record.id, event)}
