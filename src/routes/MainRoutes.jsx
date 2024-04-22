@@ -14,7 +14,7 @@ export const MainRoutes = [
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorPage isAdmin={false} />,
     children: [
       {
         path: "home",

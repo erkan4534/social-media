@@ -1,11 +1,17 @@
 import { Table } from "antd";
 import "./Admin.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { removeMember } from "../../redux/action/authActions";
 
 export const Admin = () => {
   const { userDataArray } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const deleteMember = (memberId) => {
+    dispatch(removeMember(memberId));
+  };
 
   const columns = [
     {
@@ -45,6 +51,20 @@ export const Admin = () => {
           alt="Profile"
           style={{ width: "50px", height: "50px", borderRadius: "50%" }}
         />
+      ),
+    },
+
+    {
+      title: "",
+      dataIndex: "",
+      width: 150,
+      render: (text, record) => (
+        <button
+          onClick={() => deleteMember(record.id)}
+          className="deleteButton"
+        >
+          Remove
+        </button>
       ),
     },
   ];
