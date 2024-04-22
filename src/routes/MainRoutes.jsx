@@ -7,7 +7,7 @@ import Profile from "../pages/Profile/Profile";
 
 export const MainRoutes = [
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
 
@@ -17,18 +17,18 @@ export const MainRoutes = [
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/home",
+        path: "home",
         element: <Home />,
       },
       {
-        path: "/profile/:userId",
+        path: "profile/:userId",
         element: <Profile />,
       },
     ],
   },
 
   {
-    path: "/admin",
+    path: "admin",
     element: <Admin />,
   },
 ];

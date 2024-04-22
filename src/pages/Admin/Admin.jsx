@@ -57,7 +57,7 @@ export const Admin = () => {
       onRow={(record) => {
         return {
           onClick: () => {
-            navigate(`/profile/${record.id}`);
+            navigate(`/admin/profile/${record.id}`);
           },
         };
       }}

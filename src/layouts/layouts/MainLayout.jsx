@@ -6,7 +6,11 @@ const MainLayout = () => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <div>
-      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <Header
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        isAdmin={false}
+      />
       <Outlet context={{ searchTerm }} />
     </div>
   );

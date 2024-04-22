@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/action/authActions";
 import Dropdown from "../../components/UI/Dropdown/Dropdown";
 
-function Header({ searchTerm, setSearchTerm }) {
+function Header({ searchTerm, setSearchTerm, isAdmin }) {
   //const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
 
   const { isLoggedIn, user } = useSelector((state) => state.auth);
@@ -35,12 +35,14 @@ function Header({ searchTerm, setSearchTerm }) {
   }
 
   const goToProfile = () => {
-    navigate(`/profile/${user.id}`);
+    isAdmin
+      ? navigate(`/admin/profile/${user.id}`)
+      : navigate(`/profile/${user.id}`);
     setIsOpen(false);
   };
 
   const mainPage = () => {
-    navigate("/home");
+    isAdmin ? navigate("/admin") : navigate("/home");
   };
 
   return (
@@ -94,4 +96,5 @@ export default Header;
 Header.propTypes = {
   searchTerm: PropTypes.string,
   setSearchTerm: PropTypes.func,
+  isAdmin: PropTypes.bool,
 };
