@@ -19,39 +19,51 @@ export const Admin = () => {
       title: "Id",
       dataIndex: "id",
       width: "10%",
+      align: "center",
     },
     {
       title: "Name",
       dataIndex: "name",
       width: "15%",
+      align: "center",
     },
     {
       title: "Surname",
       dataIndex: "surname",
       width: "15%",
+      align: "center",
     },
     {
       title: "Username",
       dataIndex: "username",
       width: "15%",
+      align: "center",
     },
 
     {
       title: "Email",
       dataIndex: "email",
       width: "18%",
+      align: "center",
     },
 
     {
       title: "Picture",
       dataIndex: "profilePicture",
       width: "10%",
+      align: "center",
       render: (text, record) => (
-        <img
-          src={record.profilePicture || "no picture"}
-          alt="Profile"
-          style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-        />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img
+            src={record.profilePicture || "no picture"}
+            alt="Profile"
+            style={{
+              width: "50px",
+              height: "50px",
+              borderRadius: "50%",
+            }}
+          />
+        </div>
       ),
     },
 
@@ -59,6 +71,7 @@ export const Admin = () => {
       title: "Remove Member",
       dataIndex: "",
       width: "17%",
+      align: "center",
       render: (text, record) => (
         <button
           onClick={(event) => deleteMember(record.id, event)}
@@ -85,9 +98,7 @@ export const Admin = () => {
       pagination={{
         pageSize: 50,
       }}
-      scroll={{
-        y: "100%",
-      }}
+      scroll={{ x: "max-content", y: "100%" }}
     />
   );
 };
