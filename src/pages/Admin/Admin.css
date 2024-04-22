@@ -17,4 +17,12 @@
 .adminTable {
   position: fixed;
   top: 50px;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .adminTable {
+    width: 900px;
+    overflow-x: auto;
+  }
 }

@@ -111,7 +111,8 @@ export const Admin = () => {
         pageSize: 50,
       }}
       scroll={{
-        y: "100vh",
+        y: "70vh",
+        x: "max-content",
       }}
     />
   );
