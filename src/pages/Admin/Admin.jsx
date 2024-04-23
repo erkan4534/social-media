@@ -35,39 +35,39 @@ export const Admin = () => {
     {
       title: "Id",
       dataIndex: "id",
-      width: "10%",
+      width: "1%",
       align: "center",
     },
     {
       title: "Name",
       dataIndex: "name",
-      width: "15%",
+      width: "1%",
       align: "center",
     },
     {
       title: "Surname",
       dataIndex: "surname",
-      width: "15%",
+      width: "1%",
       align: "center",
     },
     {
       title: "Username",
       dataIndex: "username",
-      width: "15%",
+      width: "1%",
       align: "center",
     },
 
     {
       title: "Email",
       dataIndex: "email",
-      width: "18%",
+      width: "1%",
       align: "center",
     },
 
     {
       title: "Picture",
       dataIndex: "profilePicture",
-      width: "10%",
+      width: "1%",
       align: "center",
       render: (text, record) => (
         <div
@@ -77,11 +77,12 @@ export const Admin = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            overflow: "hidden",
           }}
         >
           <img
             src={record.profilePicture || "no picture"}
-            alt="Profile"
+            alt={`${record.name} ${record.surname}`}
             style={{
               width: "100%",
               height: "100%",
@@ -96,7 +97,7 @@ export const Admin = () => {
     {
       title: "Remove Member",
       dataIndex: "",
-      width: "17%",
+      width: "1%",
       align: "center",
       render: (text, record) => (
         <button
