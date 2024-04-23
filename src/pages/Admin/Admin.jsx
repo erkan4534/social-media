@@ -23,7 +23,7 @@ export const Admin = () => {
       .filter((userData) =>
         `${userData.name} ${userData.surname}`
           .toLowerCase()
-          .includes(searchTerm)
+          .includes(searchTerm.toLowerCase())
       );
   }
 
@@ -79,8 +79,8 @@ export const Admin = () => {
             src={record.profilePicture || "no picture"}
             alt="Profile"
             style={{
-              maxWidth: "25%",
-              maxHeight: "25%",
+              maxWidth: "50%",
+              maxHeight: "50%",
               borderRadius: "50%",
             }}
           />
