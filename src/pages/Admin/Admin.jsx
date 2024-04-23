@@ -35,39 +35,39 @@ export const Admin = () => {
     {
       title: "Id",
       dataIndex: "id",
-      width: "1%",
+      width: "10%",
       align: "center",
     },
     {
       title: "Name",
       dataIndex: "name",
-      width: "1%",
+      width: "15%",
       align: "center",
     },
     {
       title: "Surname",
       dataIndex: "surname",
-      width: "1%",
+      width: "15%",
       align: "center",
     },
     {
       title: "Username",
       dataIndex: "username",
-      width: "1%",
+      width: "15%",
       align: "center",
     },
 
     {
       title: "Email",
       dataIndex: "email",
-      width: "1%",
+      width: "18%",
       align: "center",
     },
 
     {
       title: "Picture",
       dataIndex: "profilePicture",
-      width: "1%",
+      width: "6%",
       align: "center",
       render: (text, record) => (
         <div
@@ -97,7 +97,7 @@ export const Admin = () => {
     {
       title: "Remove Member",
       dataIndex: "",
-      width: "1%",
+      width: "17%",
       align: "center",
       render: (text, record) => (
         <button
