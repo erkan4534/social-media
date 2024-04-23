@@ -9,8 +9,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 
 const Profile = () => {
   let { userId } = useParams();
-  const [isleftBarVisible, setIsleftBarVisible] = useState(false);
-  const [isRightBarVisible, setIsRightBarVisible] = useState(false);
+  const [isleftBarVisible, setIsleftBarVisible] = useState(true);
+  const [isRightBarVisible, setIsRightBarVisible] = useState(true);
   const { userDataArray, user } = useSelector((state) => state.auth);
   const userInfo = userDataArray.find((usr) => usr.id === Number(userId));
 
@@ -34,6 +34,7 @@ const Profile = () => {
         <button
           className="leftHamburgerMenu"
           onClick={() => setIsleftBarVisible(!isleftBarVisible)}
+          disabled={user?.id !== userInfo.id}
         >
           <GiHamburgerMenu />
         </button>
@@ -41,6 +42,9 @@ const Profile = () => {
         <button
           className="rightHamburgerMenu"
           onClick={() => setIsRightBarVisible(!isRightBarVisible)}
+          disabled={
+            userInfo && userInfo.friends && userInfo.friends.length == 0
+          }
         >
           <GiHamburgerMenu />
         </button>
@@ -83,7 +87,7 @@ const Profile = () => {
         <div className="profileBody ">
           <div
             className={`${
-              !isleftBarVisible ? "hamburgerMenuProfileLeft" : "profileLeft"
+              isleftBarVisible ? "profileLeft" : "hamburgerMenuProfileLeft"
             }`}
           >
             {userInfo && user && userInfo.id === user.id && (
@@ -97,7 +101,7 @@ const Profile = () => {
           </div>
           <div
             className={`${
-              !isRightBarVisible ? "hamburgerMenuProfileRight" : "profileRight"
+              isRightBarVisible ? "profileRight" : "hamburgerMenuProfileRight"
             }`}
           >
             {userInfo.friends.length > 0 && (
