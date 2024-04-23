@@ -87,8 +87,6 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
         </div>
 
         <div className="headerRightProfile">
-          {}
-
           <Dropdown
             isOpen={isOpen}
             setIsOpen={setIsOpen}
