@@ -25,6 +25,10 @@ export const Admin = () => {
           .toLowerCase()
           .includes(searchTerm.toLowerCase())
       );
+  } else {
+    userDataNewArray = userDataArray.filter(
+      (userData) => userData.id !== user?.id
+    );
   }
 
   const columns = [
@@ -108,7 +112,7 @@ export const Admin = () => {
     <Table
       className="adminTable"
       columns={columns}
-      dataSource={searchTerm ? userDataNewArray : userDataArray}
+      dataSource={userDataNewArray}
       onRow={(record) => {
         return {
           onClick: () => {
