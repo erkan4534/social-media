@@ -72,8 +72,6 @@ export const Admin = () => {
       render: (text, record) => (
         <div
           style={{
-            minWidth: "50px",
-            minHeight: "50px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -83,8 +81,8 @@ export const Admin = () => {
             src={record.profilePicture || "no picture"}
             alt="Profile"
             style={{
-              maxWidth: "30%",
-              maxHeight: "30%",
+              maxWidth: "20%",
+              maxHeight: "20%",
               borderRadius: "50%",
             }}
           />
