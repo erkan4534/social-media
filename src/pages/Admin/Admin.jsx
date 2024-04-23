@@ -81,8 +81,8 @@ export const Admin = () => {
             src={record.profilePicture || "no picture"}
             alt="Profile"
             style={{
-              maxWidth: "20%",
-              maxHeight: "20%",
+              width: "30px",
+              height: "30px",
               borderRadius: "50%",
             }}
           />
