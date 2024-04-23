@@ -100,9 +100,11 @@ const Profile = () => {
               !isRightBarVisible ? "hamburgerMenuProfileRight" : "profileRight"
             }`}
           >
-            <div className="myFriendList">
-              <Friend userInfo={userInfo} userDataArray={userDataArray} />
-            </div>
+            {userInfo.friends.length > 0 && (
+              <div className="myFriendList">
+                <Friend userInfo={userInfo} userDataArray={userDataArray} />
+              </div>
+            )}
           </div>
         </div>
       </div>
