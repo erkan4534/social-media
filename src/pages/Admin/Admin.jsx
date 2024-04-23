@@ -1,22 +1,31 @@
 import "./Admin.css";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { removeMember } from "../../redux/action/authActions";
 
 export const Admin = () => {
   const { user, userDataArray } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const outletContext = useOutletContext();
+  const searchTerm = outletContext ? outletContext.searchTerm : "";
 
   const deleteMember = (memberId, event) => {
     event.stopPropagation();
     dispatch(removeMember(memberId));
   };
 
-  const userDataNewArray = userDataArray.filter(
-    (userInfo) => userInfo.id !== user?.id
-  );
+  let userDataNewArray;
+  if (searchTerm) {
+    userDataNewArray = userDataArray
+      .filter((userData) => userData.id !== user?.id)
+      .filter((userData) =>
+        `${userData.name} ${userData.surname}`
+          .toLowerCase()
+          .includes(searchTerm)
+      );
+  }
 
   const columns = [
     {
@@ -99,7 +108,7 @@ export const Admin = () => {
     <Table
       className="adminTable"
       columns={columns}
-      dataSource={userDataNewArray}
+      dataSource={searchTerm ? userDataNewArray : userDataArray}
       onRow={(record) => {
         return {
           onClick: () => {

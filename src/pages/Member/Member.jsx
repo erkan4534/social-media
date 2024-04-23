@@ -1,6 +1,6 @@
 import "./Member.css";
 import { useDispatch } from "react-redux";
-import { addNewFriend, removeMember } from "../../redux/action/authActions";
+import { addNewFriend } from "../../redux/action/authActions";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";
