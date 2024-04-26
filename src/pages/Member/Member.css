@@ -14,6 +14,7 @@
 .closeFriend {
   display: flex;
   align-items: center;
+  margin-right: 8px;
 }
 
 .closeFriend img {
