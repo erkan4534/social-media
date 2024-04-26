@@ -2,7 +2,7 @@ import "./Admin.css";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { removeMember } from "../../redux/action/authActions";
+import { removeMember } from "../../redux-toolkit/slices/authSlice";
 
 export const Admin = () => {
   const { user, userDataArray } = useSelector((state) => state.auth);

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { newAccountInputData } from "../../data/newAccountInputData";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDataArray } from "../../redux/action/authActions";
+import { setUserDataArray } from "../../redux-toolkit/slices/authSlice";
 import FileUpload from "../../components/UI/FileUpload/FileUpload";
 
 const initialInput = {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Register from "../Register/Register";
-import { login } from "../../redux/action/authActions";
+import { login } from "../../redux-toolkit/slices/authSlice";
 
 import "./Login.css";
 

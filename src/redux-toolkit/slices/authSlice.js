@@ -26,7 +26,7 @@ export const authSlice = createSlice({
             .map((friendId) =>
               state.userDataArray.find((user) => user.id === friendId)
             )
-            .filter(Boolean); // Remove undefined values if any
+            .filter(Boolean);
 
           friendPostDataArray.forEach((friend) => {
             allFriendPosts.push(...friend.posts);
@@ -53,13 +53,13 @@ export const authSlice = createSlice({
       state.allPosts = [];
     },
     addNewFriend: (state, action) => {
-      const { userIdToAdd } = action.payload;
+      const friendId = action.payload.friendId;
       const userIndex = state.userDataArray.findIndex(
         (user) => user.id === state.user.id
       );
       if (userIndex !== -1) {
         const user = state.userDataArray[userIndex];
-        const updatedFriends = [...user.friends, userIdToAdd];
+        const updatedFriends = [...user.friends, friendId];
         state.userDataArray[userIndex] = { ...user, friends: updatedFriends };
         state.user = { ...state.user, friends: updatedFriends };
       }
@@ -115,26 +115,23 @@ export const authSlice = createSlice({
       }
     },
     removeUserPostAndAllPost: (state, action) => {
-      const { userId } = action.payload;
-      // Kullanıcının tüm gönderilerini sil
-      if (state.user && state.user.id === userId) {
-        state.user.posts = [];
-      }
+      const { userPosts, removePostId } = action.payload;
 
-      // userDataArray'den ve allPosts'dan ilgili kullanıcının tüm gönderilerini kaldır
-      state.allPosts = state.allPosts.filter((post) => post.userId !== userId);
+      state.allPosts = state.allPosts.filter(
+        (post) => post.id !== removePostId
+      );
+      state.user.posts = userPosts;
       const userIndex = state.userDataArray.findIndex(
-        (user) => user.id === userId
+        (user) => user.id === state.user.id
       );
       if (userIndex !== -1) {
-        state.userDataArray[userIndex].posts = [];
+        state.userDataArray[userIndex].posts = state.userDataArray[
+          userIndex
+        ].posts.filter((id) => id !== removePostId);
       }
     },
     removeAllPost: (state, action) => {
-      // Tüm gönderileri temizle
-      state.allPosts = [];
-      // Aynı zamanda userDataArray içindeki her kullanıcının gönderilerini de temizle
-      state.userDataArray.forEach((user) => (user.posts = []));
+      state.allPosts = action.payload.allnewPosts;
     },
     postComment: (state, action) => {
       const { postId, comment } = action.payload;
@@ -222,6 +219,12 @@ export const authSlice = createSlice({
         state.isLoggedIn = false;
       }
     },
+
+    setUserDataArray(state, action) {
+      // userDataArray'i action.payload ile güncelle
+      state.userDataArray = action.payload;
+      state.isLoginInValidMessage = false;
+    },
   },
 });
 
@@ -237,6 +240,7 @@ export const {
   postComment,
   postEditComment,
   removeMember,
+  setUserDataArray,
 } = authSlice.actions;
 
 export default authSlice.reducer;

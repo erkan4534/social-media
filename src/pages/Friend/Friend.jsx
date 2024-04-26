@@ -1,6 +1,6 @@
 import "./Friend.css";
 import { useDispatch } from "react-redux";
-import { removeFriend } from "../../redux/action/authActions";
+import { removeFriend } from "../../redux-toolkit/slices/authSlice";
 import PropTypes from "prop-types";
 import { Link, useOutletContext } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -71,7 +71,9 @@ const Friend = ({ userInfo, userDataArray }) => {
               {user?.id === userInfo.id && (
                 <button
                   className="removeFriendButton"
-                  onClick={() => dispatch(removeFriend(friend.id, userInfo))}
+                  onClick={() =>
+                    dispatch(removeFriend({ friendId: friend.id }))
+                  }
                 >
                   UnFollowed
                 </button>

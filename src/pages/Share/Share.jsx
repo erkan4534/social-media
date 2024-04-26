@@ -17,7 +17,7 @@ import {
   removeUserPostAndAllPost,
   setUserLike,
   setUserPost,
-} from "../../redux/action/authActions";
+} from "../../redux-toolkit/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 
@@ -74,11 +74,16 @@ const Share = ({ userInfo, userDataArray }) => {
       const userPosts = userInfo.posts.filter(
         (post) => post.userId !== userInfo.id
       );
-      const allnewPosts = allPosts.filter((post) => post.id !== removePost.id);
-      dispatch(removeUserPostAndAllPost(allnewPosts, userPosts, userInfo.id));
+
+      dispatch(
+        removeUserPostAndAllPost({
+          userPosts: userPosts,
+          removePostId: removePost.id,
+        })
+      );
     } else if (userInfo.id !== removePost.userId) {
       const allnewPosts = allPosts.filter((post) => post.id !== removePost.id);
-      dispatch(removeAllPost(allnewPosts));
+      dispatch(removeAllPost({ allnewPosts }));
     }
   };
 

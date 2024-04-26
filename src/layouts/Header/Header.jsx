@@ -8,7 +8,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/action/authActions";
+import { logout } from "../../redux-toolkit/slices/authSlice";
 import Dropdown from "../../components/UI/Dropdown/Dropdown";
 
 function Header({ searchTerm, setSearchTerm, isAdmin }) {
