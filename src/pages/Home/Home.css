@@ -55,7 +55,7 @@
   margin-top: 7px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1187px) {
   .leftHamburgerMenu {
     display: block;
   }
@@ -98,7 +98,7 @@
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1188px) {
   .leftHamburgerMenu {
     display: none;
   }

@@ -70,7 +70,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1187px) {
   .logo {
     font-size: 11px;
     margin-left: 35px;
@@ -90,12 +90,17 @@
     flex: 1;
     margin-right: 5px;
   }
+
+  .searchBar::placeholder {
+    font-size: 14px;
+    text-align: start;
+  }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1188px) {
   .logo {
     font-size: 20px;
-    margin-left: 15px;
+    margin-left: 20px;
   }
 
   .headerRightIcon {
@@ -122,11 +127,4 @@
   opacity: 1;
   text-align: left;
   font-style: italic;
-}
-
-@media (max-width: 768px) {
-  .searchBar::placeholder {
-    font-size: 14px;
-    text-align: start;
-  }
 }
