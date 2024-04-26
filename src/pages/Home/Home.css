@@ -5,12 +5,19 @@
 
 .centerbar {
   flex: 2;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: calc(100vh - 50px);
+  overflow-y: auto;
 }
 
 .leftbar {
   flex: 1;
-  position: sticky;
+  position: fixed;
   top: 50px;
+  left: 0;
   height: calc(100vh - 50px);
   scrollbar-width: 20px;
   scrollbar-color: #3b5998 #e1e1e1;
@@ -29,8 +36,9 @@
 
 .rightbar {
   flex: 1;
-  position: sticky;
+  position: fixed;
   top: 50px;
+  right: 0;
   height: calc(100vh - 50px);
   scrollbar-width: 20px;
   scrollbar-color: #3b5998 #f0f0f0;
