@@ -38,6 +38,10 @@ const Member = ({ user, userDataArray }) => {
     );
   }
 
+  if (userDataArray.length === 0) {
+    return <></>;
+  }
+
   return (
     <div>
       <div className="searchMemberBar">
