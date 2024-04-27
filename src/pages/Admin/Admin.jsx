@@ -115,6 +115,7 @@ export const Admin = () => {
       className="adminTable"
       columns={columns}
       dataSource={userDataNewArray}
+      rowKey={(record) => record.id}
       onRow={(record) => {
         return {
           onClick: () => {
