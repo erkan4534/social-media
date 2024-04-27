@@ -87,6 +87,10 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
               {!inputData[data.name] && (
                 <span style={{ color: "#FF0000" }}>It must not be empty</span>
               )}
+
+              {data.name === "email" && inputData[data.name] && (
+                <span style={{ color: "#FF0000" }}>Email is not valid</span>
+              )}
             </React.Fragment>
           ))}
           <FileUpload />
