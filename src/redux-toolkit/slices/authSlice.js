@@ -224,26 +224,18 @@ export const authSlice = createSlice({
     },
 
     removeMember: (state, action) => {
-      const { memberId } = action.payload;
       // Belirtilen üyenin tüm verilerini userDataArray'dan kaldır
       state.userDataArray = state.userDataArray.filter(
-        (user) => user.id !== memberId
+        (user) => user.id !== action.payload
       );
 
       // Üyenin tüm gönderilerini allPosts dizisinden kaldır
       state.allPosts = state.allPosts.filter(
-        (post) => post.userId !== memberId
+        (post) => post.userId !== action.payload
       );
-
-      // Eğer silinen kullanıcı şu anda giriş yapmış kullanıcı ise, oturumu kapat
-      if (state.user && state.user.id === memberId) {
-        state.user = null;
-        state.isLoggedIn = false;
-      }
     },
 
     setUserDataArray(state, action) {
-      // userDataArray'i action.payload ile güncelle
       state.userDataArray = action.payload;
       state.isLoginInValidMessage = false;
     },
