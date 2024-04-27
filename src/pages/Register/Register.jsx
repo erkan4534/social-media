@@ -65,6 +65,11 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
     setIsNewAccountMessage(false);
   };
 
+  function isValidEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basit bir e-posta regex ifadesi
+    return re.test(email.toLowerCase()); // E-posta adresini test et
+  }
+
   return (
     <div className="newAccountForm">
       <span id="newAccountTitle">New Account</span>
@@ -84,13 +89,15 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
                 required={isShowError}
                 autoComplete="new-password"
               />
-              {!inputData[data.name] && (
+              {!inputData[data.name] && isShowError && (
                 <span style={{ color: "#FF0000" }}>It must not be empty</span>
               )}
 
-              {data.name === "email" && inputData[data.name] && (
-                <span style={{ color: "#FF0000" }}>Email is not valid</span>
-              )}
+              {data.name === "email" &&
+                inputData[data.name] &&
+                !isValidEmail(inputData[data.name]) && (
+                  <span style={{ color: "#FF0000" }}>Email is not valid</span>
+                )}
             </React.Fragment>
           ))}
           <FileUpload />
