@@ -267,7 +267,7 @@ const Share = ({ userInfo, userDataArray }) => {
                         target={"postLike" + post.id}
                         toggle={toggle}
                       >
-                        {post.likes.length > 0 && likeToolTip(post.likes)}
+                        {likeToolTip(post.likes)}
                       </Tooltip>
                     )}
                   </div>
