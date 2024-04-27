@@ -161,7 +161,6 @@ export const authSlice = createSlice({
       }
     },
     postEditComment: (state, action) => {
-      debugger;
       const { post, comment } = action.payload;
       // Tüm gönderiler arasında ve ilgili gönderideki yorumu bul ve güncelle
       const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
