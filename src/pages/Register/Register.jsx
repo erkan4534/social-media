@@ -39,6 +39,12 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
       return;
     }
 
+    if (inputData["password"] !== inputData["confirmPassword"]) {
+      setIsShowError(true);
+      setIsSuccess(false);
+      return;
+    }
+
     const newUserData = {
       id: userDataArray.length + 1,
       ...inputData,
@@ -73,7 +79,6 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
   return (
     <div className="newAccountForm">
       <span id="newAccountTitle">New Account</span>
-      {isShowError && <span>Please fill all input</span>}
       <form onSubmit={onNewAccountSubmit} noValidate>
         <div className="flex flex-col gap-1">
           {newAccountInputData.map((data) => (
