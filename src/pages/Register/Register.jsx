@@ -76,6 +76,7 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
               placeholder={data.placeholder}
               type={data.type}
               name={data.name}
+              value={inputData[data.name]}
               className="newAccountInput"
               onChange={handleChange}
               required={isShowError}
