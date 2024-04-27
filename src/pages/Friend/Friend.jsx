@@ -27,7 +27,7 @@ const Friend = ({ userInfo, userDataArray }) => {
   }
 
   let friendsArray = userDataArray.filter((user) =>
-    userInfo.friends.includes(user.id)
+    userInfo.friends?.includes(user.id)
   );
 
   if (friendsArray.length === 0) {

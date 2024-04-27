@@ -15,22 +15,28 @@ export const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       const { email, password } = action.payload;
+
       const userDetailData = state.userDataArray.find(
         (usr) => usr.email === email && usr.password === password
       );
 
       if (userDetailData) {
         const allFriendPosts = [];
-        if (userDetailData.role === "memberUser") {
-          const friendPostDataArray = userDetailData.friends
-            .map((friendId) =>
-              state.userDataArray.find((user) => user.id === friendId)
-            )
-            .filter(Boolean);
+
+        if (userDetailData && userDetailData.role === "memberUser") {
+          const friendPostDataArray =
+            userDetailData &&
+            state.userDataArray.filter((usr) =>
+              userDetailData?.friends?.includes(usr.id)
+            );
 
           friendPostDataArray.forEach((friend) => {
             allFriendPosts.push(...friend.posts);
           });
+
+          if (userDetailData.posts?.length > 0) {
+            allFriendPosts.push(...userDetailData.posts);
+          }
         } else {
           state.userDataArray.forEach((member) => {
             allFriendPosts.push(...member.posts);
@@ -59,7 +65,10 @@ export const authSlice = createSlice({
       );
       if (userIndex !== -1) {
         const user = state.userDataArray[userIndex];
-        const updatedFriends = [...user.friends, friendId];
+        const updatedFriends = [
+          ...(user.friends ? user.friends : []),
+          friendId,
+        ];
         state.userDataArray[userIndex] = { ...user, friends: updatedFriends };
         state.user = { ...state.user, friends: updatedFriends };
       }
@@ -236,7 +245,7 @@ export const authSlice = createSlice({
     },
 
     setUserDataArray(state, action) {
-      state.userDataArray = action.payload;
+      state.userDataArray = [...state.userDataArray, action.payload];
       state.isLoginInValidMessage = false;
     },
   },

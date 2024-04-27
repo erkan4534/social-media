@@ -40,6 +40,7 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
     const newUserData = {
       id: userDataArray.length + 1,
       ...inputData,
+      role: "memberUser",
       profilePicture: "https://i.pravatar.cc/300",
     };
     dispatch(setUserDataArray(newUserData));
