@@ -75,8 +75,12 @@ export const authSlice = createSlice({
     },
     setUserPost: (state, action) => {
       const newPost = action.payload;
+
       if (state.user) {
-        state.user.posts = [newPost, ...state.user.posts];
+        state.user.posts = [
+          newPost,
+          ...(state.user.posts ? state.user.posts : []),
+        ];
         state.allPosts = [newPost, ...state.allPosts];
 
         const userIndex = state.userDataArray.findIndex(
@@ -85,7 +89,12 @@ export const authSlice = createSlice({
         if (userIndex !== -1) {
           state.userDataArray[userIndex] = {
             ...state.userDataArray[userIndex],
-            posts: [newPost, ...state.userDataArray[userIndex].posts],
+            posts: [
+              newPost,
+              ...(state.userDataArray[userIndex].posts
+                ? state.userDataArray[userIndex].posts
+                : []),
+            ],
           };
         }
       }
