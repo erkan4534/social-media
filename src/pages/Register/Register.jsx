@@ -1,5 +1,6 @@
 import "./Register.css";
 import PropTypes from "prop-types";
+import React from "react";
 import { newAccountInputData } from "../../data/newAccountInputData";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,19 +70,24 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
       <span id="newAccountTitle">New Account</span>
       {isShowError && <span>Please fill all input</span>}
       <form onSubmit={onNewAccountSubmit} noValidate>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           {newAccountInputData.map((data) => (
-            <input
-              key={data.id}
-              placeholder={data.placeholder}
-              type={data.type}
-              name={data.name}
-              value={inputData[data.name]}
-              className="newAccountInput"
-              onChange={handleChange}
-              required={isShowError}
-              autoComplete="new-password"
-            />
+            <React.Fragment key={data.id}>
+              <input
+                key={data.id}
+                placeholder={data.placeholder}
+                type={data.type}
+                name={data.name}
+                value={inputData[data.name]}
+                className="newAccountInput"
+                onChange={handleChange}
+                required={isShowError}
+                autoComplete="new-password"
+              />
+              {!inputData[data.name] && (
+                <span style={{ color: "#FF0000" }}>It must not be empty</span>
+              )}
+            </React.Fragment>
           ))}
           <FileUpload />
         </div>
