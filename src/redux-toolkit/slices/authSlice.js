@@ -82,8 +82,8 @@ export const authSlice = createSlice({
       }
     },
     setUserLike: (state, action) => {
-      const { postId, userId } = action.payload;
-      const postIndex = state.allPosts.findIndex((post) => post.id === postId);
+      const { post, userId } = action.payload;
+      const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
       if (postIndex !== -1) {
         const post = state.allPosts[postIndex];
         const isLiked = post.likes.includes(userId);

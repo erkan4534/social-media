@@ -123,7 +123,8 @@ const Share = ({ userInfo, userDataArray }) => {
     dispatch(postEditComment(post));
   };
 
-  const postLike = (post) => dispatch(setUserLike(post, user.id));
+  const postLike = (post) =>
+    dispatch(setUserLike({ post: post, userId: user.id }));
 
   let sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
 
