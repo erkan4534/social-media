@@ -9,6 +9,7 @@ import FileUpload from "../../components/UI/FileUpload/FileUpload";
 const initialInput = {
   username: "",
   name: "",
+  surname: "",
   email: "",
   password: "",
   confirmPassword: "",
