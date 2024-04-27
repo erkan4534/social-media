@@ -104,7 +104,7 @@ const Profile = () => {
               isRightBarVisible ? "profileRight" : "hamburgerMenuProfileRight"
             }`}
           >
-            {userInfo.friends.length > 0 && (
+            {userInfo.friends?.length > 0 && (
               <div className="myFriendList">
                 <Friend userInfo={userInfo} userDataArray={userDataArray} />
               </div>
