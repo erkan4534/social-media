@@ -104,6 +104,7 @@ const Share = ({ userInfo, userDataArray }) => {
     }
 
     setComment({ id: "", name: "" });
+    setIsShowComment(false);
   };
 
   const removeComment = (comment, post) => {
