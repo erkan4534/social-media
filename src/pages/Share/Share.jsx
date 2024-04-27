@@ -40,7 +40,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const [comment, setComment] = useState(intialComment);
   const dispatch = useDispatch();
   const { user, allPosts } = useSelector((state) => state.auth);
-  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState({});
 
   const outletContext = useOutletContext();
   const searchTerm = outletContext ? outletContext.searchTerm : "";
