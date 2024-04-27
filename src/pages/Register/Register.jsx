@@ -103,6 +103,13 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
                 !isValidEmail(inputData[data.name]) && (
                   <span style={{ color: "#FF0000" }}>Email is not valid</span>
                 )}
+
+              {data.name === "confirmPassword" &&
+                inputData[data.name] !== inputData["password"] && (
+                  <span style={{ color: "#FF0000" }}>
+                    Re-password and password are not the same
+                  </span>
+                )}
             </React.Fragment>
           ))}
           <FileUpload />
