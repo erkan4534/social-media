@@ -40,7 +40,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const [comment, setComment] = useState(intialComment);
   const dispatch = useDispatch();
   const { user, allPosts } = useSelector((state) => state.auth);
-  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tooltipOpen, setTooltipOpen] = useState({});
 
   const outletContext = useOutletContext();
   const searchTerm = outletContext ? outletContext.searchTerm : "";
@@ -155,8 +155,11 @@ const Share = ({ userInfo, userDataArray }) => {
       .map((user) => <div key={user.id}>{user.name + " " + user.surname}</div>);
   };
 
-  const toggle = () => {
-    setTooltipOpen(!tooltipOpen);
+  const toggleTooltip = (postId) => {
+    setTooltipOpen((prev) => ({
+      ...prev,
+      [postId]: !prev[postId], // Mevcut durumun tersini ayarla
+    }));
   };
 
   return (
@@ -261,14 +264,16 @@ const Share = ({ userInfo, userDataArray }) => {
                     </Button>
 
                     {post.likes.length > 0 && (
-                      <Tooltip
-                        placement="bottom"
-                        isOpen={tooltipOpen}
-                        target={"postLike" + post.id}
-                        toggle={toggle}
-                      >
-                        {likeToolTip(post.likes)}
-                      </Tooltip>
+                      <div key={post.id}>
+                        {/* Post için tooltip component */}
+                        <Tooltip
+                          isOpen={tooltipOpen[post.id] || false} // Varsayılan olarak false kullan
+                          target={"postLike" + post.id}
+                          toggle={() => toggleTooltip(post.id)}
+                        >
+                          {likeToolTip(post.likes)}
+                        </Tooltip>
+                      </div>
                     )}
                   </div>
 
