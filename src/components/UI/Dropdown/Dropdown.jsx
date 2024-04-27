@@ -35,11 +35,11 @@ function Dropdown({ user, options, isOpen, setIsOpen }) {
 export default Dropdown;
 
 Dropdown.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired,
     })
   ).isRequired,
 
