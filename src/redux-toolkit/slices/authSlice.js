@@ -204,22 +204,23 @@ export const authSlice = createSlice({
     },
 
     postRemoveComment: (state, action) => {
-      const { post, updatedCommments } = action.payload;
+      const { postId, updatedCommments } = action.payload;
 
-      const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
+      const postIndex = state.allPosts.findIndex((pst) => pst.id === postId);
       if (postIndex !== -1) {
         state.allPosts[postIndex].comments = updatedCommments;
       }
 
-      const userDataNewArray = state.userDataArray.map((user) => {
-        if (user.id === post.userId) {
-          const postIndex = user.posts.findIndex((pst) => pst.id === post.id);
-          user.posts[postIndex].comments = updatedCommments;
-          return user;
-        }
-      });
+      state.userDataArray = state.userDataArray.map((user) => {
+        const updatedPosts = user.posts.map((post) => {
+          if (post.id === postId) {
+            return { ...post, comments: updatedCommments };
+          }
+          return post;
+        });
 
-      state.userDataArray = { ...state.userDataArray, userDataNewArray };
+        return { ...user, posts: updatedPosts };
+      });
     },
 
     removeMember: (state, action) => {

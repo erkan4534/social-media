@@ -116,7 +116,7 @@ const Share = ({ userInfo, userDataArray }) => {
     });
 
     dispatch(
-      postRemoveComment({ post: post, updatedCommments: updatedCommments })
+      postRemoveComment({ postId: post.id, updatedCommments: updatedCommments })
     );
   };
 
