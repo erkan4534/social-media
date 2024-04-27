@@ -40,7 +40,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const [comment, setComment] = useState(intialComment);
   const dispatch = useDispatch();
   const { user, allPosts } = useSelector((state) => state.auth);
-  const [tooltipOpen, setTooltipOpen] = useState({});
+  const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const outletContext = useOutletContext();
   const searchTerm = outletContext ? outletContext.searchTerm : "";
@@ -267,7 +267,7 @@ const Share = ({ userInfo, userDataArray }) => {
                       <div key={post.id}>
                         {/* Post için tooltip component */}
                         <Tooltip
-                          isOpen={tooltipOpen[post.id] || false} // Varsayılan olarak false kullan
+                          isOpen={tooltipOpen[post.id]} // Varsayılan olarak false kullan
                           target={"postLike" + post.id}
                           toggle={() => toggleTooltip(post.id)}
                         >
