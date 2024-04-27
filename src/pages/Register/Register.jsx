@@ -80,6 +80,7 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
               className="newAccountInput"
               onChange={handleChange}
               required={isShowError}
+              autoComplete="new-password"
             />
           ))}
           <FileUpload />

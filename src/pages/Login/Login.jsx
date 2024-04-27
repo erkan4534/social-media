@@ -87,6 +87,7 @@ const Login = () => {
                   className="loginInput"
                   onChange={handleChange}
                   required={emailValid}
+                  autoComplete="new-password"
                 />
                 {emailValid && <span>It should be a valid email address!</span>}
                 <input
@@ -96,6 +97,7 @@ const Login = () => {
                   className="loginInput"
                   onChange={handleChange}
                   required={passwordValid}
+                  autoComplete="new-password"
                 />
                 {passwordValid && <span>Enter your password</span>}
               </div>
