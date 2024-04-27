@@ -91,7 +91,6 @@ const Share = ({ userInfo, userDataArray }) => {
     setComment({ ...comment, name: event.target.value });
 
   const postNewComment = (post) => {
-    debugger;
     if (!comment.id) {
       const newComment = {
         name: comment.name,
