@@ -100,14 +100,6 @@ const Share = ({ userInfo, userDataArray }) => {
       };
       dispatch(postComment({ comment: newComment, post: post }));
     } else {
-      const updatedCommments = post.comments.map((com) => {
-        if (com.id === comment.id) {
-          return comment;
-        }
-        return com;
-      });
-      debugger;
-      //post.comments = updatedCommments;
       dispatch(postEditComment({ post: post, comment: comment }));
     }
 
