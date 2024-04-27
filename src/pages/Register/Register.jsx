@@ -33,7 +33,7 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
   function onNewAccountSubmit(event) {
     event.preventDefault();
     setIsShowError(false);
-    if (!isFormValid()) {
+    if (!isFormValid() || !isValidEmail(inputData["email"])) {
       setIsShowError(true);
       setIsSuccess(false);
       return;
