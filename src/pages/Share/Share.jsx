@@ -91,6 +91,7 @@ const Share = ({ userInfo, userDataArray }) => {
     setComment({ ...comment, name: event.target.value });
 
   const postNewComment = (post) => {
+    debugger;
     if (!comment.id) {
       const newComment = {
         name: comment.name,
@@ -98,7 +99,7 @@ const Share = ({ userInfo, userDataArray }) => {
         postId: post.id,
         userId: user.id,
       };
-      dispatch(postComment(newComment, post));
+      dispatch(postComment({ comment: newComment, post: post }));
     } else {
       const updatedCommments = post.comments.map((com) => {
         if (com.id === comment.id) {
