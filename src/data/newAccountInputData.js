@@ -42,8 +42,8 @@ export const newAccountInputData = [
   {
     id: 6,
     name: "confirmPassword",
-    placeholder: "Enter your Confirm Password",
-    label: "Confirm Password",
+    placeholder: "Enter your Re-Password",
+    label: "Re-Password",
     type: "password",
   },
 ];
