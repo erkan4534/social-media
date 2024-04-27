@@ -41,7 +41,6 @@ const Share = ({ userInfo, userDataArray }) => {
   const dispatch = useDispatch();
   const { user, allPosts } = useSelector((state) => state.auth);
   const [tooltipOpen, setTooltipOpen] = useState(false);
-  const toggle = () => setTooltipOpen(!tooltipOpen);
 
   const outletContext = useOutletContext();
   const searchTerm = outletContext ? outletContext.searchTerm : "";
@@ -154,6 +153,10 @@ const Share = ({ userInfo, userDataArray }) => {
     return userDataArray
       .filter((user) => likes.includes(user.id))
       .map((user) => <div key={user.id}>{user.name + " " + user.surname}</div>);
+  };
+
+  const toggle = () => {
+    setTooltipOpen(!tooltipOpen);
   };
 
   return (
