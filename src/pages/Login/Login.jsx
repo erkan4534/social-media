@@ -118,6 +118,8 @@ const Login = () => {
 
         {isShowNewAccount && (
           <Register
+            setEmailValid={setEmailValid}
+            setPasswordValid={setPasswordValid}
             showLogin={showLogin}
             setIsNewAccountMessage={setIsNewAccountMessage}
           />

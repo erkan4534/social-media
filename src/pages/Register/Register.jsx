@@ -16,7 +16,12 @@ const initialInput = {
   confirmPassword: "",
 };
 
-const Register = ({ showLogin, setIsNewAccountMessage }) => {
+const Register = ({
+  showLogin,
+  setIsNewAccountMessage,
+  setEmailValid,
+  setPasswordValid,
+}) => {
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -69,6 +74,8 @@ const Register = ({ showLogin, setIsNewAccountMessage }) => {
   const backToLogin = () => {
     showLogin();
     setIsNewAccountMessage(false);
+    setEmailValid(false);
+    setPasswordValid(false);
   };
 
   function isValidEmail(email) {
@@ -133,6 +140,8 @@ Register.propTypes = {
   showLogin: PropTypes.func,
   setIsNewAccountMessage: PropTypes.func,
   setIsLoginInValidMessage: PropTypes.func,
+  setEmailValid: PropTypes.func,
+  setPasswordValid: PropTypes.func,
 };
 
 export default Register;
