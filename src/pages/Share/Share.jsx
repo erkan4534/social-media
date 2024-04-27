@@ -115,7 +115,9 @@ const Share = ({ userInfo, userDataArray }) => {
       }
     });
 
-    dispatch(postRemoveComment({ post: post, comments: updatedCommments }));
+    dispatch(
+      postRemoveComment({ post: post, updatedCommments: updatedCommments })
+    );
   };
 
   const postLike = (post) =>

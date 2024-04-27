@@ -204,21 +204,22 @@ export const authSlice = createSlice({
     },
 
     postRemoveComment: (state, action) => {
-      const { post, comments } = action.payload;
+      const { post, updatedCommments } = action.payload;
 
       const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
       if (postIndex !== -1) {
-        state.allPosts[postIndex].comments = comments;
+        state.allPosts[postIndex].comments = updatedCommments;
       }
 
       const userDataNewArray = state.userDataArray.map((user) => {
         if (user.id === post.userId) {
-          user.posts.comments = comments;
+          const postIndex = user.posts.findIndex((pst) => pst.id === post.id);
+          user.posts[postIndex].comments = updatedCommments;
           return user;
         }
       });
 
-      state.userDataArray = userDataNewArray;
+      state.userDataArray = { ...state.userDataArray, userDataNewArray };
     },
 
     removeMember: (state, action) => {

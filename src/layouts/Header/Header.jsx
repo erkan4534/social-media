@@ -90,7 +90,7 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
           <Dropdown
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            user={{ profilePicture: user?.profilePicture }}
+            user={user}
             options={optionsArray}
           />
         </div>
