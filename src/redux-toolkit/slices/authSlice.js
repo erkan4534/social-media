@@ -161,33 +161,35 @@ export const authSlice = createSlice({
       }
     },
     postEditComment: (state, action) => {
-      const { postId, commentId, newComment } = action.payload;
+      debugger;
+      const { post, comment } = action.payload;
       // Tüm gönderiler arasında ve ilgili gönderideki yorumu bul ve güncelle
-      const postIndex = state.allPosts.findIndex((post) => post.id === postId);
+      const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
       if (postIndex !== -1) {
         const commentIndex = state.allPosts[postIndex].comments.findIndex(
-          (comment) => comment.id === commentId
+          (cmt) => cmt.id === comment.id
         );
         if (commentIndex !== -1) {
           state.allPosts[postIndex].comments[commentIndex] = {
             ...state.allPosts[postIndex].comments[commentIndex],
-            ...newComment,
+            ...comment,
           };
         }
       }
 
       // userDataArray'de de bu gönderideki yorumu güncelle
       const userIndex = state.userDataArray.findIndex((user) =>
-        user.posts.some((post) => post.id === postId)
+        user.posts.some((pst) => pst.id === post.id)
       );
       if (userIndex !== -1) {
         const userPostIndex = state.userDataArray[userIndex].posts.findIndex(
-          (post) => post.id === postId
+          (pst) => pst.id === post.id
         );
         if (userPostIndex !== -1) {
           const commentIndex = state.userDataArray[userIndex].posts[
             userPostIndex
-          ].comments.findIndex((comment) => comment.id === commentId);
+          ].comments.findIndex((cmt) => cmt.id === comment.id);
+
           if (commentIndex !== -1) {
             state.userDataArray[userIndex].posts[userPostIndex].comments[
               commentIndex
@@ -195,7 +197,7 @@ export const authSlice = createSlice({
               ...state.userDataArray[userIndex].posts[userPostIndex].comments[
                 commentIndex
               ],
-              ...newComment,
+              ...comment,
             };
           }
         }

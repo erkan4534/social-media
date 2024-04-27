@@ -106,8 +106,9 @@ const Share = ({ userInfo, userDataArray }) => {
         }
         return com;
       });
-      post.comments = updatedCommments;
-      dispatch(postEditComment(post));
+      debugger;
+      //post.comments = updatedCommments;
+      dispatch(postEditComment({ post: post, comment: comment }));
     }
 
     setComment({ id: "", name: "" });
