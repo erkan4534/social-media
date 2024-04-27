@@ -14,8 +14,17 @@ export const newAccountInputData = [
     label: "Name",
     type: "text",
   },
+
   {
     id: 3,
+    name: "surname",
+    placeholder: "Enter your surname",
+    label: "Surname",
+    type: "text",
+  },
+
+  {
+    id: 4,
     name: "email",
     placeholder: "Enter your email",
     label: "Email",
@@ -23,7 +32,7 @@ export const newAccountInputData = [
   },
 
   {
-    id: 4,
+    id: 5,
     name: "password",
     placeholder: "Enter your Password",
     label: "password",
@@ -31,7 +40,7 @@ export const newAccountInputData = [
   },
 
   {
-    id: 5,
+    id: 6,
     name: "confirmPassword",
     placeholder: "Enter your Confirm Password",
     label: "Confirm Password",

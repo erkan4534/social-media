@@ -158,7 +158,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const toggleTooltip = (postId) => {
     setTooltipOpen((prev) => ({
       ...prev,
-      [postId]: !prev[postId], // Mevcut durumun tersini ayarla
+      [postId]: !prev[postId],
     }));
   };
 
@@ -265,9 +265,8 @@ const Share = ({ userInfo, userDataArray }) => {
 
                     {post.likes.length > 0 && (
                       <div key={post.id}>
-                        {/* Post için tooltip component */}
                         <Tooltip
-                          isOpen={tooltipOpen[post.id]} // Varsayılan olarak false kullan
+                          isOpen={tooltipOpen[post.id]}
                           target={"postLike" + post.id}
                           toggle={() => toggleTooltip(post.id)}
                         >
