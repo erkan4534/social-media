@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import {
   postComment,
   postEditComment,
+  postRemoveComment,
   removeAllPost,
   removeUserPostAndAllPost,
   setUserLike,
@@ -113,8 +114,8 @@ const Share = ({ userInfo, userDataArray }) => {
         return comment;
       }
     });
-    post.comments = updatedCommments;
-    dispatch(postEditComment(post));
+
+    dispatch(postRemoveComment({ post: post, comments: updatedCommments }));
   };
 
   const postLike = (post) =>

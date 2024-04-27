@@ -202,6 +202,25 @@ export const authSlice = createSlice({
         }
       }
     },
+
+    postRemoveComment: (state, action) => {
+      const { post, comments } = action.payload;
+
+      const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
+      if (postIndex !== -1) {
+        state.allPosts[postIndex].comments = comments;
+      }
+
+      const userDataNewArray = state.userDataArray.map((user) => {
+        if (user.id === post.userId) {
+          user.posts.comments = comments;
+          return user;
+        }
+      });
+
+      state.userDataArray = userDataNewArray;
+    },
+
     removeMember: (state, action) => {
       const { memberId } = action.payload;
       // Belirtilen üyenin tüm verilerini userDataArray'dan kaldır
@@ -240,6 +259,7 @@ export const {
   removeAllPost,
   postComment,
   postEditComment,
+  postRemoveComment,
   removeMember,
   setUserDataArray,
 } = authSlice.actions;
