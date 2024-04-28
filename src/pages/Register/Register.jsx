@@ -75,7 +75,7 @@ const Register = ({
 
     if (data.email && userDataArray.some((user) => user.email === data.email)) {
       errors.name = "email";
-      errors.message = "This email has been used.";
+      errors.message = "This email has already been used.";
       errors.hasErrors = true;
       return errors;
     }
