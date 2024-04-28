@@ -51,6 +51,7 @@ const Register = ({ showLogin }) => {
       };
 
       dispatch(setUserDataArray(newUserData));
+      showLogin();
     },
   });
 

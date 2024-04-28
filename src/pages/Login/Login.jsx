@@ -49,7 +49,10 @@ const Login = () => {
     formik.resetForm();
   };
 
-  const showLogin = () => setIsShowNewAccount(false);
+  const showLogin = () => {
+    setIsShowNewAccount(false);
+    setIsNewAccountMessage(true);
+  };
 
   return (
     <div className="homeContainer">
