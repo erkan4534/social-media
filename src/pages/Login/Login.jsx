@@ -122,6 +122,7 @@ const Login = () => {
             setPasswordValid={setPasswordValid}
             showLogin={showLogin}
             setIsNewAccountMessage={setIsNewAccountMessage}
+            setIsShowNewAccount={setIsShowNewAccount}
           />
         )}
       </div>

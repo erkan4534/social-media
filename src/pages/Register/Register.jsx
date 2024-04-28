@@ -26,6 +26,7 @@ const Register = ({
   setIsNewAccountMessage,
   setEmailValid,
   setPasswordValid,
+  setIsShowNewAccount,
 }) => {
   const [inputData, setInputData] = useState(initialInput);
   const [formErrors, setFormErrors] = useState({});
@@ -44,8 +45,7 @@ const Register = ({
 
     const errors = validateForm(inputData);
     setFormErrors(errors);
-    debugger;
-    console.log(formErrors.emptyMessage);
+
     if (!errors.hasErrors) {
       const newUserData = {
         id: userDataArray.length + 1,
@@ -55,6 +55,7 @@ const Register = ({
       };
       dispatch(setUserDataArray(newUserData));
       setIsNewAccountMessage(true);
+      setIsShowNewAccount(false);
     }
   }
 
@@ -121,7 +122,7 @@ const Register = ({
                 autoComplete="new-password"
               />
 
-              {formErrors[data.name] && (
+              {inputData[data.name] && formErrors[data.name] && (
                 <span style={{ color: "#FF0000" }}>
                   {formErrors[data.name].message}
                 </span>
@@ -157,6 +158,7 @@ Register.propTypes = {
   setIsLoginInValidMessage: PropTypes.func,
   setEmailValid: PropTypes.func,
   setPasswordValid: PropTypes.func,
+  setIsShowNewAccount: PropTypes.func,
 };
 
 export default Register;
