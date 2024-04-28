@@ -12,9 +12,13 @@ const Login = () => {
   const [isNewAccountMessage, setIsNewAccountMessage] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn, isLoginInValidMessage, user } = useSelector(
-    (state) => state.auth
-  );
+  const {
+    isLoggedIn,
+    isLoginInValidMessage,
+    user,
+    setLoginInvalidMessage,
+    setNewAccountMessage,
+  } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -39,7 +43,16 @@ const Login = () => {
     },
   });
 
-  const showNewAccount = () => setIsShowNewAccount(true);
+  const showNewAccount = () => {
+    setIsShowNewAccount(true);
+    dispatch(setLoginInvalidMessage(false));
+    dispatch(setNewAccountMessage(false));
+    formik.resetForm({
+      values: formik.initialValues,
+      errors: {},
+      touched: {},
+    });
+  };
 
   const showLogin = () => setIsShowNewAccount(false);
 

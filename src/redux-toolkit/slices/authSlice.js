@@ -257,6 +257,14 @@ export const authSlice = createSlice({
       state.userDataArray = [...state.userDataArray, action.payload];
       state.isLoginInValidMessage = false;
     },
+
+    setLoginInvalidMessage: (state, action) => {
+      state.isLoginInValidMessage = action.payload;
+    },
+
+    setNewAccountMessage: (state, action) => {
+      state.isNewAccountMessage = action.payload;
+    },
   },
 });
 
@@ -274,6 +282,8 @@ export const {
   postRemoveComment,
   removeMember,
   setUserDataArray,
+  setLoginInvalidMessage,
+  setNewAccountMessage,
 } = authSlice.actions;
 
 export default authSlice.reducer;
