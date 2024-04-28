@@ -59,7 +59,6 @@ const Register = ({
   }
 
   const validateForm = (data) => {
-    debugger;
     const errors = { hasErrors: false };
 
     if (Object.values(data).some((value) => value.trim() === "")) {
