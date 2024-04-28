@@ -44,8 +44,8 @@ const Login = () => {
 
   const showNewAccount = () => {
     setIsShowNewAccount(true);
-    dispatch(setLoginInvalidMessage(false));
     setIsNewAccountMessage(false);
+    dispatch(setLoginInvalidMessage(false));
     formik.resetForm();
   };
 
