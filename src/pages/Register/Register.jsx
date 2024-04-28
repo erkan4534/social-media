@@ -16,6 +16,11 @@ const initialInput = {
   confirmPassword: "",
 };
 
+function isValidEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basit bir e-posta regex ifadesi
+  return re.test(email.toLowerCase()); // E-posta adresini test et
+}
+
 const Register = ({
   showLogin,
   setIsNewAccountMessage,
@@ -23,61 +28,64 @@ const Register = ({
   setPasswordValid,
 }) => {
   const [inputData, setInputData] = useState(initialInput);
-  const [isShowError, setIsShowError] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isEmailUsing, setIsEmailUsing] = useState(false);
-  const [isNotValidEmail, setIsNotValidEmail] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
   const { userDataArray } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isSuccess && !Object.values(inputData).includes("")) {
+    if (!Object.values(inputData).includes("") && formErrors.success) {
       showLogin();
       setIsNewAccountMessage(true);
     }
-  }, [showLogin, isSuccess, setIsNewAccountMessage, inputData]);
+  }, [inputData, formErrors, showLogin, setIsNewAccountMessage]);
 
-  function onNewAccountSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
-    setIsShowError(false);
-    if (!isFormValid()) {
-      setIsShowError(true);
-      setIsSuccess(false);
-      return;
-    }
 
-    if (!isValidEmail(inputData["email"])) {
-      setIsShowError(true);
-      setIsSuccess(false);
-      setIsNotValidEmail(true);
-      return;
+    const errors = validateForm(inputData);
+    setFormErrors(errors);
+    debugger;
+    if (!errors.hasErrors) {
+      const newUserData = {
+        id: userDataArray.length + 1,
+        ...inputData,
+        role: "memberUser",
+        profilePicture: "https://i.pravatar.cc/300",
+      };
+      dispatch(setUserDataArray(newUserData));
+      setIsNewAccountMessage(true);
     }
-
-    if (inputData["password"] !== inputData["confirmPassword"]) {
-      setIsShowError(true);
-      setIsSuccess(false);
-      return;
-    }
-
-    if (isCheckUsingEmail(inputData["email"])) {
-      setIsShowError(true);
-      setIsSuccess(false);
-      setIsEmailUsing(true);
-      return;
-    }
-
-    const newUserData = {
-      id: userDataArray.length + 1,
-      ...inputData,
-      role: "memberUser",
-      profilePicture: "https://i.pravatar.cc/300",
-    };
-    dispatch(setUserDataArray(newUserData));
-    setIsSuccess(true);
   }
 
-  const isCheckUsingEmail = (email) => {
-    return userDataArray?.find((user) => user.email === email);
+  const validateForm = (data) => {
+    const errors = { hasErrors: false };
+
+    if (Object.values(inputData).some((value) => value.trim() === "")) {
+      errors.emptyMessage = "All fields are required.";
+      errors.hasErrors = true;
+      return errors;
+    }
+
+    if (!isValidEmail(data.email)) {
+      errors.name = "email";
+      errors.message = "Email is not valid.";
+      errors.hasErrors = true;
+      return errors;
+    }
+
+    if (data.email && userDataArray.some((user) => user.email === data.email)) {
+      errors.name = "email";
+      errors.message = "This email has been used.";
+      errors.hasErrors = true;
+      return errors;
+    }
+
+    if (data.password !== data.confirmPassword) {
+      errors.name = "confirmPassword";
+      errors.message = "Passwords do not match.";
+      errors.hasErrors = true;
+      return errors;
+    }
   };
 
   function handleChange({ target: { name, value } }) {
@@ -87,10 +95,6 @@ const Register = ({
     });
   }
 
-  function isFormValid() {
-    return !Object.values(inputData).some((value) => value.trim() === "");
-  }
-
   const backToLogin = () => {
     showLogin();
     setIsNewAccountMessage(false);
@@ -98,53 +102,32 @@ const Register = ({
     setPasswordValid(false);
   };
 
-  function isValidEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basit bir e-posta regex ifadesi
-    return re.test(email.toLowerCase()); // E-posta adresini test et
-  }
-
   return (
     <div className="newAccountForm">
       <span id="newAccountTitle">New Account</span>
-      <form onSubmit={onNewAccountSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="flex flex-col gap-1">
           {newAccountInputData.map((data) => (
             <React.Fragment key={data.id}>
               <input
-                key={data.id}
                 placeholder={data.placeholder}
                 type={data.type}
                 name={data.name}
                 value={inputData[data.name]}
                 className="newAccountInput"
                 onChange={handleChange}
-                required={isShowError}
                 autoComplete="new-password"
               />
-              {!inputData[data.name] && isShowError && (
-                <span style={{ color: "#FF0000" }}>It must not be empty</span>
+
+              {!inputData[data.name] && (
+                <span style={{ color: "#FF0000" }}>
+                  {formErrors.emptyMessage}
+                </span>
               )}
 
-              {data.name === "email" &&
-                inputData[data.name] &&
-                isEmailUsing && (
-                  <span style={{ color: "#FF0000" }}>
-                    This email has been used
-                  </span>
-                )}
-
-              {data.name === "email" &&
-                inputData[data.name] &&
-                !isValidEmail(inputData[data.name]) && (
-                  <span style={{ color: "#FF0000" }}>Email is not valid</span>
-                )}
-
-              {data.name === "confirmPassword" &&
-                inputData[data.name] !== inputData["password"] && (
-                  <span style={{ color: "#FF0000" }}>
-                    Re-password and password are not the same
-                  </span>
-                )}
+              {formErrors.name === data.name && inputData[data.name] && (
+                <span style={{ color: "#FF0000" }}>{formErrors.message}</span>
+              )}
             </React.Fragment>
           ))}
           <FileUpload />
