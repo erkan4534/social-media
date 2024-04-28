@@ -53,6 +53,7 @@ const Register = ({
         role: "memberUser",
         profilePicture: "https://i.pravatar.cc/300",
       };
+
       dispatch(setUserDataArray(newUserData));
       setIsNewAccountMessage(true);
       setIsShowNewAccount(false);
