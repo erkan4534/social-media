@@ -31,7 +31,10 @@ const Register = ({
       username: Yup.string().required("Zorunlu Alan!"),
       email: Yup.string()
         .required("Zorunlu Alan!")
-        .email("Geçerli bir e-mail giriniz!"),
+        .email("Geçerli bir e-mail giriniz!")
+        .test("Geçerli bir e-mail giriniz!", function (value) {
+          return !userDataArray.find((usr) => usr.email === value);
+        }),
       password: Yup.string()
         .required("Zorunlu Alan!")
         .min(6, "Şifre en az 6 karakter olmalı!"),
@@ -75,7 +78,7 @@ const Register = ({
                 onChange={formik.handleChange}
               />
 
-              {formik.touched[data.name] && formik.errors[[data.name]] && (
+              {formik.touched[data.name] && formik.errors[data.name] && (
                 <small className="text-red-600">
                   {formik.errors[data.name]}
                 </small>
