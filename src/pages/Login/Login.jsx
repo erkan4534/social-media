@@ -32,9 +32,9 @@ const Login = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .required("Zorunlu Alan!")
-        .email("Geçerli bir e-mail giriniz!"),
-      password: Yup.string().required("Zorunlu Alan!"),
+        .required("Required field!")
+        .email("Please enter a valid email address!"),
+      password: Yup.string().required("Required field!"),
     }),
 
     onSubmit: (values) => {

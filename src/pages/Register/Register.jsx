@@ -26,25 +26,25 @@ const Register = ({
       confirmPassword: "",
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Zorunlu Alan!"),
-      surname: Yup.string().required("Zorunlu Alan!"),
-      username: Yup.string().required("Zorunlu Alan!"),
+      name: Yup.string().required("Required field!"),
+      surname: Yup.string().required("Required field!"),
+      username: Yup.string().required("Required field!"),
       email: Yup.string()
-        .required("Zorunlu Alan!")
-        .email("Geçerli bir e-mail giriniz!")
+        .required("Required field!")
+        .email("Please enter a valid email address!")
         .test(
-          "unique-email", // Test adı
-          "Bu e-mail adresi sistemde kayıtlıdır",
+          "unique-email",
+          "This email address is already registered",
           function (value) {
             return !userDataArray.find((usr) => usr.email === value);
           }
         ),
       password: Yup.string()
-        .required("Zorunlu Alan!")
-        .min(6, "Şifre en az 6 karakter olmalı!"),
+        .required("Required field!")
+        .min(6, "Password must be at least 6 characters long."),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Şifreler eşleşmeli!")
-        .required("Zorunlu Alan!"),
+        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .required("Required field!"),
     }),
     onSubmit: (values) => {
       const newUserData = {
