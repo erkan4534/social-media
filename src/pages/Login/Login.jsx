@@ -110,13 +110,7 @@ const Login = () => {
           </div>
         )}
 
-        {isShowNewAccount && (
-          <Register
-            showLogin={showLogin}
-            setIsNewAccountMessage={setIsNewAccountMessage}
-            setIsShowNewAccount={setIsShowNewAccount}
-          />
-        )}
+        {isShowNewAccount && <Register showLogin={showLogin} />}
       </div>
     </div>
   );

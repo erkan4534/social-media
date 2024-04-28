@@ -8,11 +8,7 @@ import FileUpload from "../../components/UI/FileUpload/FileUpload";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const Register = ({
-  showLogin,
-  setIsNewAccountMessage,
-  setIsShowNewAccount,
-}) => {
+const Register = ({ showLogin }) => {
   const { userDataArray } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -55,14 +51,11 @@ const Register = ({
       };
 
       dispatch(setUserDataArray(newUserData));
-      setIsNewAccountMessage(true);
-      setIsShowNewAccount(false);
     },
   });
 
   const backToLogin = () => {
     showLogin();
-    setIsNewAccountMessage(false);
   };
 
   return (
@@ -109,11 +102,6 @@ const Register = ({
 
 Register.propTypes = {
   showLogin: PropTypes.func,
-  setIsNewAccountMessage: PropTypes.func,
-  setIsLoginInValidMessage: PropTypes.func,
-  setEmailValid: PropTypes.func,
-  setPasswordValid: PropTypes.func,
-  setIsShowNewAccount: PropTypes.func,
 };
 
 export default Register;
