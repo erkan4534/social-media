@@ -32,9 +32,13 @@ const Register = ({
       email: Yup.string()
         .required("Zorunlu Alan!")
         .email("Geçerli bir e-mail giriniz!")
-        .test("Geçerli bir e-mail giriniz!", function (value) {
-          return !userDataArray.find((usr) => usr.email === value);
-        }),
+        .test(
+          "unique-email", // Test adı
+          "Bu e-mail adresi sistemde kayıtlıdır",
+          function (value) {
+            return !userDataArray.find((usr) => usr.email === value);
+          }
+        ),
       password: Yup.string()
         .required("Zorunlu Alan!")
         .min(6, "Şifre en az 6 karakter olmalı!"),
