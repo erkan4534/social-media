@@ -24,8 +24,6 @@ function isValidEmail(email) {
 const Register = ({
   showLogin,
   setIsNewAccountMessage,
-  setEmailValid,
-  setPasswordValid,
   setIsShowNewAccount,
 }) => {
   const [inputData, setInputData] = useState(initialInput);
@@ -101,8 +99,6 @@ const Register = ({
   const backToLogin = () => {
     showLogin();
     setIsNewAccountMessage(false);
-    setEmailValid(false);
-    setPasswordValid(false);
   };
 
   return (

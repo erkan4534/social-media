@@ -1,24 +1,17 @@
+import "./Login.css";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Register from "../Register/Register";
 import { login } from "../../redux-toolkit/slices/authSlice";
-
-import "./Login.css";
-
-const initial = {
-  password: "",
-  email: "",
-};
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [inputData, setInputData] = useState(initial);
-  const [emailValid, setEmailValid] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
   const [isShowNewAccount, setIsShowNewAccount] = useState(false);
   const [isNewAccountMessage, setIsNewAccountMessage] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isLoggedIn, isLoginInValidMessage, user } = useSelector(
     (state) => state.auth
   );
@@ -29,39 +22,22 @@ const Login = () => {
     }
   }, [isLoggedIn, navigate, user]);
 
-  function onLoginSubmit(event) {
-    event.preventDefault();
-    if (isValidateForm()) {
-      dispatch(login(inputData));
-    }
-  }
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required("Zorunlu Alan!")
+        .email("Geçerli bir e-mail giriniz!"),
+      password: Yup.string().required("Zorunlu Alan!"),
+    }),
 
-  function isValidateForm() {
-    const { email, password } = inputData;
-    let valid = true;
-    if (email.trim() === "") {
-      setEmailValid(true);
-      valid = false;
-    } else {
-      setEmailValid(false);
-    }
-
-    if (password.trim() === "") {
-      setPasswordValid(true);
-      valid = false;
-    } else {
-      setPasswordValid(false);
-    }
-
-    return valid;
-  }
-
-  function handleChange({ target: { name, value } }) {
-    setInputData({
-      ...inputData,
-      [name]: value,
-    });
-  }
+    onSubmit: (values) => {
+      dispatch(login({ email: values.email, password: values.password }));
+    },
+  });
 
   const showNewAccount = () => setIsShowNewAccount(true);
 
@@ -78,32 +54,42 @@ const Login = () => {
             <span id="loginTitle">Login In</span>
             {isLoginInValidMessage && <span>Invalid Password or Email</span>}
             {isNewAccountMessage && <span>New Account is added</span>}
-            <form onSubmit={onLoginSubmit} noValidate>
+            <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col gap-2">
                 <input
                   placeholder="Email"
                   type="email"
                   name="email"
                   className="loginInput"
-                  onChange={handleChange}
-                  required={emailValid}
+                  value={formik.values.email}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                   autoComplete="new-password"
                 />
-                {emailValid && <span>It should be a valid email address!</span>}
+                {formik.touched.email && formik.errors.email && (
+                  <small className="text-red-600">{formik.errors.email}</small>
+                )}
                 <input
                   placeholder="Password"
                   type="password"
                   name="password"
                   className="loginInput"
-                  onChange={handleChange}
-                  required={passwordValid}
+                  value={formik.values.password}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                   autoComplete="new-password"
                 />
-                {passwordValid && <span>Enter your password</span>}
+                {formik.touched.password && formik.errors.password && (
+                  <small className="text-red-600">
+                    {formik.errors.password}
+                  </small>
+                )}
               </div>
 
               <div className="mt-3 flex justify-between">
-                <button className="loginButton">Log In</button>
+                <button className="loginButton" type="submit">
+                  Log In
+                </button>
                 <button
                   className="loginButton"
                   type="button"
@@ -118,8 +104,6 @@ const Login = () => {
 
         {isShowNewAccount && (
           <Register
-            setEmailValid={setEmailValid}
-            setPasswordValid={setPasswordValid}
             showLogin={showLogin}
             setIsNewAccountMessage={setIsNewAccountMessage}
             setIsShowNewAccount={setIsShowNewAccount}
