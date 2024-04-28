@@ -45,6 +45,7 @@ const Register = ({
     const errors = validateForm(inputData);
     setFormErrors(errors);
     debugger;
+    console.log(formErrors.emptyMessage);
     if (!errors.hasErrors) {
       const newUserData = {
         id: userDataArray.length + 1,
@@ -58,34 +59,40 @@ const Register = ({
   }
 
   const validateForm = (data) => {
+    debugger;
     const errors = { hasErrors: false };
 
-    if (Object.values(inputData).some((value) => value.trim() === "")) {
+    if (Object.values(data).some((value) => value.trim() === "")) {
       errors.emptyMessage = "All fields are required.";
       errors.hasErrors = true;
-      return errors;
     }
 
     if (!isValidEmail(data.email)) {
-      errors.name = "email";
-      errors.message = "Email is not valid.";
+      errors.email = { name: "email", message: "Email is not valid." };
       errors.hasErrors = true;
-      return errors;
     }
 
     if (data.email && userDataArray.some((user) => user.email === data.email)) {
-      errors.name = "email";
-      errors.message = "This email has already been used.";
+      if (errors.email) {
+        errors.email.message += " This email has already been used.";
+      } else {
+        errors.email = {
+          name: "email",
+          message: "This email has already been used.",
+        };
+      }
       errors.hasErrors = true;
-      return errors;
     }
 
     if (data.password !== data.confirmPassword) {
-      errors.name = "confirmPassword";
-      errors.message = "Passwords do not match.";
+      errors.confirmPassword = {
+        name: "confirmPassword",
+        message: "Passwords do not match.",
+      };
       errors.hasErrors = true;
-      return errors;
     }
+
+    return errors;
   };
 
   function handleChange({ target: { name, value } }) {
@@ -119,14 +126,16 @@ const Register = ({
                 autoComplete="new-password"
               />
 
+              {formErrors[data.name] && (
+                <span style={{ color: "#FF0000" }}>
+                  {formErrors[data.name].message}
+                </span>
+              )}
+
               {!inputData[data.name] && (
                 <span style={{ color: "#FF0000" }}>
                   {formErrors.emptyMessage}
                 </span>
-              )}
-
-              {formErrors.name === data.name && inputData[data.name] && (
-                <span style={{ color: "#FF0000" }}>{formErrors.message}</span>
               )}
             </React.Fragment>
           ))}
