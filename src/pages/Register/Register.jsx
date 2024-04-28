@@ -25,6 +25,8 @@ const Register = ({
   const [inputData, setInputData] = useState(initialInput);
   const [isShowError, setIsShowError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isEmailUsing, setIsEmailUsing] = useState(false);
+  const [isNotValidEmail, setIsNotValidEmail] = useState(false);
   const { userDataArray } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -38,15 +40,29 @@ const Register = ({
   function onNewAccountSubmit(event) {
     event.preventDefault();
     setIsShowError(false);
-    if (!isFormValid() || !isValidEmail(inputData["email"])) {
+    if (!isFormValid()) {
       setIsShowError(true);
       setIsSuccess(false);
+      return;
+    }
+
+    if (!isValidEmail(inputData["email"])) {
+      setIsShowError(true);
+      setIsSuccess(false);
+      setIsNotValidEmail(true);
       return;
     }
 
     if (inputData["password"] !== inputData["confirmPassword"]) {
       setIsShowError(true);
       setIsSuccess(false);
+      return;
+    }
+
+    if (isCheckUsingEmail(inputData["email"])) {
+      setIsShowError(true);
+      setIsSuccess(false);
+      setIsEmailUsing(true);
       return;
     }
 
@@ -59,6 +75,10 @@ const Register = ({
     dispatch(setUserDataArray(newUserData));
     setIsSuccess(true);
   }
+
+  const isCheckUsingEmail = (email) => {
+    return userDataArray?.find((user) => user.email === email);
+  };
 
   function handleChange({ target: { name, value } }) {
     setInputData({
@@ -104,6 +124,14 @@ const Register = ({
               {!inputData[data.name] && isShowError && (
                 <span style={{ color: "#FF0000" }}>It must not be empty</span>
               )}
+
+              {data.name === "email" &&
+                inputData[data.name] &&
+                isEmailUsing && (
+                  <span style={{ color: "#FF0000" }}>
+                    This email has been used
+                  </span>
+                )}
 
               {data.name === "email" &&
                 inputData[data.name] &&
