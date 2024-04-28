@@ -259,11 +259,8 @@ export const authSlice = createSlice({
     },
 
     setLoginInvalidMessage: (state, action) => {
+      debugger;
       state.isLoginInValidMessage = action.payload;
-    },
-
-    setNewAccountMessage: (state, action) => {
-      state.isNewAccountMessage = action.payload;
     },
   },
 });
@@ -283,7 +280,6 @@ export const {
   removeMember,
   setUserDataArray,
   setLoginInvalidMessage,
-  setNewAccountMessage,
 } = authSlice.actions;
 
 export default authSlice.reducer;

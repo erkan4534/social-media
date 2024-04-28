@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Register from "../Register/Register";
-import { login } from "../../redux-toolkit/slices/authSlice";
+import {
+  login,
+  setLoginInvalidMessage,
+} from "../../redux-toolkit/slices/authSlice";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
@@ -12,13 +15,9 @@ const Login = () => {
   const [isNewAccountMessage, setIsNewAccountMessage] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {
-    isLoggedIn,
-    isLoginInValidMessage,
-    user,
-    setLoginInvalidMessage,
-    setNewAccountMessage,
-  } = useSelector((state) => state.auth);
+  const { isLoggedIn, isLoginInValidMessage, user } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -46,12 +45,10 @@ const Login = () => {
   const showNewAccount = () => {
     setIsShowNewAccount(true);
     dispatch(setLoginInvalidMessage(false));
-    dispatch(setNewAccountMessage(false));
-    formik.resetForm({
-      values: formik.initialValues,
-      errors: {},
-      touched: {},
-    });
+    setIsNewAccountMessage(false);
+    formik.resetForm();
+    formik.setTouched({}); // Tüm touched değerlerini sıfırla
+    formik.setErrors({}); // Tüm hata mesajlarını temizle
   };
 
   const showLogin = () => setIsShowNewAccount(false);
