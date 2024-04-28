@@ -51,12 +51,12 @@ const Register = ({ showLogin }) => {
       };
 
       dispatch(setUserDataArray(newUserData));
-      showLogin();
+      showLogin(true);
     },
   });
 
   const backToLogin = () => {
-    showLogin();
+    showLogin(false);
   };
 
   return (

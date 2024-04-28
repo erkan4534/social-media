@@ -49,9 +49,9 @@ const Login = () => {
     formik.resetForm();
   };
 
-  const showLogin = () => {
+  const showLogin = (isAdd) => {
     setIsShowNewAccount(false);
-    setIsNewAccountMessage(true);
+    isAdd ? setIsNewAccountMessage(true) : setIsNewAccountMessage(false);
   };
 
   return (
