@@ -30,10 +30,6 @@ const Friend = ({ userInfo, userDataArray }) => {
     userInfo.friends?.includes(user.id)
   );
 
-  if (friendsArray.length === 0) {
-    return <></>;
-  }
-
   return (
     <div>
       <div
