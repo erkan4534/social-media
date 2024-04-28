@@ -47,8 +47,6 @@ const Login = () => {
     dispatch(setLoginInvalidMessage(false));
     setIsNewAccountMessage(false);
     formik.resetForm();
-    formik.setTouched({}); // Tüm touched değerlerini sıfırla
-    formik.setErrors({}); // Tüm hata mesajlarını temizle
   };
 
   const showLogin = () => setIsShowNewAccount(false);
