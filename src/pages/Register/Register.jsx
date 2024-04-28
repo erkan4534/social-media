@@ -2,99 +2,55 @@ import "./Register.css";
 import PropTypes from "prop-types";
 import React from "react";
 import { newAccountInputData } from "../../data/newAccountInputData";
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDataArray } from "../../redux-toolkit/slices/authSlice";
 import FileUpload from "../../components/UI/FileUpload/FileUpload";
-
-const initialInput = {
-  username: "",
-  name: "",
-  surname: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
-
-function isValidEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basit bir e-posta regex ifadesi
-  return re.test(email.toLowerCase()); // E-posta adresini test et
-}
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const Register = ({
   showLogin,
   setIsNewAccountMessage,
   setIsShowNewAccount,
 }) => {
-  const [inputData, setInputData] = useState(initialInput);
-  const [formErrors, setFormErrors] = useState({});
   const { userDataArray } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!Object.values(inputData).includes("") && formErrors.success) {
-      showLogin();
-      setIsNewAccountMessage(true);
-    }
-  }, [inputData, formErrors, showLogin, setIsNewAccountMessage]);
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    const errors = validateForm(inputData);
-    setFormErrors(errors);
-
-    if (!errors.hasErrors) {
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Zorunlu Alan!"),
+      surname: Yup.string().required("Zorunlu Alan!"),
+      username: Yup.string().required("Zorunlu Alan!"),
+      email: Yup.string()
+        .required("Zorunlu Alan!")
+        .email("Geçerli bir e-mail giriniz!"),
+      password: Yup.string()
+        .required("Zorunlu Alan!")
+        .min(6, "Şifre en az 6 karakter olmalı!"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Şifreler eşleşmeli!")
+        .required("Zorunlu Alan!"),
+    }),
+    onSubmit: (values) => {
       const newUserData = {
         id: userDataArray.length + 1,
-        ...inputData,
+        ...values,
         role: "memberUser",
         profilePicture: "https://i.pravatar.cc/300",
       };
       dispatch(setUserDataArray(newUserData));
       setIsNewAccountMessage(true);
       setIsShowNewAccount(false);
-    }
-  }
-
-  const validateForm = (data) => {
-    const errors = { hasErrors: false };
-
-    if (Object.values(data).some((value) => value.trim() === "")) {
-      errors.emptyMessage = "All fields are required.";
-      errors.hasErrors = true;
-    }
-
-    if (!isValidEmail(data.email)) {
-      errors.email = { name: "email", message: "Email is not valid." };
-      errors.hasErrors = true;
-    }
-
-    if (data.email && userDataArray.some((user) => user.email === data.email)) {
-      errors.email = {
-        name: "email",
-        message: "This email has already been used.",
-      };
-      errors.hasErrors = true;
-    }
-
-    if (data.password !== data.confirmPassword) {
-      errors.confirmPassword = {
-        name: "confirmPassword",
-        message: "Passwords do not match.",
-      };
-      errors.hasErrors = true;
-    }
-
-    return errors;
-  };
-
-  function handleChange({ target: { name, value } }) {
-    setInputData({
-      ...inputData,
-      [name]: value,
-    });
-  }
+    },
+  });
 
   const backToLogin = () => {
     showLogin();
@@ -104,7 +60,7 @@ const Register = ({
   return (
     <div className="newAccountForm">
       <span id="newAccountTitle">New Account</span>
-      <form onSubmit={handleSubmit} noValidate>
+      <form onSubmit={formik.handleSubmit} noValidate>
         <div className="flex flex-col gap-1">
           {newAccountInputData.map((data) => (
             <React.Fragment key={data.id}>
@@ -112,22 +68,17 @@ const Register = ({
                 placeholder={data.placeholder}
                 type={data.type}
                 name={data.name}
-                value={inputData[data.name]}
                 className="newAccountInput"
-                onChange={handleChange}
                 autoComplete="new-password"
+                value={formik.values[data.name]}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
               />
 
-              {inputData[data.name] && formErrors[data.name] && (
-                <span style={{ color: "#FF0000" }}>
-                  {formErrors[data.name].message}
-                </span>
-              )}
-
-              {!inputData[data.name] && (
-                <span style={{ color: "#FF0000" }}>
-                  {formErrors.emptyMessage}
-                </span>
+              {formik.touched[data.name] && formik.errors[[data.name]] && (
+                <small className="text-red-600">
+                  {formik.errors[data.name]}
+                </small>
               )}
             </React.Fragment>
           ))}
