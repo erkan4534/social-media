@@ -84,3 +84,56 @@
   text-align: center;
   display: block;
 }
+
+@media (max-width: 1000px) {
+  .loginWrapper {
+    flex-direction: column;
+  }
+
+  .loginInput {
+    height: 25px;
+    border-radius: 10px;
+    font-size: 9px;
+    padding-left: 10px;
+  }
+
+  .loginButton {
+    height: 30px;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+
+  .loginRgisterButton {
+    width: 60%;
+    height: 30px;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+
+  .loginDesc {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .loginLogo {
+    font-size: 25px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .loginRight {
+    margin-bottom: 40px;
+  }
+
+  .loginBox {
+    height: 200px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+}
+
+@media (min-width: 769px) {
+  .loginWrapper {
+    flex-direction: row;
+  }
+}
