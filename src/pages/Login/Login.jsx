@@ -10,7 +10,7 @@ import {
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-const Login = () => {
+export default function Login() {
   const [isShowNewAccount, setIsShowNewAccount] = useState(false);
   const [isNewAccountMessage, setIsNewAccountMessage] = useState(false);
   const dispatch = useDispatch();
@@ -55,68 +55,66 @@ const Login = () => {
   };
 
   return (
-    <div className="homeContainer">
-      <div className="loginLogoPart">
-        <span className="loginLogo">Social Media</span>
-      </div>
-      <div className="loginInputPart">
-        {!isShowNewAccount && (
-          <div className="loginForm">
-            <span id="loginTitle">Login In</span>
-            {isLoginInValidMessage && <span>Invalid Password or Email</span>}
-            {isNewAccountMessage && <span>New Account is added</span>}
-            <form onSubmit={formik.handleSubmit}>
-              <div className="flex flex-col gap-2">
-                <input
-                  placeholder="Email"
-                  type="email"
-                  name="email"
-                  className="loginInput"
-                  value={formik.values.email}
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  autoComplete="new-password"
-                />
-                {formik.touched.email && formik.errors.email && (
-                  <small className="text-red-600">{formik.errors.email}</small>
-                )}
-                <input
-                  placeholder="Password"
-                  type="password"
-                  name="password"
-                  className="loginInput"
-                  value={formik.values.password}
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  autoComplete="new-password"
-                />
-                {formik.touched.password && formik.errors.password && (
-                  <small className="text-red-600">
-                    {formik.errors.password}
-                  </small>
-                )}
-              </div>
+    <div className="login">
+      <div className="loginWrapper">
+        <div className="loginLeft">
+          <h3 className="loginLogo">NewSocial</h3>
+          <span className="loginDesc">
+            Connect with friends and the world around you on NewSocial
+          </span>
+        </div>
+        <div className="loginRight">
+          {isLoginInValidMessage && (
+            <span className="messageInfo">Invalid Password or Email</span>
+          )}
+          {isNewAccountMessage && (
+            <span className="messageInfo">New Account is added</span>
+          )}
+          {!isShowNewAccount && (
+            <form className="loginBox" onSubmit={formik.handleSubmit}>
+              <input
+                placeholder="Email"
+                type="email"
+                name="email"
+                className="loginInput"
+                value={formik.values.email}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                autoComplete="new-password"
+              />
+              {formik.touched.email && formik.errors.email && (
+                <small className="text-red-600">{formik.errors.email}</small>
+              )}
+              <input
+                placeholder="Password"
+                type="password"
+                name="password"
+                className="loginInput"
+                value={formik.values.password}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                autoComplete="new-password"
+              />
+              {formik.touched.password && formik.errors.password && (
+                <small className="text-red-600">{formik.errors.password}</small>
+              )}
 
-              <div className="mt-3 flex justify-between">
-                <button className="loginButton" type="submit">
-                  Log In
-                </button>
-                <button
-                  className="loginButton"
-                  type="button"
-                  onClick={showNewAccount}
-                >
-                  Create a New Account
-                </button>
-              </div>
+              <button className="loginButton" type="submit">
+                Log In
+              </button>
+              <button
+                className="loginRgisterButton"
+                type="button"
+                onClick={showNewAccount}
+              >
+                Create a New Account
+              </button>
             </form>
-          </div>
-        )}
+          )}
 
-        {isShowNewAccount && <Register showLogin={showLogin} />}
+          {isShowNewAccount && <Register showLogin={showLogin} />}
+        </div>
       </div>
     </div>
   );
-};
-
-export default Login;
+}

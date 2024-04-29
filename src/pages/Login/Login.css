@@ -1,121 +1,86 @@
-.homeContainer {
+.login {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginWrapper {
+  width: 70%;
+  height: 70%;
   display: flex;
 }
 
-.loginForm {
+.loginLeft,
+.loginRight {
+  flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  height: 100%;
-  row-gap: 15px;
+  justify-content: center;
+}
+
+.loginLogo {
+  font-size: 50px;
+  font-weight: 800;
+  color: #1775ee;
+  margin-bottom: 10px;
+}
+
+.loginDesc {
+  font-size: 24px;
+}
+
+.loginBox {
+  height: 300px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.loginInput {
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  font-size: 18px;
+  padding-left: 20px;
 }
 
 .loginInput:focus {
   outline: none;
 }
 
-.loginForm span {
-  color: red;
-  font-size: 12px;
-  text-align: start;
-  display: block;
-}
-
-#loginTitle {
-  color: #1775ee;
-  font-weight: bold;
-}
-
-.loginLogo {
-  font-weight: 700;
-  color: #1877f2;
-  cursor: default;
-}
-
-.loginInput {
-  border: 1px solid gray;
-}
 .loginButton {
+  height: 50px;
+  border-radius: 10px;
   border: none;
   background-color: #1775ee !important;
   color: white;
-  cursor: pointer;
+  font-size: 20px;
   font-weight: 500;
+  cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .homeContainer {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  .loginLogo {
-    font-size: 30px;
-  }
-
-  .loginInput {
-    height: 35px;
-    width: 250px;
-    border-radius: 6px;
-    font-size: 13px;
-    padding-left: 20px;
-  }
-
-  .loginButton {
-    height: 30px;
-    border-radius: 5px;
-    font-size: 12px;
-    padding: 0px 5px;
-  }
-
-  #loginTitle {
-    font-size: 13px;
-  }
+.loginRgisterButton {
+  width: 60%;
+  align-self: center;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #42b72a !important;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-@media (min-width: 769px) {
-  .homeContainer {
-    flex-direction: row;
-  }
-
-  .loginLogo {
-    font-size: 60px;
-  }
-
-  .loginInput {
-    height: 50px;
-    width: 300px;
-    border-radius: 6px;
-    font-size: 18px;
-    padding-left: 20px;
-  }
-
-  .loginButton {
-    height: 30px;
-    border-radius: 5px;
-    font-size: 15px;
-    padding: 0px 12px;
-  }
-
-  .loginLogoPart {
-    flex: 1;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .loginInputPart {
-    flex: 1;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #loginTitle {
-    font-size: 20px;
-  }
+.messageInfo {
+  color: red;
+  font-size: 12px;
+  text-align: center;
+  display: block;
 }
