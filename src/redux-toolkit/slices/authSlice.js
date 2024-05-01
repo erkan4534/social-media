@@ -254,12 +254,11 @@ export const authSlice = createSlice({
     },
 
     setUserDataArray(state, action) {
-      state.userDataArray = [...state.userDataArray, action.payload];
+      //state.userDataArray = [...state.userDataArray, action.payload];
       state.isLoginInValidMessage = false;
     },
 
     setLoginInvalidMessage: (state, action) => {
-      debugger;
       state.isLoginInValidMessage = action.payload;
     },
   },

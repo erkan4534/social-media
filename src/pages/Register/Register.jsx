@@ -7,6 +7,15 @@ import { setUserDataArray } from "../../redux-toolkit/slices/authSlice";
 import FileUpload from "../../components/UI/FileUpload/FileUpload";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  doc,
+} from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 
 const Register = ({ showLogin }) => {
   const { userDataArray } = useSelector((state) => state.auth);
@@ -42,16 +51,20 @@ const Register = ({ showLogin }) => {
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Required field!"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const newUserData = {
-        id: userDataArray.length + 1,
+        //  id: userDataArray.length + 1,
         ...values,
         role: "memberUser",
         profilePicture: "https://i.pravatar.cc/300",
       };
-
-      dispatch(setUserDataArray(newUserData));
-      showLogin(true);
+      try {
+        dispatch(setUserDataArray(newUserData));
+        await addDoc(collection(db, "personnels"), newUserData);
+        showLogin(true);
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
