@@ -50,6 +50,8 @@ const Register = ({ showLogin }) => {
         ...values,
         role: "memberUser",
         profilePicture: "https://i.pravatar.cc/300",
+        friends: [],
+        posts: [],
       };
       try {
         dispatch(setUserDataArray(newUserData));
