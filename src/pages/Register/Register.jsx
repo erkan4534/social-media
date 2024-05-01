@@ -7,14 +7,7 @@ import { setUserDataArray } from "../../redux-toolkit/slices/authSlice";
 import FileUpload from "../../components/UI/FileUpload/FileUpload";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-  doc,
-} from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
 const Register = ({ showLogin }) => {
