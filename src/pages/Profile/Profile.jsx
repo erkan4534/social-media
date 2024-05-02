@@ -6,13 +6,17 @@ import Member from "../Member/Member";
 import Share from "../Share/Share";
 import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { findUser } from "../../redux-toolkit/slices/authSlice";
+import { useDispatch } from "react-redux";
 
 const Profile = () => {
   let { userId } = useParams();
   const [isleftBarVisible, setIsleftBarVisible] = useState(true);
   const [isRightBarVisible, setIsRightBarVisible] = useState(true);
-  const { userDataArray, user } = useSelector((state) => state.auth);
-  const userInfo = userDataArray.find((usr) => usr.id === Number(userId));
+  const { userProfile, user, userDataArray } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     function handleResize() {
@@ -28,13 +32,17 @@ const Profile = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    dispatch(findUser({ userId }));
+  }, [userId, dispatch]);
+
   return (
     <>
       <div className="profileContainer">
         <button
           className="leftHamburgerMenu"
           onClick={() => setIsleftBarVisible(!isleftBarVisible)}
-          disabled={user?.id !== userInfo.id}
+          disabled={user?.id !== userProfile?.id}
         >
           <GiHamburgerMenu />
         </button>
@@ -43,7 +51,9 @@ const Profile = () => {
           className="rightHamburgerMenu"
           onClick={() => setIsRightBarVisible(!isRightBarVisible)}
           disabled={
-            userInfo && userInfo.friends && userInfo.friends.length == 0
+            userProfile &&
+            userProfile.friends &&
+            userProfile.friends.length == 0
           }
         >
           <GiHamburgerMenu />
@@ -60,23 +70,26 @@ const Profile = () => {
               />
               <img
                 className="profileUserImg"
-                src={userInfo.profilePicture}
+                src={userProfile?.profilePicture}
                 alt="profile image"
               />
 
               <div className="profileInfo">
                 <h4 className="profileInfoName">
-                  {userInfo.name} {userInfo.surname}
+                  {userProfile?.name} {userProfile?.surname}
                 </h4>
-                <span className="profileInfoDesc">{userInfo.username}</span>
+                <span className="profileInfoDesc">{userProfile?.username}</span>
 
                 <div className="totalInfo">
                   <span>
-                    Posts {userInfo.posts && Object.keys(userInfo.posts).length}
+                    Posts{" "}
+                    {userProfile?.posts &&
+                      Object.keys(userProfile.posts).length}
                   </span>
                   <span>
                     Friends{" "}
-                    {userInfo.friends && Object.keys(userInfo.friends).length}
+                    {userProfile?.friends &&
+                      Object.keys(userProfile.friends).length}
                   </span>
                 </div>
               </div>
@@ -90,23 +103,23 @@ const Profile = () => {
               isleftBarVisible ? "profileLeft" : "hamburgerMenuProfileLeft"
             }`}
           >
-            {userInfo && user && userInfo.id === user.id && (
+            {userProfile && user && userProfile.id === user.id && (
               <div className="myMemberList">
                 <Member user={user} userDataArray={userDataArray} />
               </div>
             )}
           </div>
           <div className="profileCenter">
-            <Share userInfo={userInfo} userDataArray={userDataArray} />
+            <Share userInfo={userProfile} userDataArray={userDataArray} />
           </div>
           <div
             className={`${
               isRightBarVisible ? "profileRight" : "hamburgerMenuProfileRight"
             }`}
           >
-            {userInfo.friends?.length > 0 && (
+            {userProfile?.friends && userProfile.friends.length > 0 && (
               <div className="myFriendList">
-                <Friend userInfo={userInfo} userDataArray={userDataArray} />
+                <Friend userInfo={userProfile} userDataArray={userDataArray} />
               </div>
             )}
           </div>

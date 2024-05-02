@@ -1,77 +1,186 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userData } from "../../data/userData";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { db } from "../../firebaseConfig";
 
 const initialState = {
   user: null,
   allPosts: [],
   isLoggedIn: false,
   isLoginInValidMessage: false,
-  userDataArray: userData,
+  userDataArray: null,
+  userProfile: null,
 };
+
+export const login = createAsyncThunk(
+  "auth/login",
+  async ({ email, password }, { rejectWithValue }) => {
+    let allPosts = [];
+    const userDataArray = [];
+
+    try {
+      const userDetailDataQuery = query(
+        collection(db, "personnels"),
+        where("email", "==", email),
+        where("password", "==", password)
+      );
+      const querySnapshot = await getDocs(userDetailDataQuery);
+      const userDetailData = [];
+      querySnapshot.forEach((doc) => {
+        userDetailData.push({ id: doc.id, ...doc.data() });
+      });
+
+      if (userDetailData.length === 0) {
+        throw new Error("No user found with the given credentials.");
+      }
+
+      if (userDetailData[0].role === "memberUser") {
+        const friendsData = [];
+        if (userDetailData[0].friends.length > 0) {
+          const userDetailDataQuery = query(
+            collection(db, "personnels"),
+            where("id", "in", userDetailData[0].friends)
+          );
+
+          const querUserFriends = await getDocs(userDetailDataQuery);
+          querUserFriends.forEach((doc) => {
+            friendsData.push(doc.data());
+          });
+        }
+
+        allPosts = [
+          ...userDetailData[0].posts,
+          ...friendsData.map((friend) => friend.posts),
+        ];
+
+        const allMembersQuery = query(collection(db, "personnels"));
+
+        const allMembersDocs = await getDocs(allMembersQuery);
+        allMembersDocs.forEach((doc) => {
+          userDataArray.push({ id: doc.id, ...doc.data() });
+        });
+      }
+
+      return {
+        user: userDetailData[0],
+        allPosts: allPosts,
+        userDataArray: userDataArray,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const addNewFriend = createAsyncThunk(
+  "auth/addNewFriend",
+  async ({ friendId }, { getState, rejectWithValue }) => {
+    const state = getState();
+    const userId = state.auth.user?.id;
+
+    if (!userId) {
+      return rejectWithValue("User not found in state");
+    }
+    try {
+      const userDocRef = doc(db, "personnels", userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedFriends = [...userData.friends, friendId];
+
+      await updateDoc(userDocRef, {
+        friends: updatedFriends,
+      });
+
+      return { userId, friends: updatedFriends };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const removeFriend = createAsyncThunk(
+  "auth/removeFriend",
+  async ({ friendId }, { getState, rejectWithValue }) => {
+    const state = getState();
+    const userId = state.auth.user?.id;
+
+    if (!userId) {
+      return rejectWithValue("User not found in state");
+    }
+    try {
+      const userDocRef = doc(db, "personnels", userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedFriends = userData.friends.filter(
+        (frdId) => frdId !== friendId
+      );
+
+      await updateDoc(userDocRef, {
+        friends: updatedFriends,
+      });
+
+      return { userId, friends: updatedFriends };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const findUser = createAsyncThunk(
+  "auth/findUser",
+  async ({ userId }, { rejectWithValue }) => {
+    try {
+      const userDocRef = doc(db, "personnels", userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userProfile = {
+        ...userDoc.data(),
+        id: userDocRef.id,
+      };
+
+      return {
+        userProfile,
+      };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action) => {
-      const { email, password } = action.payload;
-
-      const userDetailData = state.userDataArray.find(
-        (usr) => usr.email === email && usr.password === password
-      );
-
-      if (userDetailData) {
-        const allFriendPosts = [];
-
-        if (userDetailData && userDetailData.role === "memberUser") {
-          const friendPostDataArray =
-            userDetailData &&
-            state.userDataArray.filter((usr) =>
-              userDetailData?.friends?.includes(usr.id)
-            );
-
-          friendPostDataArray.forEach((friend) => {
-            allFriendPosts.push(...friend.posts);
-          });
-
-          if (userDetailData.posts?.length > 0) {
-            allFriendPosts.push(...userDetailData.posts);
-          }
-        } else {
-          state.userDataArray.forEach((member) => {
-            allFriendPosts.push(...member.posts);
-          });
-        }
-
-        state.user = userDetailData;
-        state.isLoggedIn = true;
-        state.isLoginInValidMessage = false;
-        state.allPosts = allFriendPosts;
-      } else {
-        state.isLoginInValidMessage = true;
-      }
-    },
     logout: (state) => {
       state.user = null;
       state.isLoggedIn = false;
       state.isLoginInValidMessage = false;
       state.userDataArray = userData;
       state.allPosts = [];
-    },
-    addNewFriend: (state, action) => {
-      const friendId = action.payload.friendId;
-      const userIndex = state.userDataArray.findIndex(
-        (user) => user.id === state.user.id
-      );
-      if (userIndex !== -1) {
-        const user = state.userDataArray[userIndex];
-        const updatedFriends = [
-          ...(user.friends ? user.friends : []),
-          friendId,
-        ];
-        state.userDataArray[userIndex] = { ...user, friends: updatedFriends };
-        state.user = { ...state.user, friends: updatedFriends };
-      }
     },
     setUserPost: (state, action) => {
       const newPost = action.payload;
@@ -115,23 +224,6 @@ export const authSlice = createSlice({
       }
     },
 
-    removeFriend: (state, action) => {
-      const { friendId } = action.payload;
-      // Kullanıcının mevcut arkadaş listesinden belirtilen arkadaşı çıkar
-      if (state.user) {
-        state.user.friends = state.user.friends.filter((id) => id !== friendId);
-      }
-
-      // userDataArray içinde de güncelleme yap
-      const userIndex = state.userDataArray.findIndex(
-        (user) => user.id === state.user.id
-      );
-      if (userIndex !== -1) {
-        state.userDataArray[userIndex].friends = state.userDataArray[
-          userIndex
-        ].friends.filter((id) => id !== friendId);
-      }
-    },
     removeUserPostAndAllPost: (state, action) => {
       const { userPosts, removePostId } = action.payload;
 
@@ -262,15 +354,60 @@ export const authSlice = createSlice({
       state.isLoginInValidMessage = action.payload;
     },
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        const { user, allPosts, userDataArray } = action.payload;
+        state.user = user;
+        state.allPosts = allPosts;
+        state.userDataArray = userDataArray;
+        state.isLoggedIn = true;
+        state.isLoginInValidMessage = false;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoggedIn = false;
+        state.isLoginInValidMessage = true;
+      })
+
+      .addCase(addNewFriend.fulfilled, (state, action) => {
+        const { userId, friends } = action.payload;
+        if (state.user && state.user.id === userId) {
+          state.user.friends = friends;
+        }
+      })
+      .addCase(addNewFriend.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+
+      .addCase(removeFriend.fulfilled, (state, action) => {
+        const { userId, friends } = action.payload;
+        if (state.user && state.user.id === userId) {
+          state.user.friends = friends;
+        }
+      })
+      .addCase(removeFriend.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+
+      .addCase(findUser.fulfilled, (state, action) => {
+        const { userProfile } = action.payload;
+        state.userProfile = userProfile;
+      })
+      .addCase(findUser.rejected, (state, action) => {
+        state.error = action.payload;
+      });
+  },
 });
 
 export const {
-  login,
   logout,
-  addNewFriend,
   setUserPost,
   setUserLike,
-  removeFriend,
   removeUserPostAndAllPost,
   removeAllPost,
   postComment,
