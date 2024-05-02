@@ -122,8 +122,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const postLike = (post) =>
     dispatch(setUserLike({ post: post, userId: user.id }));
 
-  debugger;
-  let sharePosts = userInfo?.id !== user?.id ? userInfo.posts : allPosts;
+  let sharePosts = userInfo?.id !== user?.id ? userInfo?.posts : allPosts;
 
   if (searchTerm) {
     sharePosts = sharePosts.filter((post) =>
