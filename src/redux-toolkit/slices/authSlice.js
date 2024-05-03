@@ -171,6 +171,38 @@ export const findUser = createAsyncThunk(
   }
 );
 
+export const setUserPost = createAsyncThunk(
+  "auth/setUserPost",
+  async (post, { getState, rejectWithValue }) => {
+    const state = getState();
+    const userId = state.auth.user?.id;
+
+    if (!userId) {
+      return rejectWithValue("User not found in state");
+    }
+    try {
+      const userDocRef = doc(db, "personnels", userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedPosts = [...userData.posts, post];
+
+      await updateDoc(userDocRef, {
+        posts: updatedPosts,
+      });
+
+      return { posts: updatedPosts };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -179,9 +211,11 @@ export const authSlice = createSlice({
       state.user = null;
       state.isLoggedIn = false;
       state.isLoginInValidMessage = false;
-      state.userDataArray = userData;
+      state.userDataArray = null;
       state.allPosts = [];
+      state.userProfile = null;
     },
+    /*
     setUserPost: (state, action) => {
       const newPost = action.payload;
 
@@ -208,6 +242,7 @@ export const authSlice = createSlice({
         }
       }
     },
+    */
     setUserLike: (state, action) => {
       const { post, userId } = action.payload;
       const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
@@ -346,7 +381,6 @@ export const authSlice = createSlice({
     },
 
     setUserDataArray(state, action) {
-      //state.userDataArray = [...state.userDataArray, action.payload];
       state.isLoginInValidMessage = false;
     },
 
@@ -400,13 +434,21 @@ export const authSlice = createSlice({
       })
       .addCase(findUser.rejected, (state, action) => {
         state.error = action.payload;
+      })
+
+      .addCase(setUserPost.fulfilled, (state, action) => {
+        const { posts } = action.payload;
+        state.allPosts = [posts, ...state.allPosts];
+        state.user.posts = [posts, ...state.user.posts];
+      })
+      .addCase(setUserPost.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
 
 export const {
   logout,
-  setUserPost,
   setUserLike,
   removeUserPostAndAllPost,
   removeAllPost,

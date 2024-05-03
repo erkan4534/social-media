@@ -54,6 +54,8 @@ const Share = ({ userInfo, userDataArray }) => {
       timestamp: new Date().toISOString(),
       imageUrl: "https://picsum.photos/200",
       userId: user.id,
+      name: user.name,
+      surname: user.surname,
       comments: [],
       likes: [],
     };
@@ -130,13 +132,8 @@ const Share = ({ userInfo, userDataArray }) => {
     );
   }
 
-  const findUser = (userId) => {
-    const userInfo = userDataArray.find((user) => user.id === userId);
-    return userInfo.name + " " + userInfo.surname;
-  };
-
   const likeCheck = (post) => {
-    if (post.likes.length === 0) {
+    if (post.likes == null || post.likes.length === 0) {
       return false;
     }
 
@@ -165,7 +162,7 @@ const Share = ({ userInfo, userDataArray }) => {
   return (
     <div
       className={`${
-        userInfo?.id === user?.id || sharePosts.length > 0
+        userInfo?.id === user?.id || sharePosts?.length > 0
           ? "shareContainer"
           : ""
       }`}
@@ -244,7 +241,7 @@ const Share = ({ userInfo, userDataArray }) => {
 
                   <Meta
                     className="metaDescribe"
-                    description={findUser(post?.userId)}
+                    description={post.name + " " + post.surname}
                     title="Shared"
                   />
                 </div>
@@ -263,7 +260,7 @@ const Share = ({ userInfo, userDataArray }) => {
                       Like
                     </Button>
 
-                    {post.likes.length > 0 && (
+                    {post.likes && post.likes.length > 0 && (
                       <div key={post.id}>
                         <Tooltip
                           isOpen={tooltipOpen[post.id]}
