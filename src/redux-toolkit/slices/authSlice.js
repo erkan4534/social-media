@@ -468,18 +468,21 @@ export const authSlice = createSlice({
       })
       .addCase(setUserLike.fulfilled, (state, action) => {
         const { selectPost } = action.payload;
-        const index = state.allPosts.findIndex(
-          (post) => post.id === selectPost.index
+
+        const postIndex = state.allPosts.findIndex(
+          (post) => post.id === selectPost.id
         );
-        if (index !== -1) {
-          state.allPosts[index].likes = selectPost.likes;
+        if (postIndex !== -1) {
+          state.allPosts[postIndex].likes = selectPost.likes;
         }
 
         if (state.user.id === selectPost.userId) {
           const userPostIndex = state.user.posts.findIndex(
             (post) => post.id === selectPost.id
           );
-          state.user.posts[userPostIndex].likes = selectPost.likes;
+          if (userPostIndex !== -1) {
+            state.user.posts[userPostIndex].likes = selectPost.likes;
+          }
         }
       })
       .addCase(setUserLike.rejected, (state, action) => {
