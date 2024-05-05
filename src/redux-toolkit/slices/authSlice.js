@@ -219,17 +219,16 @@ export const removePost = createAsyncThunk(
         if (!userDoc.exists()) {
           throw new Error("User document does not exist!");
         }
-
+        debugger;
         const userData = userDoc.data();
         const updatedPosts = userData.posts.filter((post) => post.id !== id);
 
         await updateDoc(userDocRef, {
           posts: updatedPosts,
         });
+
         return { postId: id, posts: updatedPosts };
       }
-
-      state.allPosts = state.allPosts.filter((post) => post.id !== id);
     } catch (error) {
       console.error(error.message);
       return rejectWithValue(error.message);
@@ -429,9 +428,9 @@ export const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(removePost.fulfilled, (state, action) => {
-        //const { postId, posts } = action.payload;
-        //state.allPosts = state.allPosts.filter((post) => post.id !== postId);
-        //state.user.posts = posts;
+        const { postId, posts } = action.payload;
+        state.allPosts = state.allPosts.filter((post) => post.id !== postId);
+        state.user.posts = posts;
       })
       .addCase(removePost.rejected, (state, action) => {
         state.error = action.payload;
