@@ -493,7 +493,6 @@ export const authSlice = createSlice({
 
 export const {
   logout,
-  //setUserLike,
   postComment,
   postEditComment,
   postRemoveComment,
