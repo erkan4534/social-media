@@ -82,7 +82,7 @@ export const login = createAsyncThunk(
 
 export const addNewFriend = createAsyncThunk(
   "auth/addNewFriend",
-  async ({ friendId }, { getState, rejectWithValue }) => {
+  async ({ id: friendId, posts }, { getState, rejectWithValue }) => {
     const state = getState();
     const userId = state.auth.user?.id;
 
@@ -104,7 +104,7 @@ export const addNewFriend = createAsyncThunk(
         friends: updatedFriends,
       });
 
-      return { userId, friends: updatedFriends };
+      return { friends: updatedFriends, posts };
     } catch (error) {
       console.error(error.message);
       return rejectWithValue(error.message);
@@ -213,21 +213,24 @@ export const removePost = createAsyncThunk(
       return rejectWithValue("User not found in state");
     }
     try {
-      const userDocRef = doc(db, "personnels", sessionUserId);
-      const userDoc = await getDoc(userDocRef);
+      if (sessionUserId === userId) {
+        const userDocRef = doc(db, "personnels", sessionUserId);
+        const userDoc = await getDoc(userDocRef);
 
-      if (!userDoc.exists()) {
-        throw new Error("User document does not exist!");
+        if (!userDoc.exists()) {
+          throw new Error("User document does not exist!");
+        }
+
+        const userData = userDoc.data();
+        const updatedPosts = userData.posts.filter((post) => post.id !== id);
+
+        await updateDoc(userDocRef, {
+          posts: updatedPosts,
+        });
+        return { postId: id, posts: updatedPosts };
       }
 
-      const userData = userDoc.data();
-      const updatedPosts = userData.posts.filter((post) => post.id !== id);
-
-      await updateDoc(userDocRef, {
-        posts: updatedPosts,
-      });
-
-      return { postId: id, posts: updatedPosts };
+      state.allPosts = state.allPosts.filter((post) => post.id !== id);
     } catch (error) {
       console.error(error.message);
       return rejectWithValue(error.message);
@@ -393,17 +396,14 @@ export const authSlice = createSlice({
         state.isLoggedIn = false;
         state.isLoginInValidMessage = true;
       })
-
       .addCase(addNewFriend.fulfilled, (state, action) => {
-        const { userId, friends } = action.payload;
-        if (state.user && state.user.id === userId) {
-          state.user.friends = friends;
-        }
+        const { friends, posts } = action.payload;
+        state.user.friends = friends;
+        state.allPosts = [...posts, ...state.allPosts];
       })
       .addCase(addNewFriend.rejected, (state, action) => {
         state.error = action.payload;
       })
-
       .addCase(removeFriend.fulfilled, (state, action) => {
         const { userId, friends } = action.payload;
         if (state.user && state.user.id === userId) {
@@ -413,7 +413,6 @@ export const authSlice = createSlice({
       .addCase(removeFriend.rejected, (state, action) => {
         state.error = action.payload;
       })
-
       .addCase(findUser.fulfilled, (state, action) => {
         const { userProfile } = action.payload;
         state.userProfile = userProfile;
@@ -421,7 +420,6 @@ export const authSlice = createSlice({
       .addCase(findUser.rejected, (state, action) => {
         state.error = action.payload;
       })
-
       .addCase(setUserPost.fulfilled, (state, action) => {
         const { posts } = action.payload;
         state.allPosts = [posts, ...state.allPosts];
@@ -430,11 +428,10 @@ export const authSlice = createSlice({
       .addCase(setUserPost.rejected, (state, action) => {
         state.error = action.payload;
       })
-
       .addCase(removePost.fulfilled, (state, action) => {
-        const { postId, posts } = action.payload;
-        state.allPosts = state.allPosts.filter((post) => post.id !== postId);
-        state.user.posts = posts;
+        //const { postId, posts } = action.payload;
+        //state.allPosts = state.allPosts.filter((post) => post.id !== postId);
+        //state.user.posts = posts;
       })
       .addCase(removePost.rejected, (state, action) => {
         state.error = action.payload;

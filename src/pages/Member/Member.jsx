@@ -18,9 +18,10 @@ const Member = ({ user, userDataArray }) => {
     setSearchMemberTerm(event.target.value.toLowerCase());
   };
 
-  const addFriend = (friendId) => {
-    if (!isFriend(friendId)) {
-      dispatch(addNewFriend({ friendId }));
+  const addFriend = (member) => {
+    if (!isFriend(member.friendId)) {
+      debugger;
+      dispatch(addNewFriend(member));
     }
   };
 
@@ -71,10 +72,7 @@ const Member = ({ user, userDataArray }) => {
               </div>
 
               {!isFriend(member.id) && user.role === "memberUser" && (
-                <button
-                  onClick={() => addFriend(member.id)}
-                  className="addButton"
-                >
+                <button onClick={() => addFriend(member)} className="addButton">
                   {isFriend(member.id) ? "Followed" : "Add"}
                 </button>
               )}
