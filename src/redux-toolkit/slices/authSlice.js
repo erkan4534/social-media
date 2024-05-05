@@ -443,8 +443,6 @@ export const authSlice = createSlice({
 export const {
   logout,
   setUserLike,
-  //removeUserPostAndAllPost,
-  // removeAllPost,
   postComment,
   postEditComment,
   postRemoveComment,
