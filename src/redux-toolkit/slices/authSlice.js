@@ -10,6 +10,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { RiNumbersFill } from "react-icons/ri";
 
 const initialState = {
   user: null,
@@ -219,7 +220,7 @@ export const removePost = createAsyncThunk(
         if (!userDoc.exists()) {
           throw new Error("User document does not exist!");
         }
-        debugger;
+
         const userData = userDoc.data();
         const updatedPosts = userData.posts.filter((post) => post.id !== id);
 
@@ -229,6 +230,8 @@ export const removePost = createAsyncThunk(
 
         return { postId: id, posts: updatedPosts };
       }
+
+      return { postId: id, posts: null };
     } catch (error) {
       console.error(error.message);
       return rejectWithValue(error.message);
@@ -420,7 +423,6 @@ export const authSlice = createSlice({
       })
       .addCase(setUserPost.fulfilled, (state, action) => {
         const { posts } = action.payload;
-        debugger;
         state.allPosts = [...posts, ...state.allPosts];
         state.user.posts = [...posts, ...state.user.posts];
       })
@@ -430,7 +432,9 @@ export const authSlice = createSlice({
       .addCase(removePost.fulfilled, (state, action) => {
         const { postId, posts } = action.payload;
         state.allPosts = state.allPosts.filter((post) => post.id !== postId);
-        state.user.posts = posts;
+        if (posts != null) {
+          state.user.posts = posts;
+        }
       })
       .addCase(removePost.rejected, (state, action) => {
         state.error = action.payload;
