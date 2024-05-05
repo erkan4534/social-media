@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { userData } from "../../data/userData";
+//import { userData } from "../../data/userData";
 import {
   collection,
   doc,
@@ -203,6 +203,38 @@ export const setUserPost = createAsyncThunk(
   }
 );
 
+export const removePost = createAsyncThunk(
+  "auth/removePost",
+  async ({ userId, id }, { getState, rejectWithValue }) => {
+    const state = getState();
+    const sessionUserId = state.auth.user?.id;
+
+    if (!sessionUserId) {
+      return rejectWithValue("User not found in state");
+    }
+    try {
+      const userDocRef = doc(db, "personnels", sessionUserId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedPosts = userData.posts.filter((post) => post.id !== id);
+
+      await updateDoc(userDocRef, {
+        posts: updatedPosts,
+      });
+
+      return { postId: id, posts: updatedPosts };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -215,34 +247,7 @@ export const authSlice = createSlice({
       state.allPosts = [];
       state.userProfile = null;
     },
-    /*
-    setUserPost: (state, action) => {
-      const newPost = action.payload;
 
-      if (state.user) {
-        state.user.posts = [
-          newPost,
-          ...(state.user.posts ? state.user.posts : []),
-        ];
-        state.allPosts = [newPost, ...state.allPosts];
-
-        const userIndex = state.userDataArray.findIndex(
-          (user) => user.id === state.user.id
-        );
-        if (userIndex !== -1) {
-          state.userDataArray[userIndex] = {
-            ...state.userDataArray[userIndex],
-            posts: [
-              newPost,
-              ...(state.userDataArray[userIndex].posts
-                ? state.userDataArray[userIndex].posts
-                : []),
-            ],
-          };
-        }
-      }
-    },
-    */
     setUserLike: (state, action) => {
       const { post, userId } = action.payload;
       const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
@@ -259,25 +264,6 @@ export const authSlice = createSlice({
       }
     },
 
-    removeUserPostAndAllPost: (state, action) => {
-      const { userPosts, removePostId } = action.payload;
-
-      state.allPosts = state.allPosts.filter(
-        (post) => post.id !== removePostId
-      );
-      state.user.posts = userPosts;
-      const userIndex = state.userDataArray.findIndex(
-        (user) => user.id === state.user.id
-      );
-      if (userIndex !== -1) {
-        state.userDataArray[userIndex].posts = state.userDataArray[
-          userIndex
-        ].posts.filter((id) => id !== removePostId);
-      }
-    },
-    removeAllPost: (state, action) => {
-      state.allPosts = action.payload.allnewPosts;
-    },
     postComment: (state, action) => {
       const { post, comment } = action.payload;
       // Belirtilen postID için yorumu bul ve yeni yorumu ekleyin
@@ -443,6 +429,15 @@ export const authSlice = createSlice({
       })
       .addCase(setUserPost.rejected, (state, action) => {
         state.error = action.payload;
+      })
+
+      .addCase(removePost.fulfilled, (state, action) => {
+        const { postId, posts } = action.payload;
+        state.allPosts = state.allPosts.filter((post) => post.id !== postId);
+        state.user.posts = posts;
+      })
+      .addCase(removePost.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
@@ -450,8 +445,8 @@ export const authSlice = createSlice({
 export const {
   logout,
   setUserLike,
-  removeUserPostAndAllPost,
-  removeAllPost,
+  //removeUserPostAndAllPost,
+  // removeAllPost,
   postComment,
   postEditComment,
   postRemoveComment,

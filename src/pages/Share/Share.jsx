@@ -14,8 +14,8 @@ import {
   postComment,
   postEditComment,
   postRemoveComment,
-  removeAllPost,
-  removeUserPostAndAllPost,
+  removePost,
+  // removeUserPostAndAllPost,
   setUserLike,
   setUserPost,
 } from "../../redux-toolkit/slices/authSlice";
@@ -71,22 +71,8 @@ const Share = ({ userInfo, userDataArray }) => {
     setPostContent({ ...postContent, [name]: value });
   };
 
-  const removePost = (removePost) => {
-    if (userInfo.id === removePost.userId) {
-      const userPosts = userInfo.posts.filter(
-        (post) => post.userId !== userInfo.id
-      );
-
-      dispatch(
-        removeUserPostAndAllPost({
-          userPosts: userPosts,
-          removePostId: removePost.id,
-        })
-      );
-    } else if (userInfo.id !== removePost.userId) {
-      const allnewPosts = allPosts.filter((post) => post.id !== removePost.id);
-      dispatch(removeAllPost({ allnewPosts }));
-    }
+  const deletePost = (post) => {
+    dispatch(removePost(post));
   };
 
   const commentChange = (event) =>
@@ -215,7 +201,7 @@ const Share = ({ userInfo, userDataArray }) => {
                 <CardHeader
                   action={
                     <IconButton
-                      onClick={() => removePost(post)}
+                      onClick={() => deletePost(post)}
                       aria-label="settings"
                     >
                       <RiDeleteBin6Line />
