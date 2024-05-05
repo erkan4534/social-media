@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-//import { userData } from "../../data/userData";
 import {
   collection,
   doc,
@@ -10,7 +9,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
-import { RiNumbersFill } from "react-icons/ri";
 
 const initialState = {
   user: null,
