@@ -176,7 +176,6 @@ export const setUserPost = createAsyncThunk(
   async (post, { getState, rejectWithValue }) => {
     const state = getState();
     const userId = state.auth.user?.id;
-
     if (!userId) {
       return rejectWithValue("User not found in state");
     }
@@ -189,7 +188,7 @@ export const setUserPost = createAsyncThunk(
       }
 
       const userData = userDoc.data();
-      const updatedPosts = [...userData.posts, post];
+      const updatedPosts = [post, ...userData.posts];
 
       await updateDoc(userDocRef, {
         posts: updatedPosts,
@@ -422,8 +421,9 @@ export const authSlice = createSlice({
       })
       .addCase(setUserPost.fulfilled, (state, action) => {
         const { posts } = action.payload;
-        state.allPosts = [posts, ...state.allPosts];
-        state.user.posts = [posts, ...state.user.posts];
+        debugger;
+        state.allPosts = [...posts, ...state.allPosts];
+        state.user.posts = [...posts, ...state.user.posts];
       })
       .addCase(setUserPost.rejected, (state, action) => {
         state.error = action.payload;
