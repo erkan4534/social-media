@@ -7,6 +7,7 @@ import {
   query,
   updateDoc,
   where,
+  documentId,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
@@ -43,22 +44,22 @@ export const login = createAsyncThunk(
 
       if (userDetailData[0].role === "memberUser") {
         const friendsData = [];
+
         if (userDetailData[0].friends.length > 0) {
           const userDetailDataQuery = query(
             collection(db, "personnels"),
-            where("id", "in", userDetailData[0].friends)
+            where(documentId(), "in", userDetailData[0].friends)
           );
 
           const querUserFriends = await getDocs(userDetailDataQuery);
+
           querUserFriends.forEach((doc) => {
             friendsData.push(doc.data());
           });
         }
 
-        allPosts = [
-          ...userDetailData[0].posts,
-          ...friendsData.map((friend) => friend.posts),
-        ];
+        const friendsPost = friendsData.map((friend) => friend.posts).flat();
+        allPosts = [...userDetailData[0].posts, ...friendsPost];
 
         const allMembersQuery = query(collection(db, "personnels"));
 
@@ -193,7 +194,7 @@ export const setUserPost = createAsyncThunk(
         posts: updatedPosts,
       });
 
-      return { posts: updatedPosts };
+      return { post };
     } catch (error) {
       console.error(error.message);
       return rejectWithValue(error.message);
@@ -449,9 +450,12 @@ export const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(setUserPost.fulfilled, (state, action) => {
-        const { posts } = action.payload;
-        state.allPosts = [...posts, ...state.allPosts];
-        state.user.posts = [...posts, ...state.user.posts];
+        const { post } = action.payload;
+        state.allPosts = [post, ...state.allPosts];
+
+        if (state.user.id === post.userId) {
+          state.user.posts = [post, ...state.user.posts];
+        }
       })
       .addCase(setUserPost.rejected, (state, action) => {
         state.error = action.payload;
@@ -472,6 +476,7 @@ export const authSlice = createSlice({
         const postIndex = state.allPosts.findIndex(
           (post) => post.id === selectPost.id
         );
+        debugger;
         if (postIndex !== -1) {
           state.allPosts[postIndex].likes = selectPost.likes;
         }
