@@ -107,8 +107,7 @@ const Share = ({ userInfo, userDataArray }) => {
     );
   };
 
-  const postLike = (post) =>
-    dispatch(setUserLike({ post: post, userId: user.id }));
+  const postLike = (post) => dispatch(setUserLike({ post }));
 
   let sharePosts = userInfo?.id !== user?.id ? userInfo?.posts : allPosts;
 
@@ -123,9 +122,7 @@ const Share = ({ userInfo, userDataArray }) => {
       return false;
     }
 
-    let userInfo = post.likes.find((like) => like === user?.id);
-
-    if (userInfo) {
+    if (post.likes.find((like) => like === user?.id)) {
       return true;
     }
 

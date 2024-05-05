@@ -237,6 +237,51 @@ export const removePost = createAsyncThunk(
   }
 );
 
+export const setUserLike = createAsyncThunk(
+  "auth/setUserLike",
+  async ({ post }, { getState, rejectWithValue }) => {
+    try {
+      const state = getState();
+      const sessionUserId = state.auth.user?.id;
+
+      const userDocRef = doc(db, "personnels", post.userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const postIndex = userData.posts.findIndex((pst) => pst.id === post.id);
+
+      if (postIndex === -1) {
+        throw new Error("Post not found!");
+      }
+
+      const selectPost = userData.posts[postIndex];
+
+      const likes = selectPost.likes || [];
+      const user = likes.find((id) => id === sessionUserId);
+
+      if (user) {
+        selectPost.likes = likes.filter((id) => id !== sessionUserId);
+      } else {
+        const updatedLikes = [sessionUserId, ...likes];
+        selectPost.likes = updatedLikes;
+      }
+
+      await updateDoc(userDocRef, {
+        posts: userData.posts,
+      });
+
+      return { selectPost };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -248,22 +293,6 @@ export const authSlice = createSlice({
       state.userDataArray = null;
       state.allPosts = [];
       state.userProfile = null;
-    },
-
-    setUserLike: (state, action) => {
-      const { post, userId } = action.payload;
-      const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
-      if (postIndex !== -1) {
-        const post = state.allPosts[postIndex];
-        const isLiked = post.likes.includes(userId);
-        if (isLiked) {
-          // Kullanıcı bu postu daha önce beğenmişse, beğeniyi geri al
-          post.likes = post.likes.filter((id) => id !== userId);
-        } else {
-          // Kullanıcı bu postu beğenmemişse, beğeniyi ekle
-          post.likes.push(userId);
-        }
-      }
     },
 
     postComment: (state, action) => {
@@ -436,13 +465,32 @@ export const authSlice = createSlice({
       })
       .addCase(removePost.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(setUserLike.fulfilled, (state, action) => {
+        const { selectPost } = action.payload;
+        const index = state.allPosts.findIndex(
+          (post) => post.id === selectPost.index
+        );
+        if (index !== -1) {
+          state.allPosts[index].likes = selectPost.likes;
+        }
+
+        if (state.user.id === selectPost.userId) {
+          const userPostIndex = state.user.posts.findIndex(
+            (post) => post.id === selectPost.id
+          );
+          state.user.posts[userPostIndex].likes = selectPost.likes;
+        }
+      })
+      .addCase(setUserLike.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
 
 export const {
   logout,
-  setUserLike,
+  //setUserLike,
   postComment,
   postEditComment,
   postRemoveComment,
