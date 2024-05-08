@@ -87,7 +87,7 @@ const Share = ({ userInfo, userDataArray }) => {
       };
       dispatch(postComment({ comment: newComment, post: post }));
     } else {
-      dispatch(postEditComment({ post: post, comment: comment }));
+      dispatch(postEditComment({ comment: comment, post: post }));
     }
 
     setComment({ id: "", name: "" });

@@ -353,6 +353,42 @@ export const postRemoveComment = createAsyncThunk(
   }
 );
 
+export const postEditComment = createAsyncThunk(
+  "auth/postEditComment",
+  async ({ comment, post }, { rejectWithValue }) => {
+    try {
+      const userDocRef = doc(db, "personnels", post.userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedComments = post.comments.filter(
+        (cmt) => cmt.id !== comment.id
+      );
+
+      const updatedPosts = userData.posts.map((pst) => {
+        if (pst.id === post.id) {
+          pst.comments = updatedComments;
+          return pst;
+        }
+        return pst;
+      });
+
+      await updateDoc(userDocRef, {
+        posts: updatedPosts,
+      });
+
+      return { comment };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -391,7 +427,7 @@ export const authSlice = createSlice({
     //     }
     //   }
     // },
-
+    /*
     postEditComment: (state, action) => {
       const { post, comment } = action.payload;
       // Tüm gönderiler arasında ve ilgili gönderideki yorumu bul ve güncelle
@@ -434,27 +470,8 @@ export const authSlice = createSlice({
         }
       }
     },
-    /*
-    postRemoveComment: (state, action) => {
-      const { postId, updatedCommments } = action.payload;
-
-      const postIndex = state.allPosts.findIndex((pst) => pst.id === postId);
-      if (postIndex !== -1) {
-        state.allPosts[postIndex].comments = updatedCommments;
-      }
-
-      state.userDataArray = state.userDataArray.map((user) => {
-        const updatedPosts = user.posts.map((post) => {
-          if (post.id === postId) {
-            return { ...post, comments: updatedCommments };
-          }
-          return post;
-        });
-
-        return { ...user, posts: updatedPosts };
-      });
-    },
     */
+
     removeMember: (state, action) => {
       // Belirtilen üyenin tüm verilerini userDataArray'dan kaldır
       state.userDataArray = state.userDataArray.filter(
@@ -615,7 +632,6 @@ export const authSlice = createSlice({
 
 export const {
   logout,
-  postEditComment,
   removeMember,
   setUserDataArray,
   setLoginInvalidMessage,
