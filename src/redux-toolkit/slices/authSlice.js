@@ -283,6 +283,37 @@ export const setUserLike = createAsyncThunk(
   }
 );
 
+export const postComment = createAsyncThunk(
+  "auth/postComment",
+  async ({ comment: comment, post: post }, { getState, rejectWithValue }) => {
+    const state = getState();
+    const userId = state.auth.user?.id;
+    if (!userId) {
+      return rejectWithValue("User not found in state");
+    }
+    try {
+      const userDocRef = doc(db, "personnels", userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedPosts = [post, ...userData.posts];
+
+      await updateDoc(userDocRef, {
+        posts: updatedPosts,
+      });
+
+      return { post };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -296,33 +327,34 @@ export const authSlice = createSlice({
       state.userProfile = null;
     },
 
-    postComment: (state, action) => {
-      const { post, comment } = action.payload;
-      // Belirtilen postID için yorumu bul ve yeni yorumu ekleyin
-      const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
-      if (postIndex !== -1) {
-        state.allPosts[postIndex].comments = [
-          ...state.allPosts[postIndex].comments,
-          comment,
-        ];
-      }
+    // postComment: (state, action) => {
+    //   const { post, comment } = action.payload;
+    //   // Belirtilen postID için yorumu bul ve yeni yorumu ekleyin
+    //   const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
+    //   if (postIndex !== -1) {
+    //     state.allPosts[postIndex].comments = [
+    //       ...state.allPosts[postIndex].comments,
+    //       comment,
+    //     ];
+    //   }
 
-      // userDataArray'de de bu gönderiyi güncelle
-      const userIndex = state.userDataArray.findIndex((user) =>
-        user.posts.some((post) => post.id === post.id)
-      );
-      if (userIndex !== -1) {
-        const userPostIndex = state.userDataArray[userIndex].posts.findIndex(
-          (post) => post.id === post.id
-        );
-        if (userPostIndex !== -1) {
-          state.userDataArray[userIndex].posts[userPostIndex].comments = [
-            ...state.userDataArray[userIndex].posts[userPostIndex].comments,
-            comment,
-          ];
-        }
-      }
-    },
+    //   // userDataArray'de de bu gönderiyi güncelle
+    //   const userIndex = state.userDataArray.findIndex((user) =>
+    //     user.posts.some((post) => post.id === post.id)
+    //   );
+    //   if (userIndex !== -1) {
+    //     const userPostIndex = state.userDataArray[userIndex].posts.findIndex(
+    //       (post) => post.id === post.id
+    //     );
+    //     if (userPostIndex !== -1) {
+    //       state.userDataArray[userIndex].posts[userPostIndex].comments = [
+    //         ...state.userDataArray[userIndex].posts[userPostIndex].comments,
+    //         comment,
+    //       ];
+    //     }
+    //   }
+    // },
+
     postEditComment: (state, action) => {
       const { post, comment } = action.payload;
       // Tüm gönderiler arasında ve ilgili gönderideki yorumu bul ve güncelle
@@ -476,7 +508,7 @@ export const authSlice = createSlice({
         const postIndex = state.allPosts.findIndex(
           (post) => post.id === selectPost.id
         );
-        debugger;
+
         if (postIndex !== -1) {
           state.allPosts[postIndex].likes = selectPost.likes;
         }
@@ -498,7 +530,6 @@ export const authSlice = createSlice({
 
 export const {
   logout,
-  postComment,
   postEditComment,
   postRemoveComment,
   removeMember,
