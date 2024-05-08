@@ -295,11 +295,11 @@ export const postComment = createAsyncThunk(
       }
 
       const userData = userDoc.data();
-      const updatedComment = [comment, ...(post.comment || [])];
+      const updatedComments = [comment, ...(post.comments || [])];
 
       const updatedPosts = userData.posts.map((pst) => {
         if (pst.id === post.id) {
-          pst.comment = updatedComment;
+          pst.comments = updatedComments;
           return pst;
         }
         return pst;
@@ -329,8 +329,6 @@ export const authSlice = createSlice({
       state.allPosts = [];
       state.userProfile = null;
     },
-
-    // postComment: (state, action) => {
     //   const { post, comment } = action.payload;
     //   // Belirtilen postID için yorumu bul ve yeni yorumu ekleyin
     //   const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
@@ -526,6 +524,19 @@ export const authSlice = createSlice({
         }
       })
       .addCase(setUserLike.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(postComment.fulfilled, (state, action) => {
+        const { post } = action.payload;
+
+        const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
+        state.allPosts[postIndex].comment = post.comment;
+
+        // if (state.user.id === post.userId) {
+        // state.user.posts = [post, ...state.user.posts];
+        //}
+      })
+      .addCase(postComment.rejected, (state, action) => {
         state.error = action.payload;
       });
   },
