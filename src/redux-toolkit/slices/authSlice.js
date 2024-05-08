@@ -309,7 +309,7 @@ export const postComment = createAsyncThunk(
         posts: updatedPosts,
       });
 
-      return { post };
+      return { comment };
     } catch (error) {
       console.error(error.message);
       return rejectWithValue(error.message);
@@ -527,14 +527,26 @@ export const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(postComment.fulfilled, (state, action) => {
-        const { post } = action.payload;
+        const { comment } = action.payload;
 
-        const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
-        state.allPosts[postIndex].comment = post.comment;
+        const postIndex = state.allPosts.findIndex(
+          (pst) => pst.id === comment.postId
+        );
+        state.allPosts[postIndex].comments = [
+          comment,
+          ...(state.allPosts[postIndex].comments || []),
+        ];
 
-        // if (state.user.id === post.userId) {
-        // state.user.posts = [post, ...state.user.posts];
-        //}
+        if (state.user.id === comment.userId) {
+          const postIndex = state.user.posts.findIndex(
+            (pst) => pst.id === comment.postId
+          );
+
+          state.user.posts[postIndex].comments = [
+            comment,
+            ...(state.allPosts[postIndex].comments || []),
+          ];
+        }
       })
       .addCase(postComment.rejected, (state, action) => {
         state.error = action.payload;
