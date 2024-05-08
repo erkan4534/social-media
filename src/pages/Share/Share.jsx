@@ -15,7 +15,6 @@ import {
   postEditComment,
   postRemoveComment,
   removePost,
-  // removeUserPostAndAllPost,
   setUserLike,
   setUserPost,
 } from "../../redux-toolkit/slices/authSlice";
@@ -96,15 +95,7 @@ const Share = ({ userInfo, userDataArray }) => {
   };
 
   const removeComment = (comment, post) => {
-    const updatedCommments = post.comments.filter((com) => {
-      if (com.id !== comment.id) {
-        return comment;
-      }
-    });
-
-    dispatch(
-      postRemoveComment({ postId: post.id, updatedCommments: updatedCommments })
-    );
+    dispatch(postRemoveComment({ comment, post }));
   };
 
   const postLike = (post) => dispatch(setUserLike({ post }));

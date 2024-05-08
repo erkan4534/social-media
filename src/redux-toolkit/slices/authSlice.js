@@ -317,6 +317,42 @@ export const postComment = createAsyncThunk(
   }
 );
 
+export const postRemoveComment = createAsyncThunk(
+  "auth/postRemoveComment",
+  async ({ comment, post }, { rejectWithValue }) => {
+    try {
+      const userDocRef = doc(db, "personnels", post.userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedComments = post.comments.filter(
+        (cmt) => cmt.id !== comment.id
+      );
+
+      const updatedPosts = userData.posts.map((pst) => {
+        if (pst.id === post.id) {
+          pst.comments = updatedComments;
+          return pst;
+        }
+        return pst;
+      });
+
+      await updateDoc(userDocRef, {
+        posts: updatedPosts,
+      });
+
+      return { comment };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -398,7 +434,7 @@ export const authSlice = createSlice({
         }
       }
     },
-
+    /*
     postRemoveComment: (state, action) => {
       const { postId, updatedCommments } = action.payload;
 
@@ -418,7 +454,7 @@ export const authSlice = createSlice({
         return { ...user, posts: updatedPosts };
       });
     },
-
+    */
     removeMember: (state, action) => {
       // Belirtilen üyenin tüm verilerini userDataArray'dan kaldır
       state.userDataArray = state.userDataArray.filter(
@@ -550,6 +586,29 @@ export const authSlice = createSlice({
       })
       .addCase(postComment.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(postRemoveComment.fulfilled, (state, action) => {
+        const { comment } = action.payload;
+
+        const postIndex = state.allPosts.findIndex(
+          (pst) => pst.id === comment.postId
+        );
+        state.allPosts[postIndex].comments = state.allPosts[
+          postIndex
+        ].comments.filter((cmt) => cmt.id !== comment.id);
+
+        if (state.user.id === comment.userId) {
+          const postIndex = state.user.posts.findIndex(
+            (pst) => pst.id === comment.postId
+          );
+
+          state.user.posts[postIndex].comments = state.allPosts[
+            postIndex
+          ].comments.filter((cmt) => cmt.id !== comment.id);
+        }
+      })
+      .addCase(postRemoveComment.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
@@ -557,7 +616,6 @@ export const authSlice = createSlice({
 export const {
   logout,
   postEditComment,
-  postRemoveComment,
   removeMember,
   setUserDataArray,
   setLoginInvalidMessage,
