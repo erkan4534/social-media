@@ -585,6 +585,29 @@ export const authSlice = createSlice({
       })
       .addCase(postRemoveComment.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(postEditComment.fulfilled, (state, action) => {
+        const { comment } = action.payload;
+
+        const postIndex = state.allPosts.findIndex(
+          (pst) => pst.id === comment.postId
+        );
+        state.allPosts[postIndex].comments = state.allPosts[
+          postIndex
+        ].comments.filter((cmt) => cmt.id !== comment.id);
+
+        if (state.user.id === comment.userId) {
+          const postIndex = state.user.posts.findIndex(
+            (pst) => pst.id === comment.postId
+          );
+
+          state.user.posts[postIndex].comments = state.allPosts[
+            postIndex
+          ].comments.filter((cmt) => cmt.id !== comment.id);
+        }
+      })
+      .addCase(postEditComment.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
