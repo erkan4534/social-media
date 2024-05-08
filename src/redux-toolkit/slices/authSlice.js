@@ -285,14 +285,9 @@ export const setUserLike = createAsyncThunk(
 
 export const postComment = createAsyncThunk(
   "auth/postComment",
-  async ({ comment: comment, post: post }, { getState, rejectWithValue }) => {
-    const state = getState();
-    const userId = state.auth.user?.id;
-    if (!userId) {
-      return rejectWithValue("User not found in state");
-    }
+  async ({ comment, post }, { rejectWithValue }) => {
     try {
-      const userDocRef = doc(db, "personnels", userId);
+      const userDocRef = doc(db, "personnels", post.userId);
       const userDoc = await getDoc(userDocRef);
 
       if (!userDoc.exists()) {
@@ -300,7 +295,15 @@ export const postComment = createAsyncThunk(
       }
 
       const userData = userDoc.data();
-      const updatedPosts = [post, ...userData.posts];
+      const updatedComment = [comment, ...(post.comment || [])];
+
+      const updatedPosts = userData.posts.map((pst) => {
+        if (pst.id === post.id) {
+          pst.comment = updatedComment;
+          return pst;
+        }
+        return pst;
+      });
 
       await updateDoc(userDocRef, {
         posts: updatedPosts,
