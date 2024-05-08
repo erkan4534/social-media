@@ -365,9 +365,12 @@ export const postEditComment = createAsyncThunk(
       }
 
       const userData = userDoc.data();
-      const updatedComments = post.comments.filter(
-        (cmt) => cmt.id !== comment.id
-      );
+      const updatedComments = post.comments.map((cmt) => {
+        if (cmt.id === comment.id) {
+          return comment;
+        }
+        return cmt;
+      });
 
       const updatedPosts = userData.posts.map((pst) => {
         if (pst.id === post.id) {
@@ -427,50 +430,6 @@ export const authSlice = createSlice({
     //     }
     //   }
     // },
-    /*
-    postEditComment: (state, action) => {
-      const { post, comment } = action.payload;
-      // Tüm gönderiler arasında ve ilgili gönderideki yorumu bul ve güncelle
-      const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
-      if (postIndex !== -1) {
-        const commentIndex = state.allPosts[postIndex].comments.findIndex(
-          (cmt) => cmt.id === comment.id
-        );
-        if (commentIndex !== -1) {
-          state.allPosts[postIndex].comments[commentIndex] = {
-            ...state.allPosts[postIndex].comments[commentIndex],
-            ...comment,
-          };
-        }
-      }
-
-      // userDataArray'de de bu gönderideki yorumu güncelle
-      const userIndex = state.userDataArray.findIndex((user) =>
-        user.posts.some((pst) => pst.id === post.id)
-      );
-      if (userIndex !== -1) {
-        const userPostIndex = state.userDataArray[userIndex].posts.findIndex(
-          (pst) => pst.id === post.id
-        );
-        if (userPostIndex !== -1) {
-          const commentIndex = state.userDataArray[userIndex].posts[
-            userPostIndex
-          ].comments.findIndex((cmt) => cmt.id === comment.id);
-
-          if (commentIndex !== -1) {
-            state.userDataArray[userIndex].posts[userPostIndex].comments[
-              commentIndex
-            ] = {
-              ...state.userDataArray[userIndex].posts[userPostIndex].comments[
-                commentIndex
-              ],
-              ...comment,
-            };
-          }
-        }
-      }
-    },
-    */
 
     removeMember: (state, action) => {
       // Belirtilen üyenin tüm verilerini userDataArray'dan kaldır
