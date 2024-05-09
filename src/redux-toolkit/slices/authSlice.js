@@ -65,11 +65,12 @@ export const login = createAsyncThunk(
       const allMembersQuery = query(collection(db, "personnels"));
 
       const allMembersDocs = await getDocs(allMembersQuery);
-      allMembersDocs
-        .filter((mem) => mem.id !== userDetailData[0].id)
-        .forEach((doc) => {
+
+      allMembersDocs.forEach((doc) => {
+        if (doc.id !== userDetailData[0].id) {
           userDataArray.push({ id: doc.id, ...doc.data() });
-        });
+        }
+      });
 
       return {
         user: userDetailData[0],
