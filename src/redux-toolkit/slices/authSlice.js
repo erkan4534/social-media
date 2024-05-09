@@ -588,35 +588,9 @@ export const authSlice = createSlice({
       })
       .addCase(postEditComment.fulfilled, (state, action) => {
         const { comment, post } = action.payload;
-
-        const comments = post.comments.map((cmt) => {
-          if (cmt.id === comment.id) {
-            return comment;
-          }
-          return cmt;
-        });
-
-        state.allPosts = state.allPosts.map((pst) => {
-          if (pst.id === post.id) {
-            pst.comments = comments;
-            return pst;
-          }
-          return pst;
-        });
-
+        state.allPosts = updateComments(state.allPosts, post.id, comment);
         if (state.user.id === comment.userId) {
-          state.user.posts = state.user.posts.map((pst) => {
-            if (pst.id === post.id) {
-              pst.comments.map((cmt) => {
-                if (cmt.id === comment.id) {
-                  return comment;
-                } else {
-                  return cmt;
-                }
-              });
-              return pst;
-            }
-          });
+          state.user.posts = updateComments(state.user.posts, post.id, comment);
         }
       })
       .addCase(postEditComment.rejected, (state, action) => {
@@ -624,6 +598,17 @@ export const authSlice = createSlice({
       });
   },
 });
+
+const updateComments = (posts, postId, updatedComment) => {
+  return posts.map((pst) => {
+    if (pst.id === postId) {
+      pst.comments = pst.comments.map((cmt) =>
+        cmt.id === updatedComment.id ? updatedComment : cmt
+      );
+    }
+    return pst;
+  });
+};
 
 export const {
   logout,
