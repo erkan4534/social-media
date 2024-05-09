@@ -384,7 +384,7 @@ export const postEditComment = createAsyncThunk(
         posts: updatedPosts,
       });
 
-      return { comment };
+      return { comment, post };
     } catch (error) {
       console.error(error.message);
       return rejectWithValue(error.message);
@@ -587,23 +587,36 @@ export const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(postEditComment.fulfilled, (state, action) => {
-        const { comment } = action.payload;
+        const { comment, post } = action.payload;
 
-        const postIndex = state.allPosts.findIndex(
-          (pst) => pst.id === comment.postId
-        );
-        state.allPosts[postIndex].comments = state.allPosts[
-          postIndex
-        ].comments.filter((cmt) => cmt.id !== comment.id);
+        const comments = post.comments.map((cmt) => {
+          if (cmt.id === comment.id) {
+            return comment;
+          }
+          return cmt;
+        });
+
+        state.allPosts = state.allPosts.map((pst) => {
+          if (pst.id === post.id) {
+            pst.comments = comments;
+            return pst;
+          }
+          return pst;
+        });
 
         if (state.user.id === comment.userId) {
-          const postIndex = state.user.posts.findIndex(
-            (pst) => pst.id === comment.postId
-          );
-
-          state.user.posts[postIndex].comments = state.allPosts[
-            postIndex
-          ].comments.filter((cmt) => cmt.id !== comment.id);
+          state.user.posts = state.user.posts.map((pst) => {
+            if (pst.id === post.id) {
+              pst.comments.map((cmt) => {
+                if (cmt.id === comment.id) {
+                  return comment;
+                } else {
+                  return cmt;
+                }
+              });
+              return pst;
+            }
+          });
         }
       })
       .addCase(postEditComment.rejected, (state, action) => {
