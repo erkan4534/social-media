@@ -392,6 +392,29 @@ export const postEditComment = createAsyncThunk(
   }
 );
 
+export const removeMember = createAsyncThunk(
+  "auth/removeMember",
+  async (memberId, { rejectWithValue }) => {
+    try {
+      const userDocRef = doc(db, "personnels", memberId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      await updateDoc(userDocRef, {
+        status: 0,
+      });
+
+      return { memberId };
+    } catch (error) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -430,7 +453,7 @@ export const authSlice = createSlice({
     //     }
     //   }
     // },
-
+    /* 
     removeMember: (state, action) => {
       // Belirtilen üyenin tüm verilerini userDataArray'dan kaldır
       state.userDataArray = state.userDataArray.filter(
@@ -442,6 +465,7 @@ export const authSlice = createSlice({
         (post) => post.userId !== action.payload
       );
     },
+    */
 
     setUserDataArray(state, action) {
       state.isLoginInValidMessage = false;
@@ -459,7 +483,6 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         const { user, allPosts, userDataArray } = action.payload;
-        debugger;
         state.user = user;
         state.allPosts = allPosts;
         state.userDataArray = userDataArray;
@@ -611,11 +634,7 @@ const updateComments = (posts, postId, updatedComment) => {
   });
 };
 
-export const {
-  logout,
-  removeMember,
-  setUserDataArray,
-  setLoginInvalidMessage,
-} = authSlice.actions;
+export const { logout, setUserDataArray, setLoginInvalidMessage } =
+  authSlice.actions;
 
 export default authSlice.reducer;
