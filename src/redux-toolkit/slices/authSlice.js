@@ -60,14 +60,14 @@ export const login = createAsyncThunk(
 
         const friendsPost = friendsData.map((friend) => friend.posts).flat();
         allPosts = [...userDetailData[0].posts, ...friendsPost];
-
-        const allMembersQuery = query(collection(db, "personnels"));
-
-        const allMembersDocs = await getDocs(allMembersQuery);
-        allMembersDocs.forEach((doc) => {
-          userDataArray.push({ id: doc.id, ...doc.data() });
-        });
       }
+
+      const allMembersQuery = query(collection(db, "personnels"));
+
+      const allMembersDocs = await getDocs(allMembersQuery);
+      allMembersDocs.forEach((doc) => {
+        userDataArray.push({ id: doc.id, ...doc.data() });
+      });
 
       return {
         user: userDetailData[0],
@@ -459,6 +459,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         const { user, allPosts, userDataArray } = action.payload;
+        debugger;
         state.user = user;
         state.allPosts = allPosts;
         state.userDataArray = userDataArray;
