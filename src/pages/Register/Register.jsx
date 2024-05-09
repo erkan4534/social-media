@@ -46,7 +46,6 @@ const Register = ({ showLogin }) => {
     }),
     onSubmit: async (values) => {
       const newUserData = {
-        //  id: userDataArray.length + 1,
         ...values,
         role: "memberUser",
         profilePicture: "https://i.pravatar.cc/300",
