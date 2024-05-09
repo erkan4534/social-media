@@ -20,15 +20,16 @@ export const Admin = () => {
   if (searchTerm) {
     userDataNewArray = userDataArray
       .filter((userData) => userData.id !== user?.id)
+      .filter((userData) => userData.status === 1)
       .filter((userData) =>
         `${userData.name} ${userData.surname}`
           .toLowerCase()
           .includes(searchTerm.toLowerCase())
       );
   } else {
-    userDataNewArray = userDataArray.filter(
-      (userData) => userData.id !== user?.id
-    );
+    userDataNewArray = userDataArray
+      .filter((userData) => userData.status === 1)
+      .filter((userData) => userData.id !== user?.id);
   }
 
   const columns = [
