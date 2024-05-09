@@ -619,6 +619,16 @@ export const authSlice = createSlice({
       })
       .addCase(postEditComment.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(removeMember.fulfilled, (state, action) => {
+        const { comment, post } = action.payload;
+        state.allPosts = updateComments(state.allPosts, post.id, comment);
+        if (state.user.id === comment.userId) {
+          state.user.posts = updateComments(state.user.posts, post.id, comment);
+        }
+      })
+      .addCase(removeMember.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
