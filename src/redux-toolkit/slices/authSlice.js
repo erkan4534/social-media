@@ -30,7 +30,8 @@ export const login = createAsyncThunk(
       const userDetailDataQuery = query(
         collection(db, "personnels"),
         where("email", "==", email),
-        where("password", "==", password)
+        where("password", "==", password),
+        where("status", "==", 1)
       );
       const querySnapshot = await getDocs(userDetailDataQuery);
       const userDetailData = [];
