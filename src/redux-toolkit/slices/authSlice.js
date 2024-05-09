@@ -65,9 +65,11 @@ export const login = createAsyncThunk(
       const allMembersQuery = query(collection(db, "personnels"));
 
       const allMembersDocs = await getDocs(allMembersQuery);
-      allMembersDocs.forEach((doc) => {
-        userDataArray.push({ id: doc.id, ...doc.data() });
-      });
+      allMembersDocs
+        .filter((mem) => mem.id !== userDetailData[0].id)
+        .forEach((doc) => {
+          userDataArray.push({ id: doc.id, ...doc.data() });
+        });
 
       return {
         user: userDetailData[0],
@@ -608,11 +610,15 @@ export const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(removeMember.fulfilled, (state, action) => {
-        const { comment, post } = action.payload;
-        state.allPosts = updateComments(state.allPosts, post.id, comment);
-        if (state.user.id === comment.userId) {
-          state.user.posts = updateComments(state.user.posts, post.id, comment);
-        }
+        const { memberId } = action.payload;
+
+        state.userDataArray = state.userDataArray.map((usr) => {
+          if (usr.id === memberId) {
+            usr.status = 0;
+            return usr;
+          }
+          return usr;
+        });
       })
       .addCase(removeMember.rejected, (state, action) => {
         state.error = action.payload;
