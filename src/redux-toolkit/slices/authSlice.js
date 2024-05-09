@@ -456,7 +456,7 @@ export const authSlice = createSlice({
     //   }
     // },
 
-    setUserDataArray(state, action) {
+    setUserDataArray(state) {
       state.isLoginInValidMessage = false;
     },
 
