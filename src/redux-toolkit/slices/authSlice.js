@@ -453,19 +453,6 @@ export const authSlice = createSlice({
     //     }
     //   }
     // },
-    /* 
-    removeMember: (state, action) => {
-      // Belirtilen üyenin tüm verilerini userDataArray'dan kaldır
-      state.userDataArray = state.userDataArray.filter(
-        (user) => user.id !== action.payload
-      );
-
-      // Üyenin tüm gönderilerini allPosts dizisinden kaldır
-      state.allPosts = state.allPosts.filter(
-        (post) => post.userId !== action.payload
-      );
-    },
-    */
 
     setUserDataArray(state, action) {
       state.isLoginInValidMessage = false;
