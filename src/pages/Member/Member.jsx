@@ -20,7 +20,6 @@ const Member = ({ user, userDataArray }) => {
 
   const addFriend = (member) => {
     if (!isFriend(member.friendId)) {
-      debugger;
       dispatch(addNewFriend(member));
     }
   };
