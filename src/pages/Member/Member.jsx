@@ -82,13 +82,11 @@ const Member = ({ user, userDataArray }) => {
                     className="addButton"
                   >
                     {isFriend(member.id) ? "Followed" : "Add"}
-                    {loadingStates[member.id] && (
-                      <CircularProgress
-                        size={20}
-                        className="circular-progress"
-                      />
-                    )}
                   </button>
+
+                  {loadingStates[member.id] && (
+                    <CircularProgress size={15} className="circular-progress" />
+                  )}
                 </div>
               )}
 

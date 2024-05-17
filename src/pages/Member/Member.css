@@ -115,12 +115,12 @@
 
 .circular-progress {
   position: absolute;
-  top: 15%;
-  left: 25%;
+  top: 25%;
+  left: 100%;
   transform: translate(-50%, -50%);
   z-index: 1;
   pointer-events: none;
-  color: red !important;
+  color: #1775ee !important;
   font-weight: bold;
 }
 
