@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 const Member = ({ user, userDataArray }) => {
   const dispatch = useDispatch();
   const [searchMemberTerm, setSearchMemberTerm] = useState("");
+  const [loadingStates, setLoadingStates] = useState({});
 
   if (!user) {
     return <></>;
@@ -20,7 +22,10 @@ const Member = ({ user, userDataArray }) => {
 
   const addFriend = (member) => {
     if (!isFriend(member.friendId)) {
-      dispatch(addNewFriend(member));
+      setLoadingStates((prev) => ({ ...prev, [member.id]: true }));
+      dispatch(addNewFriend(member)).finally(() =>
+        setLoadingStates((prev) => ({ ...prev, [member.id]: false }))
+      );
     }
   };
 
@@ -71,9 +76,20 @@ const Member = ({ user, userDataArray }) => {
               </div>
 
               {!isFriend(member.id) && user.role === "memberUser" && (
-                <button onClick={() => addFriend(member)} className="addButton">
-                  {isFriend(member.id) ? "Followed" : "Add"}
-                </button>
+                <div className="button-container">
+                  <button
+                    onClick={() => addFriend(member)}
+                    className="addButton"
+                  >
+                    {isFriend(member.id) ? "Followed" : "Add"}
+                    {loadingStates[member.id] && (
+                      <CircularProgress
+                        size={20}
+                        className="circular-progress"
+                      />
+                    )}
+                  </button>
+                </div>
               )}
 
               {isFriend(member.id) && user.role === "memberUser" && (
