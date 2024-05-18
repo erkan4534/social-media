@@ -128,3 +128,19 @@
   margin-left: 10px;
   margin-top: 70px;
 }
+
+.circular-progress-remove {
+  position: absolute;
+  top: 25%;
+  left: 2%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  color: #1775ee !important;
+  font-weight: bold;
+}
+
+.button-container-remove {
+  position: relative;
+  display: inline-block;
+}

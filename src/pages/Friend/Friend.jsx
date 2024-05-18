@@ -6,6 +6,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 const Friend = ({ userInfo, userDataArray }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const Friend = ({ userInfo, userDataArray }) => {
   const { user } = useSelector((state) => state.auth);
   const outletContext = useOutletContext();
   const isAdmin = outletContext ? outletContext.isAdmin : "";
+  const [loadingStates, setLoadingStates] = useState({});
 
   const handleSearchChange = (event) => {
     setSearchFriendTerm(event.target.value.toLowerCase());
@@ -68,15 +70,35 @@ const Friend = ({ userInfo, userDataArray }) => {
                   </span>
                 </Link>
               </div>
+
               {user?.id === userInfo.id && (
-                <button
-                  className="removeFriendButton"
-                  onClick={() =>
-                    dispatch(removeFriend({ friendId: friend.id }))
-                  }
-                >
-                  UnFollowed
-                </button>
+                <div className="button-container-remove">
+                  {loadingStates[friend.id] && (
+                    <CircularProgress
+                      size={15}
+                      className="circular-progress-remove"
+                    />
+                  )}
+
+                  <button
+                    className="removeFriendButton"
+                    onClick={() => {
+                      setLoadingStates((prev) => ({
+                        ...prev,
+                        [friend.id]: true,
+                      }));
+                      dispatch(removeFriend({ friendId: friend.id })).finally(
+                        () =>
+                          setLoadingStates((prev) => ({
+                            ...prev,
+                            [friend.id]: false,
+                          }))
+                      );
+                    }}
+                  >
+                    UnFollowed
+                  </button>
+                </div>
               )}
 
               {user?.id !== userInfo.id && (

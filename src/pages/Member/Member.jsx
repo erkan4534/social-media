@@ -76,7 +76,7 @@ const Member = ({ user, userDataArray }) => {
               </div>
 
               {!isFriend(member.id) && user.role === "memberUser" && (
-                <div className="button-container">
+                <div className="button-container-add">
                   <button
                     onClick={() => addFriend(member)}
                     className="addButton"
