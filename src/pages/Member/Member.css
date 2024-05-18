@@ -112,19 +112,3 @@
   padding: 5px 15px;
   margin-right: 39px;
 }
-
-.circular-progress {
-  position: absolute;
-  top: 25%;
-  left: 100%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  pointer-events: none;
-  color: #1775ee !important;
-  font-weight: bold;
-}
-
-.button-container-add {
-  position: relative;
-  display: inline-block;
-}

@@ -11,6 +11,7 @@
   transform: translateX(-50%);
   height: calc(100vh - 50px);
   overflow-y: auto;
+  width: 41%;
 }
 
 .leftbar {
@@ -21,6 +22,7 @@
   height: calc(100vh - 50px);
   scrollbar-width: 20px;
   scrollbar-color: #3b5998 #e1e1e1;
+  width: 29%;
 }
 
 .leftHamburgerMenu {
@@ -42,6 +44,7 @@
   height: calc(100vh - 50px);
   scrollbar-width: 20px;
   scrollbar-color: #3b5998 #f0f0f0;
+  width: 30%;
 }
 
 .rightHamburgerMenu {
@@ -114,4 +117,15 @@
   .rightbar {
     display: block;
   }
+}
+
+.circular-progress {
+  position: fixed;
+  top: 35%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  pointer-events: none;
+  color: #1775ee !important;
+  font-weight: bold;
 }

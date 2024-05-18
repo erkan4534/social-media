@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
-import { CircularProgress } from "@mui/material";
 
-const Member = ({ user, userDataArray }) => {
+const Member = ({ user, userDataArray, setLoadingStates }) => {
   const dispatch = useDispatch();
   const [searchMemberTerm, setSearchMemberTerm] = useState("");
-  const [loadingStates, setLoadingStates] = useState({});
 
   if (!user) {
     return <></>;
@@ -22,10 +20,8 @@ const Member = ({ user, userDataArray }) => {
 
   const addFriend = (member) => {
     if (!isFriend(member.friendId)) {
-      setLoadingStates((prev) => ({ ...prev, [member.id]: true }));
-      dispatch(addNewFriend(member)).finally(() =>
-        setLoadingStates((prev) => ({ ...prev, [member.id]: false }))
-      );
+      setLoadingStates(true);
+      dispatch(addNewFriend(member)).finally(() => setLoadingStates(false));
     }
   };
 
@@ -76,18 +72,9 @@ const Member = ({ user, userDataArray }) => {
               </div>
 
               {!isFriend(member.id) && user.role === "memberUser" && (
-                <div className="button-container-add">
-                  <button
-                    onClick={() => addFriend(member)}
-                    className="addButton"
-                  >
-                    {isFriend(member.id) ? "Followed" : "Add"}
-                  </button>
-
-                  {loadingStates[member.id] && (
-                    <CircularProgress size={15} className="circular-progress" />
-                  )}
-                </div>
+                <button onClick={() => addFriend(member)} className="addButton">
+                  {isFriend(member.id) ? "Followed" : "Add"}
+                </button>
               )}
 
               {isFriend(member.id) && user.role === "memberUser" && (
@@ -103,6 +90,8 @@ const Member = ({ user, userDataArray }) => {
 Member.propTypes = {
   user: PropTypes.object,
   userDataArray: PropTypes.array,
+  loadingStates: PropTypes.bool,
+  setLoadingStates: PropTypes.func,
 };
 
 export default Member;

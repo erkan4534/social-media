@@ -5,11 +5,13 @@ import Centerbar from "../../layouts/Centerbar/Centerbar";
 import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useSelector } from "react-redux";
+import { CircularProgress } from "@mui/material";
 
 const Home = () => {
   const [isleftbarVisible, setIsleftbarVisible] = useState(true);
   const [isRightbarVisible, setIsRightbarVisible] = useState(true);
   const { user } = useSelector((state) => state.auth);
+  const [loadingStates, setLoadingStates] = useState(false);
 
   useEffect(() => {
     function handleResize() {
@@ -46,17 +48,28 @@ const Home = () => {
         <div
           className={isleftbarVisible ? "leftbar" : "leftbarWithHamburgeMenu"}
         >
-          <Leftbar />
+          <Leftbar
+            loadingStates={loadingStates}
+            setLoadingStates={setLoadingStates}
+          />
         </div>
         <div className="centerbar">
           <Centerbar />
         </div>
+        {loadingStates && (
+          <CircularProgress size={100} className="circular-progress" />
+        )}
         <div
           className={
             isRightbarVisible ? "rightbar" : "rightbarWithHamburgeMenu"
           }
         >
-          {user?.role === "memberUser" && <Rightbar />}
+          {user?.role === "memberUser" && (
+            <Rightbar
+              loadingStates={loadingStates}
+              setLoadingStates={setLoadingStates}
+            />
+          )}
         </div>
       </div>
     </>
