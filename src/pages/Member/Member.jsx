@@ -20,8 +20,10 @@ const Member = ({ user, userDataArray, setLoadingStates }) => {
 
   const addFriend = (member) => {
     if (!isFriend(member.friendId)) {
-      setLoadingStates(true);
-      dispatch(addNewFriend(member)).finally(() => setLoadingStates(false));
+      setLoadingStates((prev) => !prev);
+      dispatch(addNewFriend(member)).finally(() =>
+        setLoadingStates((prev) => !prev)
+      );
     }
   };
 

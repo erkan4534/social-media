@@ -73,9 +73,9 @@ const Friend = ({ userInfo, userDataArray, setLoadingStates }) => {
                 <button
                   className="removeFriendButton"
                   onClick={() => {
-                    setLoadingStates(true);
+                    setLoadingStates((prev) => !prev);
                     dispatch(removeFriend({ friendId: friend.id })).finally(
-                      () => setLoadingStates(false)
+                      () => setLoadingStates((prev) => !prev)
                     );
                   }}
                 >
