@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.ant-table-body {
+  scrollbar-width: 20px;
+  scrollbar-color: #3b5998 #f0f0f0;
+}
+
 @media screen and (max-width: 768px) {
   .adminTable {
     width: 900px;
