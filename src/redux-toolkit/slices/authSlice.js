@@ -411,7 +411,7 @@ export const changeStatus = createAsyncThunk(
         status: memberStatus,
       });
 
-      return { memberId };
+      return { memberId, memberStatus };
     } catch (error) {
       console.error(error.message);
       return rejectWithValue(error.message);
@@ -613,6 +613,7 @@ export const authSlice = createSlice({
       })
       .addCase(changeStatus.fulfilled, (state, action) => {
         const { memberId, memberStatus } = action.payload;
+
         state.userDataArray = state.userDataArray.map((usr) => {
           if (usr.id === memberId) {
             usr.status = memberStatus;

@@ -1,8 +1,9 @@
 import "./Admin.css";
-import { Button, Table } from "antd";
+import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { changeStatus } from "../../redux-toolkit/slices/authSlice";
+import { Button } from "@mui/material";
 
 export const Admin = () => {
   const { user, userDataArray } = useSelector((state) => state.auth);
@@ -103,16 +104,14 @@ export const Admin = () => {
         <div>
           <Button
             onClick={(event) => changeMemberStatus(record.id, 0, event)}
-            className="inactiveButton"
-            disabled={record.status === 1}
+            disabled={record.status === 0}
           >
             Inactive
           </Button>
 
           <Button
             onClick={(event) => changeMemberStatus(record.id, 1, event)}
-            className="activeButton"
-            disabled={record.status === 0}
+            disabled={record.status === 1}
           >
             Active
           </Button>
@@ -120,7 +119,7 @@ export const Admin = () => {
       ),
     },
   ];
-
+  debugger;
   return (
     <Table
       className="adminTable"
