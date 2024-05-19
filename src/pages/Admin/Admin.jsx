@@ -1,8 +1,8 @@
 import "./Admin.css";
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { removeMember } from "../../redux-toolkit/slices/authSlice";
+import { changeStatus } from "../../redux-toolkit/slices/authSlice";
 
 export const Admin = () => {
   const { user, userDataArray } = useSelector((state) => state.auth);
@@ -11,16 +11,15 @@ export const Admin = () => {
   const outletContext = useOutletContext();
   const searchTerm = outletContext ? outletContext.searchTerm : "";
 
-  const deleteMember = (memberId, event) => {
+  const changeMemberStatus = (memberId, memberStatus, event) => {
     event.stopPropagation();
-    dispatch(removeMember(memberId));
+    dispatch(changeStatus({ memberId, memberStatus }));
   };
 
   let userDataNewArray;
   if (searchTerm) {
     userDataNewArray = userDataArray
       .filter((userData) => userData.id !== user?.id)
-      .filter((userData) => userData?.status === 1)
       .filter((userData) =>
         `${userData.name} ${userData.surname}`
           .toLowerCase()
@@ -29,9 +28,7 @@ export const Admin = () => {
   } else {
     userDataNewArray =
       userDataArray &&
-      userDataArray
-        .filter((userData) => userData?.status === 1)
-        .filter((userData) => userData.id !== user?.id);
+      userDataArray.filter((userData) => userData.id !== user?.id);
   }
 
   const columns = [
@@ -103,12 +100,23 @@ export const Admin = () => {
       width: "17%",
       align: "center",
       render: (text, record) => (
-        <button
-          onClick={(event) => deleteMember(record.id, event)}
-          className="deleteButton"
-        >
-          Remove
-        </button>
+        <div>
+          <Button
+            onClick={(event) => changeMemberStatus(record.id, 0, event)}
+            className="inactiveButton"
+            disabled={record.status === 1}
+          >
+            Inactive
+          </Button>
+
+          <Button
+            onClick={(event) => changeMemberStatus(record.id, 1, event)}
+            className="activeButton"
+            disabled={record.status === 0}
+          >
+            Active
+          </Button>
+        </div>
       ),
     },
   ];

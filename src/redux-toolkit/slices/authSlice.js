@@ -396,9 +396,9 @@ export const postEditComment = createAsyncThunk(
   }
 );
 
-export const removeMember = createAsyncThunk(
-  "auth/removeMember",
-  async (memberId, { rejectWithValue }) => {
+export const changeStatus = createAsyncThunk(
+  "auth/changeStatus",
+  async ({ memberId, memberStatus }, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", memberId);
       const userDoc = await getDoc(userDocRef);
@@ -408,7 +408,7 @@ export const removeMember = createAsyncThunk(
       }
 
       await updateDoc(userDocRef, {
-        status: 0,
+        status: memberStatus,
       });
 
       return { memberId };
@@ -611,18 +611,17 @@ export const authSlice = createSlice({
       .addCase(postEditComment.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(removeMember.fulfilled, (state, action) => {
-        const { memberId } = action.payload;
-
+      .addCase(changeStatus.fulfilled, (state, action) => {
+        const { memberId, memberStatus } = action.payload;
         state.userDataArray = state.userDataArray.map((usr) => {
           if (usr.id === memberId) {
-            usr.status = 0;
+            usr.status = memberStatus;
             return usr;
           }
           return usr;
         });
       })
-      .addCase(removeMember.rejected, (state, action) => {
+      .addCase(changeStatus.rejected, (state, action) => {
         state.error = action.payload;
       });
   },
