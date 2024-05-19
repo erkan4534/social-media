@@ -136,8 +136,12 @@ export const Admin = () => {
       rowKey={(record) => record.id}
       onRow={(record) => {
         return {
-          onClick: () => {
-            navigate(`/admin/profile/${record.id}`);
+          onClick: (event) => {
+            const isButton = event.target.innerText === "INACTIVE\nACTIVE";
+
+            if (!isButton) {
+              navigate(`/admin/profile/${record.id}`);
+            }
           },
         };
       }}
