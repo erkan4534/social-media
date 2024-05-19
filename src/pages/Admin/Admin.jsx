@@ -3,7 +3,7 @@ import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { changeStatus } from "../../redux-toolkit/slices/authSlice";
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 
 export const Admin = () => {
   const { user, userDataArray } = useSelector((state) => state.auth);
@@ -102,24 +102,30 @@ export const Admin = () => {
       align: "center",
       render: (text, record) => (
         <div>
-          <Button
-            onClick={(event) => changeMemberStatus(record.id, 0, event)}
-            disabled={record.status === 0}
-          >
-            Inactive
-          </Button>
+          <Stack direction="row" spacing={2}>
+            <Button
+              size="small"
+              onClick={(event) => changeMemberStatus(record.id, 0, event)}
+              disabled={record.status === 0}
+              variant="outlined"
+            >
+              Inactive
+            </Button>
 
-          <Button
-            onClick={(event) => changeMemberStatus(record.id, 1, event)}
-            disabled={record.status === 1}
-          >
-            Active
-          </Button>
+            <Button
+              size="small"
+              onClick={(event) => changeMemberStatus(record.id, 1, event)}
+              disabled={record.status === 1}
+              variant="outlined"
+            >
+              Active
+            </Button>
+          </Stack>
         </div>
       ),
     },
   ];
-  debugger;
+
   return (
     <Table
       className="adminTable"
