@@ -108,6 +108,7 @@ export const Admin = () => {
               onClick={(event) => changeMemberStatus(record.id, 0, event)}
               disabled={record.status === 0}
               variant="outlined"
+              className="statusButton"
             >
               Inactive
             </Button>
@@ -117,6 +118,7 @@ export const Admin = () => {
               onClick={(event) => changeMemberStatus(record.id, 1, event)}
               disabled={record.status === 1}
               variant="outlined"
+              className="statusButton"
             >
               Active
             </Button>

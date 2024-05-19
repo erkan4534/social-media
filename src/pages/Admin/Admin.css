@@ -1,7 +1,6 @@
-.statusButton {
+.statusButton:not([disabled]) {
   cursor: pointer !important;
 }
-
 .adminTable {
   position: relative;
   top: 50px;
