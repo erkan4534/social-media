@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { changeStatus } from "../../redux-toolkit/slices/authSlice";
 import { Button, Stack } from "@mui/material";
+import { useState } from "react";
+import { CircularProgress } from "@mui/material";
 
 export const Admin = () => {
   const { user, userDataArray } = useSelector((state) => state.auth);
@@ -11,10 +13,14 @@ export const Admin = () => {
   const dispatch = useDispatch();
   const outletContext = useOutletContext();
   const searchTerm = outletContext ? outletContext.searchTerm : "";
+  const [loadingStates, setLoadingStates] = useState(false);
 
   const changeMemberStatus = (memberId, memberStatus, event) => {
     event.stopPropagation();
-    dispatch(changeStatus({ memberId, memberStatus }));
+    setLoadingStates((prev) => !prev);
+    dispatch(changeStatus({ memberId, memberStatus })).finally(() => {
+      setLoadingStates((prev) => !prev);
+    });
   };
 
   let userDataNewArray;
@@ -96,7 +102,7 @@ export const Admin = () => {
     },
 
     {
-      title: "Remove Member",
+      title: "Member Operation",
       dataIndex: "",
       width: "17%",
       align: "center",
@@ -122,6 +128,10 @@ export const Admin = () => {
             >
               Active
             </Button>
+
+            {loadingStates && (
+              <CircularProgress size={100} className="circular-progress" />
+            )}
           </Stack>
         </div>
       ),

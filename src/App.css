@@ -1,0 +1,10 @@
+.circular-progress {
+  position: fixed;
+  top: 35%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  pointer-events: none;
+  color: #1775ee !important;
+  font-weight: bold;
+}
