@@ -274,7 +274,7 @@ export const setUserLike = createAsyncThunk(
       }
 
       await updateDoc(userDocRef, {
-        posts: userData.posts,
+        posts: selectPost,
       });
 
       return { selectPost };
@@ -429,32 +429,6 @@ export const authSlice = createSlice({
       state.allPosts = [];
       state.userProfile = null;
     },
-    //   const { post, comment } = action.payload;
-    //   // Belirtilen postID için yorumu bul ve yeni yorumu ekleyin
-    //   const postIndex = state.allPosts.findIndex((pst) => pst.id === post.id);
-    //   if (postIndex !== -1) {
-    //     state.allPosts[postIndex].comments = [
-    //       ...state.allPosts[postIndex].comments,
-    //       comment,
-    //     ];
-    //   }
-
-    //   // userDataArray'de de bu gönderiyi güncelle
-    //   const userIndex = state.userDataArray.findIndex((user) =>
-    //     user.posts.some((post) => post.id === post.id)
-    //   );
-    //   if (userIndex !== -1) {
-    //     const userPostIndex = state.userDataArray[userIndex].posts.findIndex(
-    //       (post) => post.id === post.id
-    //     );
-    //     if (userPostIndex !== -1) {
-    //       state.userDataArray[userIndex].posts[userPostIndex].comments = [
-    //         ...state.userDataArray[userIndex].posts[userPostIndex].comments,
-    //         comment,
-    //       ];
-    //     }
-    //   }
-    // },
 
     setUserDataArray(state) {
       state.isLoginInValidMessage = false;
