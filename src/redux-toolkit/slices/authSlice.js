@@ -273,8 +273,10 @@ export const setUserLike = createAsyncThunk(
         selectPost.likes = updatedLikes;
       }
 
+      userData.posts[postIndex] = selectPost;
+
       await updateDoc(userDocRef, {
-        posts: selectPost,
+        posts: userData.posts,
       });
 
       return { selectPost };
