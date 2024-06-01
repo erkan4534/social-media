@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import { newAccountInputData } from "../../data/newAccountInputData";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserDataArray } from "../../redux-toolkit/slices/authSlice";
+import {
+  checkUserEmail,
+  setUserDataArray,
+} from "../../redux-toolkit/slices/authSlice";
 import FileUpload from "../../components/UI/FileUpload/FileUpload";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -11,7 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
 const Register = ({ showLogin }) => {
-  const { userDataArray } = useSelector((state) => state.auth);
+  const { isUserCheck } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -34,7 +37,8 @@ const Register = ({ showLogin }) => {
           "unique-email",
           "This email address is already registered",
           function (value) {
-            return !userDataArray.find((usr) => usr.email === value);
+            dispatch(checkUserEmail(value));
+            return !isUserCheck;
           }
         ),
       password: Yup.string()

@@ -18,6 +18,7 @@ const initialState = {
   isLoginInValidMessage: false,
   userDataArray: null,
   userProfile: null,
+  isUserCheck: false,
 };
 
 export const login = createAsyncThunk(
@@ -419,6 +420,30 @@ export const changeStatus = createAsyncThunk(
   }
 );
 
+export const checkUserEmail = createAsyncThunk(
+  "auth/checkUserEmail",
+  async (email, { rejectWithValue }) => {
+    try {
+      const userDetailDataQuery = query(
+        collection(db, "personnels"),
+        where("email", "==", email)
+      );
+
+      let isEmailCheck = true;
+
+      const querySnapshot = await getDocs(userDetailDataQuery);
+
+      if (querySnapshot?.size > 0) {
+        isEmailCheck = true;
+      }
+
+      return isEmailCheck;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -597,6 +622,12 @@ export const authSlice = createSlice({
         });
       })
       .addCase(changeStatus.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(checkUserEmail.fulfilled, (state, action) => {
+        state.isUserCheck = action.payload;
+      })
+      .addCase(checkUserEmail.rejected, (state, action) => {
         state.error = action.payload;
       });
   },
