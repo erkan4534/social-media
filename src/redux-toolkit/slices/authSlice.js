@@ -429,7 +429,7 @@ export const checkUserEmail = createAsyncThunk(
         where("email", "==", email)
       );
 
-      let isEmailCheck = true;
+      let isEmailCheck = false;
 
       const querySnapshot = await getDocs(userDetailDataQuery);
 
