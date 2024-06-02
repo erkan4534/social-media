@@ -14,9 +14,9 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
 const Register = ({ showLogin }) => {
-  const [profilePicture, setProfilePicture] = useState("");
   const { isUserCheck } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -50,10 +50,32 @@ const Register = ({ showLogin }) => {
         .required("Required field!"),
     }),
     onSubmit: async (values) => {
+      let profilePicture = "https://i.pravatar.cc/300";
+      debugger;
+      if (selectedFile) {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        formData.append("upload_preset", "social-media");
+
+        try {
+          const response = await fetch(
+            "https://api.cloudinary.com/v1_1/dwjtgwgok/image/upload",
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+          const data = await response.json();
+          profilePicture = data.secure_url;
+        } catch (error) {
+          console.error("Error uploading file:", error);
+        }
+      }
+
       const newUserData = {
         ...values,
         role: "memberUser",
-        profilePicture: profilePicture || "https://i.pravatar.cc/300",
+        profilePicture,
         friends: [],
         posts: [],
         status: 1,
@@ -97,7 +119,7 @@ const Register = ({ showLogin }) => {
               )}
             </React.Fragment>
           ))}
-          <FileUpload onFileUpload={setProfilePicture} />
+          <FileUpload onFileSelect={setSelectedFile} />
         </div>
         <div className="mt-3 flex justify-between">
           <button className="newAccountButton">Save</button>
