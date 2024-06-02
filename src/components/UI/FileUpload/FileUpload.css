@@ -1,8 +1,15 @@
-.css-sghohy-MuiButtonBase-root-MuiButton-root {
+.custom-file-upload {
+  border: none;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
   color: white;
   font-weight: bold;
+  background-color: #1775ee;
+  border-radius: 5px;
+  font-size: 15px;
 }
 
-.newAccountForm span {
-  color: white;
+#file-upload {
+  display: none;
 }

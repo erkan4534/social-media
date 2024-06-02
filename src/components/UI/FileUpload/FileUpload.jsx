@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import "./FileUpload.css";
 
 const FileUpload = ({ onFileSelect }) => {
   const handleFileChange = (event) => {
@@ -8,7 +9,10 @@ const FileUpload = ({ onFileSelect }) => {
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <label htmlFor="file-upload" className="custom-file-upload">
+        File Upload
+      </label>
+      <input id="file-upload" type="file" onChange={handleFileChange} />
     </div>
   );
 };
