@@ -1,6 +1,6 @@
 import "./Register.css";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { newAccountInputData } from "../../data/newAccountInputData";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,6 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
 const Register = ({ showLogin }) => {
+  const [profilePicture, setProfilePicture] = useState("");
   const { isUserCheck } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -52,7 +53,7 @@ const Register = ({ showLogin }) => {
       const newUserData = {
         ...values,
         role: "memberUser",
-        profilePicture: "https://i.pravatar.cc/300",
+        profilePicture: profilePicture || "https://i.pravatar.cc/300",
         friends: [],
         posts: [],
         status: 1,
@@ -96,7 +97,7 @@ const Register = ({ showLogin }) => {
               )}
             </React.Fragment>
           ))}
-          <FileUpload />
+          <FileUpload onFileUpload={setProfilePicture} />
         </div>
         <div className="mt-3 flex justify-between">
           <button className="newAccountButton">Save</button>
