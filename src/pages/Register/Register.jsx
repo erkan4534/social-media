@@ -51,7 +51,6 @@ const Register = ({ showLogin }) => {
     }),
     onSubmit: async (values) => {
       let profilePicture = "https://i.pravatar.cc/300";
-      debugger;
       if (selectedFile) {
         const formData = new FormData();
         formData.append("file", selectedFile);
