@@ -554,7 +554,7 @@ export const authSlice = createSlice({
             (post) => (post.id = selectPost.id)
           );
 
-          if (profilePostIndex != -1) {
+          if (profilePostIndex !== -1) {
             state.userProfile.posts[profilePostIndex].likes = selectPost.likes;
           }
         }

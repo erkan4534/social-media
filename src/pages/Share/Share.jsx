@@ -38,7 +38,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
   const dispatch = useDispatch();
-  const { user, allPosts } = useSelector((state) => state.auth);
+  const { user, allPosts, userProfile } = useSelector((state) => state.auth);
   const [tooltipOpen, setTooltipOpen] = useState({});
 
   const outletContext = useOutletContext();
@@ -101,7 +101,8 @@ const Share = ({ userInfo, userDataArray }) => {
   const postLike = (post) => dispatch(setUserLike({ post }));
 
   let sharePosts = userInfo?.id !== user?.id ? userInfo?.posts : allPosts;
-  debugger;
+
+  console.log(userProfile);
   if (searchTerm) {
     sharePosts = sharePosts.filter((post) =>
       post.content.inputContent.toLowerCase().includes(searchTerm.toLowerCase())
@@ -234,7 +235,7 @@ const Share = ({ userInfo, userDataArray }) => {
                       Like
                     </Button>
 
-                    {/* {post.likes && post.likes.length > 0 && (
+                    {post.likes && post.likes.length > 0 && (
                       <div key={post.id}>
                         <Tooltip
                           isOpen={tooltipOpen[post.id]}
@@ -244,7 +245,7 @@ const Share = ({ userInfo, userDataArray }) => {
                           {likeToolTip(post.likes)}
                         </Tooltip>
                       </div>
-                    )} */}
+                    )}
                   </div>
 
                   <Button
