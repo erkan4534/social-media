@@ -548,6 +548,16 @@ export const authSlice = createSlice({
             state.user.posts[userPostIndex].likes = selectPost.likes;
           }
         }
+
+        if (state.userProfile != null) {
+          const profilePostIndex = state.userProfile.posts.findIndex(
+            (post) => (post.id = selectPost.id)
+          );
+
+          if (profilePostIndex != -1) {
+            state.userProfile.posts[profilePostIndex].likes = selectPost.likes;
+          }
+        }
       })
       .addCase(setUserLike.rejected, (state, action) => {
         state.error = action.payload;
