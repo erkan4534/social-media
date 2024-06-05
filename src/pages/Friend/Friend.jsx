@@ -26,7 +26,7 @@ const Friend = ({ userInfo, userDataArray, setLoadingStates }) => {
     );
   }
 
-  let friendsArray = userDataArray.filter((user) =>
+  let friendsArray = userDataArray?.filter((user) =>
     userInfo.friends?.includes(user.id)
   );
 

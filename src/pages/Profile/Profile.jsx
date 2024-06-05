@@ -6,14 +6,16 @@ import Member from "../Member/Member";
 import Share from "../Share/Share";
 import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { findUser } from "../../redux-toolkit/slices/authSlice";
+import { findInUsers, findUser } from "../../redux-toolkit/slices/authSlice";
 import { useDispatch } from "react-redux";
+import { Tooltip } from "reactstrap";
 
 const Profile = () => {
   let { userId } = useParams();
   const [isleftBarVisible, setIsleftBarVisible] = useState(true);
   const [isRightBarVisible, setIsRightBarVisible] = useState(true);
-  const { userProfile, user, userDataArray } = useSelector(
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const { userProfile, user, userDataArray, friendsData } = useSelector(
     (state) => state.auth
   );
   const dispatch = useDispatch();
@@ -35,6 +37,17 @@ const Profile = () => {
   useEffect(() => {
     dispatch(findUser({ userId }));
   }, [userId, dispatch]);
+
+  const firendsToolTip = () => {
+    return friendsData.map((friend) => (
+      <div key={friend.id}>{friend.name + " " + friend.surname}</div>
+    ));
+  };
+
+  const toggleTooltip = () => {
+    dispatch(findInUsers(userProfile?.friends));
+    setTooltipOpen((prev) => !prev);
+  };
 
   return (
     <>
@@ -86,10 +99,22 @@ const Profile = () => {
                     {userProfile?.posts &&
                       Object.keys(userProfile.posts).length}
                   </span>
-                  <span>
+
+                  <span
+                    id="friendSpan"
+                    onMouseEnter={toggleTooltip}
+                    onMouseLeave={toggleTooltip}
+                  >
                     Friends{" "}
                     {userProfile?.friends &&
                       Object.keys(userProfile.friends).length}
+                    <Tooltip
+                      isOpen={tooltipOpen}
+                      target={"friendSpan"}
+                      toggle={() => setTooltipOpen}
+                    >
+                      {firendsToolTip(userProfile?.friends)}
+                    </Tooltip>
                   </span>
                 </div>
               </div>

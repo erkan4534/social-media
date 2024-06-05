@@ -38,7 +38,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
   const dispatch = useDispatch();
-  const { user, allPosts, userProfile } = useSelector((state) => state.auth);
+  const { user, allPosts } = useSelector((state) => state.auth);
   const [tooltipOpen, setTooltipOpen] = useState({});
 
   const outletContext = useOutletContext();
@@ -90,7 +90,7 @@ const Share = ({ userInfo, userDataArray }) => {
       dispatch(postEditComment({ comment: comment, post: post }));
     }
 
-    setComment({ id: "", name: "" });
+    setComment(intialComment);
     setIsShowComment(false);
   };
 
@@ -102,7 +102,6 @@ const Share = ({ userInfo, userDataArray }) => {
 
   let sharePosts = userInfo?.id !== user?.id ? userInfo?.posts : allPosts;
 
-  console.log(userProfile);
   if (searchTerm) {
     sharePosts = sharePosts.filter((post) =>
       post.content.inputContent.toLowerCase().includes(searchTerm.toLowerCase())
@@ -114,11 +113,7 @@ const Share = ({ userInfo, userDataArray }) => {
       return false;
     }
 
-    if (post.likes.find((like) => like === user?.id)) {
-      return true;
-    }
-
-    return false;
+    return post.likes.includes(user?.id);
   };
 
   const likeToolTip = (likes) => {

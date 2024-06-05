@@ -19,6 +19,7 @@ const initialState = {
   userDataArray: null,
   userProfile: null,
   isUserCheck: false,
+  friendsData: [],
 };
 
 export const login = createAsyncThunk(
@@ -168,6 +169,29 @@ export const findUser = createAsyncThunk(
       return {
         userProfile,
       };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const findInUsers = createAsyncThunk(
+  "auth/findInUsers",
+  async (userIds, { rejectWithValue }) => {
+    const friendsData = [];
+    try {
+      const userDetailDataQuery = query(
+        collection(db, "personnels"),
+        where(documentId(), "in", userIds)
+      );
+
+      const querUserFriends = await getDocs(userDetailDataQuery);
+
+      querUserFriends.forEach((doc) => {
+        friendsData.push(doc.data());
+      });
+
+      return friendsData;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -506,6 +530,12 @@ export const authSlice = createSlice({
         state.userProfile = userProfile;
       })
       .addCase(findUser.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(findInUsers.fulfilled, (state, action) => {
+        state.friendsData = action.payload;
+      })
+      .addCase(findInUsers.rejected, (state, action) => {
         state.error = action.payload;
       })
       .addCase(setUserPost.fulfilled, (state, action) => {
