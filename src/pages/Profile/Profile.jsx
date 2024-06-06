@@ -39,13 +39,21 @@ const Profile = () => {
   }, [userId, dispatch]);
 
   const firendsToolTip = () => {
+    debugger;
+    if (userProfile?.friends.length === 0) {
+      return;
+    }
+
     return friendsData.map((friend) => (
       <div key={friend.id}>{friend.name + " " + friend.surname}</div>
     ));
   };
 
   const toggleTooltip = () => {
-    dispatch(findInUsers(userProfile?.friends));
+    debugger;
+    if (userProfile?.friends.length > 0) {
+      dispatch(findInUsers(userProfile.friends));
+    }
     setTooltipOpen((prev) => !prev);
   };
 
@@ -100,21 +108,19 @@ const Profile = () => {
                       Object.keys(userProfile.posts).length}
                   </span>
 
-                  <span
-                    id="friendSpan"
-                    onMouseEnter={toggleTooltip}
-                    onMouseLeave={toggleTooltip}
-                  >
+                  <span id="friendSpan" onMouseEnter={toggleTooltip}>
                     Friends{" "}
                     {userProfile?.friends &&
                       Object.keys(userProfile.friends).length}
-                    <Tooltip
-                      isOpen={tooltipOpen}
-                      target={"friendSpan"}
-                      toggle={() => setTooltipOpen}
-                    >
-                      {firendsToolTip(userProfile?.friends)}
-                    </Tooltip>
+                    {userProfile?.friends.length > 0 && (
+                      <Tooltip
+                        isOpen={tooltipOpen}
+                        target={"friendSpan"}
+                        toggle={() => setTooltipOpen}
+                      >
+                        {firendsToolTip}
+                      </Tooltip>
+                    )}
                   </span>
                 </div>
               </div>
