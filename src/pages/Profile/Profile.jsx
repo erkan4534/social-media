@@ -39,7 +39,6 @@ const Profile = () => {
   }, [userId, dispatch]);
 
   const firendsToolTip = () => {
-    debugger;
     if (userProfile?.friends.length === 0) {
       return;
     }
@@ -50,7 +49,6 @@ const Profile = () => {
   };
 
   const toggleTooltip = () => {
-    debugger;
     if (userProfile?.friends.length > 0) {
       dispatch(findInUsers(userProfile.friends));
     }
