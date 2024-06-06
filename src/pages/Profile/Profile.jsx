@@ -107,6 +107,7 @@ const Profile = () => {
                   </span>
 
                   <span
+                    className="profileTooltip"
                     id="friendSpan"
                     onMouseLeave={toggleTooltip}
                     onMouseEnter={toggleTooltip}

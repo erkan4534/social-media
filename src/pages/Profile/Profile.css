@@ -101,6 +101,10 @@
   flex: 1;
 }
 
+.profileTooltip {
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .hamburgerMenuProfileLeft {
     display: block;
