@@ -108,7 +108,11 @@ const Profile = () => {
                       Object.keys(userProfile.posts).length}
                   </span>
 
-                  <span id="friendSpan" onMouseEnter={toggleTooltip}>
+                  <span
+                    id="friendSpan"
+                    onMouseLeave={toggleTooltip}
+                    onMouseEnter={toggleTooltip}
+                  >
                     Friends{" "}
                     {userProfile?.friends &&
                       Object.keys(userProfile.friends).length}
