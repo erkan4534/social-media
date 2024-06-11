@@ -10,7 +10,7 @@ import { CircularProgress } from "@mui/material";
 const Home = () => {
   const [isleftbarVisible, setIsleftbarVisible] = useState(true);
   const [isRightbarVisible, setIsRightbarVisible] = useState(true);
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.userSlice);
   const [loadingStates, setLoadingStates] = useState(false);
 
   useEffect(() => {

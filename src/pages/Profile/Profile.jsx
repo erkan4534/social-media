@@ -6,7 +6,7 @@ import Member from "../Member/Member";
 import Share from "../Share/Share";
 import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { findInUsers, findUser } from "../../redux-toolkit/slices/authSlice";
+import { findInUsers, findUser } from "../../redux-toolkit/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { Tooltip } from "reactstrap";
 
@@ -15,11 +15,12 @@ const Profile = () => {
   const [isleftBarVisible, setIsleftBarVisible] = useState(true);
   const [isRightBarVisible, setIsRightBarVisible] = useState(true);
   const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [loadingStates, setLoadingStates] = useState(false);
   const { userProfile, user, userDataArray, friendsData } = useSelector(
-    (state) => state.auth
+    (state) => state.userSlice
   );
   const dispatch = useDispatch();
-
+  debugger;
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 768) {
@@ -139,7 +140,12 @@ const Profile = () => {
           >
             {userProfile && user && userProfile.id === user.id && (
               <div className="myMemberList">
-                <Member user={user} userDataArray={userDataArray} />
+                <Member
+                  user={user}
+                  userDataArray={userDataArray}
+                  loadingStates={loadingStates}
+                  setLoadingStates={setLoadingStates}
+                />
               </div>
             )}
           </div>
@@ -153,7 +159,12 @@ const Profile = () => {
           >
             {userProfile?.friends && userProfile.friends.length > 0 && (
               <div className="myFriendList">
-                <Friend userInfo={userProfile} userDataArray={userDataArray} />
+                <Friend
+                  userInfo={userProfile}
+                  userDataArray={userDataArray}
+                  loadingStates={loadingStates}
+                  setLoadingStates={setLoadingStates}
+                />
               </div>
             )}
           </div>

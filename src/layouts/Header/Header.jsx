@@ -14,7 +14,8 @@ import Dropdown from "../../components/UI/Dropdown/Dropdown";
 function Header({ searchTerm, setSearchTerm, isAdmin }) {
   //const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
 
-  const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.authSlice);
+  const { user } = useSelector((state) => state.userSlice);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
   function userLogout() {
     dispatch(logout(null));
     setIsOpen(false);
+    navigate("/admin");
   }
 
   const goToProfile = () => {

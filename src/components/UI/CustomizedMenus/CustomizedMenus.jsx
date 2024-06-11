@@ -64,7 +64,7 @@ export default function CustomizedMenus({
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.userSlice);
   const handleClose = () => {
     setAnchorEl(null);
     navigate(`/profile/${user.id}`);

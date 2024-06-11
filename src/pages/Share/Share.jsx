@@ -17,7 +17,7 @@ import {
   removePost,
   setUserLike,
   setUserPost,
-} from "../../redux-toolkit/slices/authSlice";
+} from "../../redux-toolkit/slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useOutletContext } from "react-router-dom";
 
@@ -38,7 +38,7 @@ const Share = ({ userInfo, userDataArray }) => {
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
   const dispatch = useDispatch();
-  const { user, allPosts } = useSelector((state) => state.auth);
+  const { user, allPosts } = useSelector((state) => state.userSlice);
   const [tooltipOpen, setTooltipOpen] = useState({});
 
   const outletContext = useOutletContext();

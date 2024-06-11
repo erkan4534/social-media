@@ -15,10 +15,10 @@ export default function Login() {
   const [isNewAccountMessage, setIsNewAccountMessage] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn, isLoginInValidMessage, user } = useSelector(
-    (state) => state.auth
+  const { isLoggedIn, isLoginInValidMessage } = useSelector(
+    (state) => state.authSlice
   );
-
+  const { user } = useSelector((state) => state.userSlice);
   useEffect(() => {
     if (isLoggedIn) {
       user.role === "adminUser" ? navigate("/admin") : navigate("/home");

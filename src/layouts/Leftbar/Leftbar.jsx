@@ -3,7 +3,7 @@ import Member from "../../pages/Member/Member";
 import PropTypes from "prop-types";
 
 const Leftbar = ({ loadingStates, setLoadingStates }) => {
-  const { userDataArray, user } = useSelector((state) => state.auth);
+  const { userDataArray, user } = useSelector((state) => state.userSlice);
   return (
     <div>
       <div className="mt-10 ml-5">

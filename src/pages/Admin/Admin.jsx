@@ -2,13 +2,13 @@ import "./Admin.css";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { changeStatus } from "../../redux-toolkit/slices/authSlice";
+import { changeStatus } from "../../redux-toolkit/slices/userSlice";
 import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { CircularProgress } from "@mui/material";
 
 export const Admin = () => {
-  const { user, userDataArray } = useSelector((state) => state.auth);
+  const { user, userDataArray } = useSelector((state) => state.userSlice);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const outletContext = useOutletContext();

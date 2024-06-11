@@ -3,10 +3,8 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { newAccountInputData } from "../../data/newAccountInputData";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  checkUserEmail,
-  setUserDataArray,
-} from "../../redux-toolkit/slices/authSlice";
+import { checkUserEmail } from "../../redux-toolkit/slices/userSlice";
+import { setUserDataArray } from "../../redux-toolkit/slices/authSlice";
 import FileUpload from "../../components/UI/FileUpload/FileUpload";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -14,7 +12,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 
 const Register = ({ showLogin }) => {
-  const { isUserCheck } = useSelector((state) => state.auth);
+  const { isUserCheck } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState(null);
 

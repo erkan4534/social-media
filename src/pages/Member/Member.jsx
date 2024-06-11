@@ -1,6 +1,6 @@
 import "./Member.css";
 import { useDispatch } from "react-redux";
-import { addNewFriend } from "../../redux-toolkit/slices/authSlice";
+import { addNewFriend } from "../../redux-toolkit/slices/userSlice";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";

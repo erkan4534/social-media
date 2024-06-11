@@ -3,7 +3,7 @@ import Friend from "../../pages/Friend/Friend";
 import PropTypes from "prop-types";
 
 const Rightbar = ({ loadingStates, setLoadingStates }) => {
-  const { user, userDataArray } = useSelector((state) => state.auth);
+  const { user, userDataArray } = useSelector((state) => state.userSlice);
 
   return (
     <div className="mt-10 ml-5">

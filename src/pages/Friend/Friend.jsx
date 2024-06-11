@@ -1,6 +1,6 @@
 import "./Friend.css";
 import { useDispatch } from "react-redux";
-import { removeFriend } from "../../redux-toolkit/slices/authSlice";
+import { removeFriend } from "../../redux-toolkit/slices/userSlice";
 import PropTypes from "prop-types";
 import { Link, useOutletContext } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -10,7 +10,7 @@ import { useState } from "react";
 const Friend = ({ userInfo, userDataArray, setLoadingStates }) => {
   const dispatch = useDispatch();
   const [searchFriendTerm, setSearchFriendTerm] = useState("");
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.userSlice);
   const outletContext = useOutletContext();
   const isAdmin = outletContext ? outletContext.isAdmin : "";
 
