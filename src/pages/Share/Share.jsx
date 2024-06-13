@@ -33,7 +33,7 @@ const intialComment = {
   name: "",
 };
 
-const Share = ({ userInfo, userDataArray }) => {
+const Share = ({ userInfo, userDataArray, setLoadingStates }) => {
   const [postContent, setPostContent] = useState(inputData);
   const [isShowComment, setIsShowComment] = useState(false);
   const [comment, setComment] = useState(intialComment);
@@ -71,7 +71,8 @@ const Share = ({ userInfo, userDataArray }) => {
   };
 
   const deletePost = (post) => {
-    dispatch(removePost(post));
+    setLoadingStates((prev) => !prev);
+    dispatch(removePost(post)).finally(() => setLoadingStates((prev) => !prev));
   };
 
   const commentChange = (event) =>
@@ -291,6 +292,8 @@ const Share = ({ userInfo, userDataArray }) => {
 Share.propTypes = {
   userInfo: PropTypes.object,
   userDataArray: PropTypes.array,
+  loadingStates: PropTypes.bool,
+  setLoadingStates: PropTypes.func,
 };
 
 export default Share;

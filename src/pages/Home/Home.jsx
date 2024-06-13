@@ -54,7 +54,7 @@ const Home = () => {
           />
         </div>
         <div className="centerbar">
-          <Centerbar />
+          <Centerbar setLoadingStates={setLoadingStates} />
         </div>
         {loadingStates && (
           <CircularProgress size={100} className="circular-progress" />
