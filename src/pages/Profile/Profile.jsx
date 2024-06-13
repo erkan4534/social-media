@@ -9,6 +9,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { findInUsers, findUser } from "../../redux-toolkit/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { Tooltip } from "reactstrap";
+import { CircularProgress } from "@mui/material";
 
 const Profile = () => {
   let { userId } = useParams();
@@ -155,6 +156,9 @@ const Profile = () => {
               setLoadingStates={setLoadingStates}
             />
           </div>
+          {loadingStates && (
+            <CircularProgress size={100} className="circular-progress" />
+          )}
           <div
             className={`${
               isRightBarVisible ? "profileRight" : "hamburgerMenuProfileRight"
