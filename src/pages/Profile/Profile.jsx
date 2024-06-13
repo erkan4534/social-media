@@ -20,7 +20,6 @@ const Profile = () => {
     (state) => state.userSlice
   );
   const dispatch = useDispatch();
-  debugger;
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth > 768) {
@@ -150,7 +149,11 @@ const Profile = () => {
             )}
           </div>
           <div className="profileCenter">
-            <Share userInfo={userProfile} userDataArray={userDataArray} />
+            <Share
+              userInfo={userProfile}
+              userDataArray={userDataArray}
+              setLoadingStates={setLoadingStates}
+            />
           </div>
           <div
             className={`${
