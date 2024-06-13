@@ -425,7 +425,9 @@ export const userSlice = createSlice({
       .addCase(addNewFriend.fulfilled, (state, action) => {
         const { friends, posts } = action.payload;
         state.user.friends = friends;
-        state.userProfile.friends = friends;
+        if (state.userProfile) {
+          state.userProfile.friends = friends;
+        }
         state.allPosts = [...posts, ...state.allPosts];
       })
       .addCase(addNewFriend.rejected, (state, action) => {
@@ -435,7 +437,9 @@ export const userSlice = createSlice({
         const { userId, friends } = action.payload;
         if (state.user && state.user.id === userId) {
           state.user.friends = friends;
-          state.userProfile.friends = friends;
+          if (state.userProfile) {
+            state.userProfile.friends = friends;
+          }
         }
       })
       .addCase(removeFriend.rejected, (state, action) => {
