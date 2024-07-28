@@ -15,10 +15,14 @@ const initialState = {
   isLoginInValidMessage: false,
 };
 
+interface LoginPayload {
+  email: string;
+  password: string;
+}
 
 export const login: any = createAsyncThunk(
   "authSlice/login",
-  async ({ email, password }, { dispatch, rejectWithValue }) => {
+  async ({ email, password }: LoginPayload, { dispatch, rejectWithValue }) => {
     let allPosts: any[] = [];
     const userDataArray: any = [];
 
