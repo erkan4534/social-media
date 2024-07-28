@@ -16,7 +16,7 @@ const initialState = {
 };
 
 
-export const login = createAsyncThunk(
+export const login: any = createAsyncThunk(
   "authSlice/login",
   async ({ email, password }, { dispatch, rejectWithValue }) => {
     let allPosts: any[] = [];
