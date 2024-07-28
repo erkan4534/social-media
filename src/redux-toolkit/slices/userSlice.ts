@@ -20,14 +20,21 @@ const initialState = {
   userDataArray: null,
 };
 
-interface AddNewFriendPayload {
+interface GeneralInterface {
   id: string;
-  posts: any;
+  posts: any[];
+  friendId: string;
+  userId: string;
+  post: any;
+  memberId: string;
+  memberStatus: number;
+  comment: any;
 }
+
 
 export const addNewFriend: any = createAsyncThunk(
   "userSlice/addNewFriend",
-  async ({ id: friendId, posts }: AddNewFriendPayload, { getState, rejectWithValue }) => {
+  async ({ id: friendId, posts }: GeneralInterface, { getState, rejectWithValue }) => {
     const state: any = getState();
     const userId = state.userSlice.user.id;
 
@@ -57,13 +64,9 @@ export const addNewFriend: any = createAsyncThunk(
   }
 );
 
-interface RemoveFriendPayload {
-  friendId: string;
-}
-
 export const removeFriend: any = createAsyncThunk(
   "userSlice/removeFriend",
-  async ({ friendId }: RemoveFriendPayload, { getState, rejectWithValue }) => {
+  async ({ friendId }: GeneralInterface, { getState, rejectWithValue }) => {
     const state: any = getState();
     const userId = state.userSlice.user?.id;
 
@@ -95,14 +98,9 @@ export const removeFriend: any = createAsyncThunk(
   }
 );
 
-interface FindUserPayload {
-  userId: string;
-}
-
-
 export const findUser: any = createAsyncThunk(
   "userSlice/findUser",
-  async ({ userId }: FindUserPayload, { rejectWithValue }) => {
+  async ({ userId }: GeneralInterface, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", userId);
       const userDoc = await getDoc(userDocRef);
@@ -124,7 +122,6 @@ export const findUser: any = createAsyncThunk(
     }
   }
 );
-
 
 export const findInUsers: any = createAsyncThunk(
   "userSlice/findInUsers",
@@ -180,14 +177,9 @@ export const setUserPost: any = createAsyncThunk(
   }
 );
 
-interface RemovePostPayload {
-  userId: string;
-  id: string;
-}
-
 export const removePost: any = createAsyncThunk(
   "userSlice/removePost",
-  async ({ userId, id }: RemovePostPayload, { getState, rejectWithValue }) => {
+  async ({ userId, id }: GeneralInterface, { getState, rejectWithValue }) => {
     const state: any = getState();
     const sessionUserId = state.userSlice.user?.id;
 
@@ -221,13 +213,9 @@ export const removePost: any = createAsyncThunk(
   }
 );
 
-interface SetUserLikePayload {
-  post: any;
-}
-
 export const setUserLike: any = createAsyncThunk(
   "userSlice/setUserLike",
-  async ({ post }: SetUserLikePayload, { getState, rejectWithValue }) => {
+  async ({ post }: GeneralInterface, { getState, rejectWithValue }) => {
     try {
       const state: any = getState();
       const sessionUserId = state.userSlice.user?.id;
@@ -272,14 +260,9 @@ export const setUserLike: any = createAsyncThunk(
   }
 );
 
-interface PostCommentPayload {
-  comment: any;
-  post: any;
-}
-
 export const postComment: any = createAsyncThunk(
   "userSlice/postComment",
-  async ({ comment, post }: PostCommentPayload, { rejectWithValue }) => {
+  async ({ comment, post }: GeneralInterface, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", post.userId);
       const userDoc = await getDoc(userDocRef);
@@ -311,14 +294,9 @@ export const postComment: any = createAsyncThunk(
   }
 );
 
-interface PostRemoveCommentPayload {
-  comment: any;
-  post: any;
-}
-
 export const postRemoveComment: any = createAsyncThunk(
   "userSlice/postRemoveComment",
-  async ({ comment, post }: PostRemoveCommentPayload, { rejectWithValue }) => {
+  async ({ comment, post }: GeneralInterface, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", post.userId);
       const userDoc = await getDoc(userDocRef);
@@ -352,14 +330,9 @@ export const postRemoveComment: any = createAsyncThunk(
   }
 );
 
-interface PostEditCommentPayload {
-  comment: any;
-  post: any;
-}
-
 export const postEditComment: any = createAsyncThunk(
   "userSlice/postEditComment",
-  async ({ comment, post }: PostEditCommentPayload, { rejectWithValue }) => {
+  async ({ comment, post }: GeneralInterface, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", post.userId);
       const userDoc = await getDoc(userDocRef);
@@ -396,15 +369,9 @@ export const postEditComment: any = createAsyncThunk(
   }
 );
 
-interface ChangeStatusPayload {
-  memberId: string;
-  memberStatus: number;
-}
-
-
 export const changeStatus: any = createAsyncThunk(
   "userSlice/changeStatus",
-  async ({ memberId, memberStatus }: ChangeStatusPayload, { rejectWithValue }) => {
+  async ({ memberId, memberStatus }: GeneralInterface, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", memberId);
       const userDoc = await getDoc(userDocRef);
@@ -425,7 +392,6 @@ export const changeStatus: any = createAsyncThunk(
   }
 );
 
-
 export const checkUserEmail: any = createAsyncThunk(
   "userSlice/checkUserEmail",
   async (email, { rejectWithValue }) => {
@@ -444,7 +410,6 @@ export const checkUserEmail: any = createAsyncThunk(
     }
   }
 );
-
 
 export const userSlice = createSlice({
   name: "userSlice",
