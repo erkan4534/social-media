@@ -82,13 +82,12 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout: any = createAsyncThunk(
+export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
   "authSlice/logout",
   async (_, { dispatch }) => {
     dispatch(userLogout());
   }
 );
-
 export const authSlice = createSlice({
   name: "authSlice",
   initialState,
