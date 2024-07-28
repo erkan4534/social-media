@@ -1,4 +1,4 @@
-import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   collection,
   doc,
@@ -10,7 +10,6 @@ import {
   documentId,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
-import { RootState } from "../store";
 
 const initialState = {
   user: null,
@@ -23,103 +22,87 @@ const initialState = {
 
 interface AddNewFriendPayload {
   id: string;
-  posts: any[];
+  posts: any;
 }
 
-interface AddNewFriendResponse {
-  friends: any[];
-  posts: any[];
-}
+export const addNewFriend: any = createAsyncThunk(
+  "userSlice/addNewFriend",
+  async ({ id: friendId, posts }: AddNewFriendPayload, { getState, rejectWithValue }) => {
+    const state: any = getState();
+    const userId = state.userSlice.user.id;
 
-
-export const addNewFriend: AsyncThunk<AddNewFriendResponse, AddNewFriendPayload, { state: RootState, rejectValue: string }>
-  = createAsyncThunk<AddNewFriendResponse, AddNewFriendPayload, { state: RootState; rejectValue: string }>(
-    "userSlice/addNewFriend",
-    async ({ id: friendId, posts }, { getState, rejectWithValue }) => {
-      const state: any = getState();
-      const userId: string = state.userSlice.user.id;
-
-      if (!userId) {
-        return rejectWithValue("User not found in state");
-      }
-      try {
-        const userDocRef = doc(db, "personnels", userId);
-        const userDoc = await getDoc(userDocRef);
-
-        if (!userDoc.exists()) {
-          throw new Error("User document does not exist!");
-        }
-
-        const userData = userDoc.data();
-        const updatedFriends = [...userData.friends, friendId];
-
-        await updateDoc(userDocRef, {
-          friends: updatedFriends,
-        });
-
-        return { friends: updatedFriends, posts };
-      } catch (error: any) {
-        console.error(error.message);
-        return rejectWithValue(error.message);
-      }
+    if (!userId) {
+      return rejectWithValue("User not found in state");
     }
-  );
+    try {
+      const userDocRef = doc(db, "personnels", userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedFriends = [...userData.friends, friendId];
+
+      await updateDoc(userDocRef, {
+        friends: updatedFriends,
+      });
+
+      return { friends: updatedFriends, posts };
+    } catch (error: any) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 interface RemoveFriendPayload {
   friendId: string;
 }
 
-interface RemoveFriendResponse {
-  userId: string;
-  friends: any[];
-}
+export const removeFriend: any = createAsyncThunk(
+  "userSlice/removeFriend",
+  async ({ friendId }: RemoveFriendPayload, { getState, rejectWithValue }) => {
+    const state: any = getState();
+    const userId = state.userSlice.user?.id;
 
-export const removeFriend = createAsyncThunk<RemoveFriendResponse, RemoveFriendPayload,
-  { state: RootState; rejectValue: string }>(
-    "userSlice/removeFriend",
-    async ({ friendId }, { getState, rejectWithValue }) => {
-      const state: any = getState();
-      const userId = state.userSlice.user?.id;
-
-      if (!userId) {
-        return rejectWithValue("User not found in state");
-      }
-      try {
-        const userDocRef = doc(db, "personnels", userId);
-        const userDoc = await getDoc(userDocRef);
-
-        if (!userDoc.exists()) {
-          throw new Error("User document does not exist!");
-        }
-
-        const userData = userDoc.data();
-        const updatedFriends = userData.friends.filter(
-          (frdId: any) => frdId !== friendId
-        );
-
-        await updateDoc(userDocRef, {
-          friends: updatedFriends,
-        });
-
-        return { userId, friends: updatedFriends };
-      } catch (error: any) {
-        console.error(error.message);
-        return rejectWithValue(error.message);
-      }
+    if (!userId) {
+      return rejectWithValue("User not found in state");
     }
-  );
+    try {
+      const userDocRef = doc(db, "personnels", userId);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        throw new Error("User document does not exist!");
+      }
+
+      const userData = userDoc.data();
+      const updatedFriends = userData.friends.filter(
+        (frdId: any) => frdId !== friendId
+      );
+
+      await updateDoc(userDocRef, {
+        friends: updatedFriends,
+      });
+
+      return { userId, friends: updatedFriends };
+    } catch (error: any) {
+      console.error(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 interface FindUserPayload {
   userId: string;
 }
 
-interface FindUserResponse {
-  userProfile: any;
-}
 
-export const findUser = createAsyncThunk<FindUserResponse, FindUserPayload, { rejectValue: string }>(
+export const findUser: any = createAsyncThunk(
   "userSlice/findUser",
-  async ({ userId }, { rejectWithValue }) => {
+  async ({ userId }: FindUserPayload, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", userId);
       const userDoc = await getDoc(userDocRef);
@@ -142,15 +125,8 @@ export const findUser = createAsyncThunk<FindUserResponse, FindUserPayload, { re
   }
 );
 
-interface FindInUsersPayload {
-  userIds: string[];
-}
 
-interface FindInUsersResponse {
-  friendsData: any[];
-}
-
-export const findInUsers = createAsyncThunk<FindInUsersResponse, FindInUsersPayload, { rejectValue: string }>(
+export const findInUsers: any = createAsyncThunk(
   "userSlice/findInUsers",
   async (userIds, { rejectWithValue }) => {
     const friendsData: any = [];
@@ -173,15 +149,7 @@ export const findInUsers = createAsyncThunk<FindInUsersResponse, FindInUsersPayl
   }
 );
 
-interface SetUserPostPayload {
-  post: any;
-}
-
-interface SetUserPostResponse {
-  post: any;
-}
-
-export const setUserPost = createAsyncThunk<SetUserPostResponse, SetUserPostPayload, { state: RootState; rejectValue: string }>(
+export const setUserPost: any = createAsyncThunk(
   "userSlice/setUserPost",
   async (post, { getState, rejectWithValue }) => {
     const state: any = getState();
@@ -217,14 +185,9 @@ interface RemovePostPayload {
   id: string;
 }
 
-interface RemovePostResponse {
-  postId: string;
-  posts: any[];
-}
-
-export const removePost = createAsyncThunk<RemovePostResponse, RemovePostPayload, { state: RootState; rejectValue: string }>(
+export const removePost: any = createAsyncThunk(
   "userSlice/removePost",
-  async ({ userId, id }, { getState, rejectWithValue }) => {
+  async ({ userId, id }: RemovePostPayload, { getState, rejectWithValue }) => {
     const state: any = getState();
     const sessionUserId = state.userSlice.user?.id;
 
@@ -262,13 +225,9 @@ interface SetUserLikePayload {
   post: any;
 }
 
-interface SetUserLikeResponse {
-  selectPost: any;
-}
-
-export const setUserLike = createAsyncThunk<SetUserLikeResponse, SetUserLikePayload, { state: RootState; rejectValue: string }>(
+export const setUserLike: any = createAsyncThunk(
   "userSlice/setUserLike",
-  async ({ post }, { getState, rejectWithValue }) => {
+  async ({ post }: SetUserLikePayload, { getState, rejectWithValue }) => {
     try {
       const state: any = getState();
       const sessionUserId = state.userSlice.user?.id;
@@ -318,13 +277,9 @@ interface PostCommentPayload {
   post: any;
 }
 
-interface PostCommentResponse {
-  comment: any;
-}
-
-export const postComment = createAsyncThunk<PostCommentResponse, PostCommentPayload, { rejectValue: string }>(
+export const postComment: any = createAsyncThunk(
   "userSlice/postComment",
-  async ({ comment, post }, { rejectWithValue }) => {
+  async ({ comment, post }: PostCommentPayload, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", post.userId);
       const userDoc = await getDoc(userDocRef);
@@ -361,13 +316,9 @@ interface PostRemoveCommentPayload {
   post: any;
 }
 
-interface PostRemoveCommentResponse {
-  comment: any;
-}
-
-export const postRemoveComment = createAsyncThunk<PostRemoveCommentResponse, PostRemoveCommentPayload, { rejectValue: string }>(
+export const postRemoveComment: any = createAsyncThunk(
   "userSlice/postRemoveComment",
-  async ({ comment, post }, { rejectWithValue }) => {
+  async ({ comment, post }: PostRemoveCommentPayload, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", post.userId);
       const userDoc = await getDoc(userDocRef);
@@ -406,14 +357,9 @@ interface PostEditCommentPayload {
   post: any;
 }
 
-interface PostEditCommentResponse {
-  comment: any;
-  post: any;
-}
-
-export const postEditComment = createAsyncThunk<PostEditCommentResponse, PostEditCommentPayload, { rejectValue: string }>(
+export const postEditComment: any = createAsyncThunk(
   "userSlice/postEditComment",
-  async ({ comment, post }, { rejectWithValue }) => {
+  async ({ comment, post }: PostEditCommentPayload, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", post.userId);
       const userDoc = await getDoc(userDocRef);
@@ -455,14 +401,10 @@ interface ChangeStatusPayload {
   memberStatus: number;
 }
 
-interface ChangeStatusResponse {
-  memberId: string;
-  memberStatus: number;
-}
 
-export const changeStatus = createAsyncThunk<ChangeStatusResponse, ChangeStatusPayload, { rejectValue: string }>(
+export const changeStatus: any = createAsyncThunk(
   "userSlice/changeStatus",
-  async ({ memberId, memberStatus }, { rejectWithValue }) => {
+  async ({ memberId, memberStatus }: ChangeStatusPayload, { rejectWithValue }) => {
     try {
       const userDocRef = doc(db, "personnels", memberId);
       const userDoc = await getDoc(userDocRef);
@@ -483,15 +425,8 @@ export const changeStatus = createAsyncThunk<ChangeStatusResponse, ChangeStatusP
   }
 );
 
-interface CheckUserEmailPayload {
-  email: string;
-}
 
-interface CheckUserEmailResponse {
-  isEmailCheck: boolean;
-}
-
-export const checkUserEmail = createAsyncThunk<CheckUserEmailResponse, CheckUserEmailPayload, { rejectValue: string }>(
+export const checkUserEmail: any = createAsyncThunk(
   "userSlice/checkUserEmail",
   async (email, { rejectWithValue }) => {
     try {
