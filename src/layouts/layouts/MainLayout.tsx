@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import { Outlet, useLocation } from "react-router-dom";
 
 const MainLayout = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const location = useLocation();
   useEffect(() => {
     const rootElement = document.documentElement;

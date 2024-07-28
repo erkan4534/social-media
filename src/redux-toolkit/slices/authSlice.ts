@@ -9,16 +9,18 @@ import {
 import { db } from "../../firebaseConfig";
 import { userLogin, userLogout } from "./userSlice";
 
+
 const initialState = {
   isLoggedIn: false,
   isLoginInValidMessage: false,
 };
 
+
 export const login = createAsyncThunk(
   "authSlice/login",
   async ({ email, password }, { dispatch, rejectWithValue }) => {
-    let allPosts = [];
-    const userDataArray = [];
+    let allPosts: any[] = [];
+    const userDataArray: any = [];
 
     try {
       const userDetailDataQuery = query(
@@ -28,8 +30,8 @@ export const login = createAsyncThunk(
         where("status", "==", 1)
       );
       const querySnapshot = await getDocs(userDetailDataQuery);
-      const userDetailData = [];
-      querySnapshot.forEach((doc) => {
+      const userDetailData: any = [];
+      querySnapshot.forEach((doc: any) => {
         userDetailData.push({ id: doc.id, ...doc.data() });
       });
 
@@ -38,7 +40,7 @@ export const login = createAsyncThunk(
       }
 
       if (userDetailData[0].role === "memberUser") {
-        const friendsData = [];
+        const friendsData: any[] = [];
 
         if (userDetailData[0].friends.length > 0) {
           const userDetailDataQuery = query(
@@ -48,12 +50,12 @@ export const login = createAsyncThunk(
 
           const querUserFriends = await getDocs(userDetailDataQuery);
 
-          querUserFriends.forEach((doc) => {
+          querUserFriends.forEach((doc: any) => {
             friendsData.push(doc.data());
           });
         }
 
-        const friendsPost = friendsData.map((friend) => friend.posts).flat();
+        const friendsPost = friendsData.map((friend: any) => friend.posts).flat();
         allPosts = [...userDetailData[0].posts, ...friendsPost];
       }
 
@@ -61,7 +63,7 @@ export const login = createAsyncThunk(
 
       const allMembersDocs = await getDocs(allMembersQuery);
 
-      allMembersDocs.forEach((doc) => {
+      allMembersDocs.forEach((doc: any) => {
         userDataArray.push({ id: doc.id, ...doc.data() });
       });
 
@@ -74,13 +76,13 @@ export const login = createAsyncThunk(
       );
 
       return {};
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const logout = createAsyncThunk(
+export const logout: any = createAsyncThunk(
   "authSlice/logout",
   async (_, { dispatch }) => {
     dispatch(userLogout());
@@ -91,35 +93,35 @@ export const authSlice = createSlice({
   name: "authSlice",
   initialState,
   reducers: {
-    setUserDataArray(state) {
+    setUserDataArray(state: any) {
       state.isLoginInValidMessage = false;
     },
 
-    setLoginInvalidMessage: (state, action) => {
+    setLoginInvalidMessage: (state: any, action: any) => {
       state.isLoginInValidMessage = action.payload;
     },
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {
+      .addCase(login.pending, (state: any) => {
         state.isLoading = true;
       })
-      .addCase(login.fulfilled, (state) => {
+      .addCase(login.fulfilled, (state: any) => {
         state.isLoggedIn = true;
         state.isLoginInValidMessage = false;
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state: any, action: any) => {
         state.error = action.payload;
         state.isLoggedIn = false;
         state.isLoginInValidMessage = true;
       })
 
-      .addCase(logout.fulfilled, (state) => {
+      .addCase(logout.fulfilled, (state: any) => {
         state.isLoggedIn = false;
         state.isLoginInValidMessage = false;
       })
-      .addCase(logout.rejected, (state, action) => {
+      .addCase(logout.rejected, (state: any, action: any) => {
         state.error = action.payload;
       });
   },

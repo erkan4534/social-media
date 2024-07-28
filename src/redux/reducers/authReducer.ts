@@ -39,16 +39,16 @@ function authReducer(state = initialState, action) {
 
       return userDetailData
         ? {
-            ...state,
-            user: userDetailData,
-            isLoggedIn: true,
-            isLoginInValidMessage: false,
-            allPosts: allFriendPosts,
-          }
+          ...state,
+          user: userDetailData,
+          isLoggedIn: true,
+          isLoginInValidMessage: false,
+          allPosts: allFriendPosts,
+        }
         : {
-            ...state,
-            isLoginInValidMessage: true,
-          };
+          ...state,
+          isLoginInValidMessage: true,
+        };
     }
     case "LOGOUT":
       return {

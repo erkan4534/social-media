@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   collection,
   doc,
@@ -10,6 +10,7 @@ import {
   documentId,
 } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import { RootState } from "../store";
 
 const initialState = {
   user: null,
@@ -20,73 +21,103 @@ const initialState = {
   userDataArray: null,
 };
 
-export const addNewFriend = createAsyncThunk(
-  "userSlice/addNewFriend",
-  async ({ id: friendId, posts }, { getState, rejectWithValue }) => {
-    const state = getState();
-    const userId = state.userSlice.user.id;
+interface AddNewFriendPayload {
+  id: string;
+  posts: any[];
+}
 
-    if (!userId) {
-      return rejectWithValue("User not found in state");
-    }
-    try {
-      const userDocRef = doc(db, "personnels", userId);
-      const userDoc = await getDoc(userDocRef);
+interface AddNewFriendResponse {
+  friends: any[];
+  posts: any[];
+}
 
-      if (!userDoc.exists()) {
-        throw new Error("User document does not exist!");
+
+export const addNewFriend: AsyncThunk<AddNewFriendResponse, AddNewFriendPayload, { state: RootState, rejectValue: string }>
+  = createAsyncThunk<AddNewFriendResponse, AddNewFriendPayload, { state: RootState; rejectValue: string }>(
+    "userSlice/addNewFriend",
+    async ({ id: friendId, posts }, { getState, rejectWithValue }) => {
+      const state: any = getState();
+      const userId: string = state.userSlice.user.id;
+
+      if (!userId) {
+        return rejectWithValue("User not found in state");
       }
+      try {
+        const userDocRef = doc(db, "personnels", userId);
+        const userDoc = await getDoc(userDocRef);
 
-      const userData = userDoc.data();
-      const updatedFriends = [...userData.friends, friendId];
+        if (!userDoc.exists()) {
+          throw new Error("User document does not exist!");
+        }
 
-      await updateDoc(userDocRef, {
-        friends: updatedFriends,
-      });
+        const userData = userDoc.data();
+        const updatedFriends = [...userData.friends, friendId];
 
-      return { friends: updatedFriends, posts };
-    } catch (error) {
-      console.error(error.message);
-      return rejectWithValue(error.message);
-    }
-  }
-);
+        await updateDoc(userDocRef, {
+          friends: updatedFriends,
+        });
 
-export const removeFriend = createAsyncThunk(
-  "userSlice/removeFriend",
-  async ({ friendId }, { getState, rejectWithValue }) => {
-    const state = getState();
-    const userId = state.userSlice.user?.id;
-
-    if (!userId) {
-      return rejectWithValue("User not found in state");
-    }
-    try {
-      const userDocRef = doc(db, "personnels", userId);
-      const userDoc = await getDoc(userDocRef);
-
-      if (!userDoc.exists()) {
-        throw new Error("User document does not exist!");
+        return { friends: updatedFriends, posts };
+      } catch (error: any) {
+        console.error(error.message);
+        return rejectWithValue(error.message);
       }
-
-      const userData = userDoc.data();
-      const updatedFriends = userData.friends.filter(
-        (frdId) => frdId !== friendId
-      );
-
-      await updateDoc(userDocRef, {
-        friends: updatedFriends,
-      });
-
-      return { userId, friends: updatedFriends };
-    } catch (error) {
-      console.error(error.message);
-      return rejectWithValue(error.message);
     }
-  }
-);
+  );
 
-export const findUser = createAsyncThunk(
+interface RemoveFriendPayload {
+  friendId: string;
+}
+
+interface RemoveFriendResponse {
+  userId: string;
+  friends: any[];
+}
+
+export const removeFriend = createAsyncThunk<RemoveFriendResponse, RemoveFriendPayload,
+  { state: RootState; rejectValue: string }>(
+    "userSlice/removeFriend",
+    async ({ friendId }, { getState, rejectWithValue }) => {
+      const state: any = getState();
+      const userId = state.userSlice.user?.id;
+
+      if (!userId) {
+        return rejectWithValue("User not found in state");
+      }
+      try {
+        const userDocRef = doc(db, "personnels", userId);
+        const userDoc = await getDoc(userDocRef);
+
+        if (!userDoc.exists()) {
+          throw new Error("User document does not exist!");
+        }
+
+        const userData = userDoc.data();
+        const updatedFriends = userData.friends.filter(
+          (frdId: any) => frdId !== friendId
+        );
+
+        await updateDoc(userDocRef, {
+          friends: updatedFriends,
+        });
+
+        return { userId, friends: updatedFriends };
+      } catch (error: any) {
+        console.error(error.message);
+        return rejectWithValue(error.message);
+      }
+    }
+  );
+
+interface FindUserPayload {
+  userId: string;
+}
+
+interface FindUserResponse {
+  userProfile: any;
+}
+
+export const findUser = createAsyncThunk<FindUserResponse, FindUserPayload, { rejectValue: string }>(
   "userSlice/findUser",
   async ({ userId }, { rejectWithValue }) => {
     try {
@@ -105,16 +136,24 @@ export const findUser = createAsyncThunk(
       return {
         userProfile,
       };
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const findInUsers = createAsyncThunk(
+interface FindInUsersPayload {
+  userIds: string[];
+}
+
+interface FindInUsersResponse {
+  friendsData: any[];
+}
+
+export const findInUsers = createAsyncThunk<FindInUsersResponse, FindInUsersPayload, { rejectValue: string }>(
   "userSlice/findInUsers",
   async (userIds, { rejectWithValue }) => {
-    const friendsData = [];
+    const friendsData: any = [];
     try {
       const userDetailDataQuery = query(
         collection(db, "personnels"),
@@ -128,16 +167,24 @@ export const findInUsers = createAsyncThunk(
       });
 
       return friendsData;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const setUserPost = createAsyncThunk(
+interface SetUserPostPayload {
+  post: any;
+}
+
+interface SetUserPostResponse {
+  post: any;
+}
+
+export const setUserPost = createAsyncThunk<SetUserPostResponse, SetUserPostPayload, { state: RootState; rejectValue: string }>(
   "userSlice/setUserPost",
   async (post, { getState, rejectWithValue }) => {
-    const state = getState();
+    const state: any = getState();
     const userId = state.userSlice.user?.id;
     if (!userId) {
       return rejectWithValue("User not found in state");
@@ -158,17 +205,27 @@ export const setUserPost = createAsyncThunk(
       });
 
       return { post };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const removePost = createAsyncThunk(
+interface RemovePostPayload {
+  userId: string;
+  id: string;
+}
+
+interface RemovePostResponse {
+  postId: string;
+  posts: any[];
+}
+
+export const removePost = createAsyncThunk<RemovePostResponse, RemovePostPayload, { state: RootState; rejectValue: string }>(
   "userSlice/removePost",
   async ({ userId, id }, { getState, rejectWithValue }) => {
-    const state = getState();
+    const state: any = getState();
     const sessionUserId = state.userSlice.user?.id;
 
     if (!sessionUserId) {
@@ -184,7 +241,7 @@ export const removePost = createAsyncThunk(
         }
 
         const userData = userDoc.data();
-        const updatedPosts = userData.posts.filter((post) => post.id !== id);
+        const updatedPosts = userData.posts.filter((post: any) => post.id !== id);
 
         await updateDoc(userDocRef, {
           posts: updatedPosts,
@@ -194,18 +251,26 @@ export const removePost = createAsyncThunk(
       }
 
       return { postId: id, posts: null };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const setUserLike = createAsyncThunk(
+interface SetUserLikePayload {
+  post: any;
+}
+
+interface SetUserLikeResponse {
+  selectPost: any;
+}
+
+export const setUserLike = createAsyncThunk<SetUserLikeResponse, SetUserLikePayload, { state: RootState; rejectValue: string }>(
   "userSlice/setUserLike",
   async ({ post }, { getState, rejectWithValue }) => {
     try {
-      const state = getState();
+      const state: any = getState();
       const sessionUserId = state.userSlice.user?.id;
 
       const userDocRef = doc(db, "personnels", post.userId);
@@ -216,7 +281,7 @@ export const setUserLike = createAsyncThunk(
       }
 
       const userData = userDoc.data();
-      const postIndex = userData.posts.findIndex((pst) => pst.id === post.id);
+      const postIndex = userData.posts.findIndex((pst: any) => pst.id === post.id);
 
       if (postIndex === -1) {
         throw new Error("Post not found!");
@@ -225,10 +290,10 @@ export const setUserLike = createAsyncThunk(
       const selectPost = userData.posts[postIndex];
 
       const likes = selectPost.likes || [];
-      const user = likes.find((id) => id === sessionUserId);
+      const user = likes.find((id: any) => id === sessionUserId);
 
       if (user) {
-        selectPost.likes = likes.filter((id) => id !== sessionUserId);
+        selectPost.likes = likes.filter((id: any) => id !== sessionUserId);
       } else {
         const updatedLikes = [sessionUserId, ...likes];
         selectPost.likes = updatedLikes;
@@ -241,14 +306,23 @@ export const setUserLike = createAsyncThunk(
       });
 
       return { selectPost };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const postComment = createAsyncThunk(
+interface PostCommentPayload {
+  comment: any;
+  post: any;
+}
+
+interface PostCommentResponse {
+  comment: any;
+}
+
+export const postComment = createAsyncThunk<PostCommentResponse, PostCommentPayload, { rejectValue: string }>(
   "userSlice/postComment",
   async ({ comment, post }, { rejectWithValue }) => {
     try {
@@ -262,7 +336,7 @@ export const postComment = createAsyncThunk(
       const userData = userDoc.data();
       const updatedComments = [comment, ...(post.comments || [])];
 
-      const updatedPosts = userData.posts.map((pst) => {
+      const updatedPosts = userData.posts.map((pst: any) => {
         if (pst.id === post.id) {
           pst.comments = updatedComments;
           return pst;
@@ -275,14 +349,23 @@ export const postComment = createAsyncThunk(
       });
 
       return { comment };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const postRemoveComment = createAsyncThunk(
+interface PostRemoveCommentPayload {
+  comment: any;
+  post: any;
+}
+
+interface PostRemoveCommentResponse {
+  comment: any;
+}
+
+export const postRemoveComment = createAsyncThunk<PostRemoveCommentResponse, PostRemoveCommentPayload, { rejectValue: string }>(
   "userSlice/postRemoveComment",
   async ({ comment, post }, { rejectWithValue }) => {
     try {
@@ -295,10 +378,10 @@ export const postRemoveComment = createAsyncThunk(
 
       const userData = userDoc.data();
       const updatedComments = post.comments.filter(
-        (cmt) => cmt.id !== comment.id
+        (cmt: any) => cmt.id !== comment.id
       );
 
-      const updatedPosts = userData.posts.map((pst) => {
+      const updatedPosts = userData.posts.map((pst: any) => {
         if (pst.id === post.id) {
           pst.comments = updatedComments;
           return pst;
@@ -311,14 +394,24 @@ export const postRemoveComment = createAsyncThunk(
       });
 
       return { comment };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const postEditComment = createAsyncThunk(
+interface PostEditCommentPayload {
+  comment: any;
+  post: any;
+}
+
+interface PostEditCommentResponse {
+  comment: any;
+  post: any;
+}
+
+export const postEditComment = createAsyncThunk<PostEditCommentResponse, PostEditCommentPayload, { rejectValue: string }>(
   "userSlice/postEditComment",
   async ({ comment, post }, { rejectWithValue }) => {
     try {
@@ -330,14 +423,14 @@ export const postEditComment = createAsyncThunk(
       }
 
       const userData = userDoc.data();
-      const updatedComments = post.comments.map((cmt) => {
+      const updatedComments = post.comments.map((cmt: any) => {
         if (cmt.id === comment.id) {
           return comment;
         }
         return cmt;
       });
 
-      const updatedPosts = userData.posts.map((pst) => {
+      const updatedPosts = userData.posts.map((pst: any) => {
         if (pst.id === post.id) {
           pst.comments = updatedComments;
           return pst;
@@ -350,14 +443,24 @@ export const postEditComment = createAsyncThunk(
       });
 
       return { comment, post };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const changeStatus = createAsyncThunk(
+interface ChangeStatusPayload {
+  memberId: string;
+  memberStatus: number;
+}
+
+interface ChangeStatusResponse {
+  memberId: string;
+  memberStatus: number;
+}
+
+export const changeStatus = createAsyncThunk<ChangeStatusResponse, ChangeStatusPayload, { rejectValue: string }>(
   "userSlice/changeStatus",
   async ({ memberId, memberStatus }, { rejectWithValue }) => {
     try {
@@ -373,14 +476,22 @@ export const changeStatus = createAsyncThunk(
       });
 
       return { memberId, memberStatus };
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
       return rejectWithValue(error.message);
     }
   }
 );
 
-export const checkUserEmail = createAsyncThunk(
+interface CheckUserEmailPayload {
+  email: string;
+}
+
+interface CheckUserEmailResponse {
+  isEmailCheck: boolean;
+}
+
+export const checkUserEmail = createAsyncThunk<CheckUserEmailResponse, CheckUserEmailPayload, { rejectValue: string }>(
   "userSlice/checkUserEmail",
   async (email, { rejectWithValue }) => {
     try {
@@ -389,20 +500,16 @@ export const checkUserEmail = createAsyncThunk(
         where("email", "==", email)
       );
 
-      let isEmailCheck = false;
-
       const querySnapshot = await getDocs(userDetailDataQuery);
+      const isEmailCheck = querySnapshot.size > 0;
 
-      if (querySnapshot?.size > 0) {
-        isEmailCheck = true;
-      }
-
-      return isEmailCheck;
-    } catch (error) {
+      return { isEmailCheck };
+    } catch (error: any) {
       return rejectWithValue(error.message);
     }
   }
 );
+
 
 export const userSlice = createSlice({
   name: "userSlice",
@@ -422,7 +529,7 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addNewFriend.fulfilled, (state, action) => {
+      .addCase(addNewFriend.fulfilled, (state: any, action: any) => {
         const { friends, posts } = action.payload;
         state.user.friends = friends;
         if (state.userProfile) {
@@ -430,10 +537,10 @@ export const userSlice = createSlice({
         }
         state.allPosts = [...posts, ...state.allPosts];
       })
-      .addCase(addNewFriend.rejected, (state, action) => {
+      .addCase(addNewFriend.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(removeFriend.fulfilled, (state, action) => {
+      .addCase(removeFriend.fulfilled, (state: any, action: any) => {
         const { userId, friends } = action.payload;
         if (state.user && state.user.id === userId) {
           state.user.friends = friends;
@@ -442,23 +549,23 @@ export const userSlice = createSlice({
           }
         }
       })
-      .addCase(removeFriend.rejected, (state, action) => {
+      .addCase(removeFriend.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(findUser.fulfilled, (state, action) => {
+      .addCase(findUser.fulfilled, (state: any, action: any) => {
         const { userProfile } = action.payload;
         state.userProfile = userProfile;
       })
-      .addCase(findUser.rejected, (state, action) => {
+      .addCase(findUser.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(findInUsers.fulfilled, (state, action) => {
+      .addCase(findInUsers.fulfilled, (state: any, action: any) => {
         state.friendsData = action.payload;
       })
-      .addCase(findInUsers.rejected, (state, action) => {
+      .addCase(findInUsers.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(setUserPost.fulfilled, (state, action) => {
+      .addCase(setUserPost.fulfilled, (state: any, action: any) => {
         const { post } = action.payload;
         state.allPosts = [post, ...state.allPosts];
 
@@ -466,24 +573,24 @@ export const userSlice = createSlice({
           state.user.posts = [post, ...state.user.posts];
         }
       })
-      .addCase(setUserPost.rejected, (state, action) => {
+      .addCase(setUserPost.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(removePost.fulfilled, (state, action) => {
+      .addCase(removePost.fulfilled, (state: any, action: any) => {
         const { postId, posts } = action.payload;
-        state.allPosts = state.allPosts.filter((post) => post.id !== postId);
+        state.allPosts = state.allPosts.filter((post: any) => post.id !== postId);
         if (posts != null) {
           state.user.posts = posts;
         }
       })
-      .addCase(removePost.rejected, (state, action) => {
+      .addCase(removePost.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(setUserLike.fulfilled, (state, action) => {
+      .addCase(setUserLike.fulfilled, (state: any, action: any) => {
         const { selectPost } = action.payload;
 
         const postIndex = state.allPosts.findIndex(
-          (post) => post.id === selectPost.id
+          (post: any) => post.id === selectPost.id
         );
 
         if (postIndex !== -1) {
@@ -492,7 +599,7 @@ export const userSlice = createSlice({
 
         if (state.user.id === selectPost.userId) {
           const userPostIndex = state.user.posts.findIndex(
-            (post) => post.id === selectPost.id
+            (post: any) => post.id === selectPost.id
           );
           if (userPostIndex !== -1) {
             state.user.posts[userPostIndex].likes = selectPost.likes;
@@ -501,7 +608,7 @@ export const userSlice = createSlice({
 
         if (state.userProfile != null) {
           const profilePostIndex = state.userProfile.posts.findIndex(
-            (post) => (post.id = selectPost.id)
+            (post: any) => (post.id = selectPost.id)
           );
 
           if (profilePostIndex !== -1) {
@@ -509,14 +616,14 @@ export const userSlice = createSlice({
           }
         }
       })
-      .addCase(setUserLike.rejected, (state, action) => {
+      .addCase(setUserLike.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(postComment.fulfilled, (state, action) => {
+      .addCase(postComment.fulfilled, (state: any, action: any) => {
         const { comment } = action.payload;
 
         const postIndex = state.allPosts.findIndex(
-          (pst) => pst.id === comment.postId
+          (pst: any) => pst.id === comment.postId
         );
         state.allPosts[postIndex].comments = [
           comment,
@@ -525,7 +632,7 @@ export const userSlice = createSlice({
 
         if (state.user.id === comment.userId) {
           const postIndex = state.user.posts.findIndex(
-            (pst) => pst.id === comment.postId
+            (pst: any) => pst.id === comment.postId
           );
 
           state.user.posts[postIndex].comments = [
@@ -534,46 +641,46 @@ export const userSlice = createSlice({
           ];
         }
       })
-      .addCase(postComment.rejected, (state, action) => {
+      .addCase(postComment.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(postRemoveComment.fulfilled, (state, action) => {
+      .addCase(postRemoveComment.fulfilled, (state: any, action: any) => {
         const { comment } = action.payload;
 
         const postIndex = state.allPosts.findIndex(
-          (pst) => pst.id === comment.postId
+          (pst: any) => pst.id === comment.postId
         );
         state.allPosts[postIndex].comments = state.allPosts[
           postIndex
-        ].comments.filter((cmt) => cmt.id !== comment.id);
+        ].comments.filter((cmt: any) => cmt.id !== comment.id);
 
         if (state.user.id === comment.userId) {
           const postIndex = state.user.posts.findIndex(
-            (pst) => pst.id === comment.postId
+            (pst: any) => pst.id === comment.postId
           );
 
           state.user.posts[postIndex].comments = state.allPosts[
             postIndex
-          ].comments.filter((cmt) => cmt.id !== comment.id);
+          ].comments.filter((cmt: any) => cmt.id !== comment.id);
         }
       })
-      .addCase(postRemoveComment.rejected, (state, action) => {
+      .addCase(postRemoveComment.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(postEditComment.fulfilled, (state, action) => {
+      .addCase(postEditComment.fulfilled, (state: any, action: any) => {
         const { comment, post } = action.payload;
         state.allPosts = updateComments(state.allPosts, post.id, comment);
         if (state.user.id === comment.userId) {
           state.user.posts = updateComments(state.user.posts, post.id, comment);
         }
       })
-      .addCase(postEditComment.rejected, (state, action) => {
+      .addCase(postEditComment.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(changeStatus.fulfilled, (state, action) => {
+      .addCase(changeStatus.fulfilled, (state: any, action: any) => {
         const { memberId, memberStatus } = action.payload;
 
-        state.userDataArray = state.userDataArray.map((usr) => {
+        state.userDataArray = state.userDataArray.map((usr: any) => {
           if (usr.id === memberId) {
             usr.status = memberStatus;
             return usr;
@@ -581,22 +688,22 @@ export const userSlice = createSlice({
           return usr;
         });
       })
-      .addCase(changeStatus.rejected, (state, action) => {
+      .addCase(changeStatus.rejected, (state: any, action: any) => {
         state.error = action.payload;
       })
-      .addCase(checkUserEmail.fulfilled, (state, action) => {
+      .addCase(checkUserEmail.fulfilled, (state, action: any) => {
         state.isUserCheck = action.payload;
       })
-      .addCase(checkUserEmail.rejected, (state, action) => {
+      .addCase(checkUserEmail.rejected, (state: any, action: any) => {
         state.error = action.payload;
       });
   },
 });
 
-const updateComments = (posts, postId, updatedComment) => {
-  return posts.map((pst) => {
+const updateComments = (posts: any, postId: any, updatedComment: any) => {
+  return posts.map((pst: any) => {
     if (pst.id === postId) {
-      pst.comments = pst.comments.map((cmt) =>
+      pst.comments = pst.comments.map((cmt: any) =>
         cmt.id === updatedComment.id ? updatedComment : cmt
       );
     }

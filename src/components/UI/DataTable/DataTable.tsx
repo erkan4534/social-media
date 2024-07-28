@@ -1,23 +1,32 @@
+import React from "react";
 import "./DataTable.css";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridRowModel } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import PropTypes from "prop-types";
 
-function DataTable({
+interface DataTableProps {
+  rows: GridRowModel[];
+  setRows: React.Dispatch<React.SetStateAction<GridRowModel[]>>;
+  setComment: React.Dispatch<React.SetStateAction<GridRowModel | undefined>>;
+  showComment: () => void;
+  removeComment: (row: GridRowModel, post: any) => void;
+  post: any;
+}
+
+const DataTable: React.FC<DataTableProps> = ({
   rows,
   setRows,
   setComment,
   showComment,
   removeComment,
   post,
-}) {
+}) => {
   const columns = [
     {
       field: "name",
       headerName: "Name",
       width: 350,
-      renderCell: (params) => (
+      renderCell: (params: any) => (
         <div className="dataTableCell">{params.value}</div>
       ),
     },
@@ -26,7 +35,7 @@ function DataTable({
       type: "actions",
       headerName: "Actions",
       width: 10,
-      getActions: (params) => [
+      getActions: (params: any) => [
         <div key={params.id} className="flex">
           <GridActionsCellItem
             icon={<EditIcon />}
@@ -34,7 +43,6 @@ function DataTable({
             onClick={() => handleEdit(params)}
             color="inherit"
           />
-
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
@@ -46,7 +54,7 @@ function DataTable({
     },
   ];
 
-  const handleProcessRowUpdate = (newRow) => {
+  const handleProcessRowUpdate = (newRow: GridRowModel) => {
     setRows((prevRows) =>
       prevRows.map((row) =>
         row.id === newRow.id ? { ...row, ...newRow } : row
@@ -55,11 +63,11 @@ function DataTable({
     return newRow;
   };
 
-  const handleDelete = (params) => {
+  const handleDelete = (params: any) => {
     removeComment(params.row, post);
   };
 
-  const handleEdit = (params) => {
+  const handleEdit = (params: any) => {
     showComment();
     setComment(rows.find((row) => row.id === params.id));
   };
@@ -79,15 +87,6 @@ function DataTable({
       />
     </div>
   );
-}
-
-DataTable.propTypes = {
-  rows: PropTypes.array,
-  setRows: PropTypes.func,
-  setComment: PropTypes.func,
-  showComment: PropTypes.func,
-  removeComment: PropTypes.func,
-  post: PropTypes.object,
 };
 
 export default DataTable;

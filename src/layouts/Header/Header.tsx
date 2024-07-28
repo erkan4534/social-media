@@ -1,22 +1,33 @@
 import "./Header.css";
-import PropTypes from "prop-types";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 //import { AuthContext } from "../../context/AuthContext";
 //import { useContext, useEffect } from "react";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux-toolkit/slices/authSlice";
 import Dropdown from "../../components/UI/Dropdown/Dropdown";
+import { RootState } from "../../redux-toolkit/store";
 
-function Header({ searchTerm, setSearchTerm, isAdmin }) {
+type HeaderProps = {
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  isAdmin: boolean;
+};
+
+function Header({
+  searchTerm,
+  setSearchTerm,
+  isAdmin,
+}: HeaderProps): ReactElement {
   //const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
 
-  const { isLoggedIn } = useSelector((state) => state.authSlice);
-  const { user } = useSelector((state) => state.userSlice);
-  const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn } = useSelector((state: RootState) => state.authSlice);
+  const user: any = useSelector((state: RootState) => state.userSlice.user);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +37,7 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
     }
   }, [navigate, isLoggedIn]);
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
@@ -47,11 +58,12 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
     isAdmin ? navigate("/admin") : navigate("/home");
   };
 
-  let optionsArray = [];
+  let optionsArray: any[] = [];
 
   optionsArray = !isAdmin
     ? [
         { label: "Profile", value: 1, action: goToProfile },
+
         { label: "Logout", value: 2, action: userLogout },
       ]
     : [{ label: "Logout", value: 1, action: userLogout }];
@@ -102,9 +114,3 @@ function Header({ searchTerm, setSearchTerm, isAdmin }) {
 }
 
 export default Header;
-
-Header.propTypes = {
-  searchTerm: PropTypes.string,
-  setSearchTerm: PropTypes.func,
-  isAdmin: PropTypes.bool,
-};

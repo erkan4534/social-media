@@ -1,9 +1,14 @@
+import React from "react";
 import { useSelector } from "react-redux";
 import Share from "../../pages/Share/Share";
-import PropTypes from "prop-types";
 
-const Centerbar = ({ setLoadingStates }) => {
-  const { user, userDataArray } = useSelector((state) => state.userSlice);
+interface CenterbarProps {
+  setLoadingStates: (loading: boolean) => void;
+}
+
+const Centerbar: React.FC<CenterbarProps> = ({ setLoadingStates }) => {
+  const { user, userDataArray } = useSelector((state: any) => state.userSlice);
+  debugger;
   return (
     <div>
       <Share
@@ -13,10 +18,6 @@ const Centerbar = ({ setLoadingStates }) => {
       />
     </div>
   );
-};
-
-Centerbar.propTypes = {
-  setLoadingStates: PropTypes.func,
 };
 
 export default Centerbar;
