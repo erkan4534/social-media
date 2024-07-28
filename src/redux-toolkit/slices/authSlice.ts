@@ -30,7 +30,7 @@ export const login = createAsyncThunk(
         where("status", "==", 1)
       );
       const querySnapshot = await getDocs(userDetailDataQuery);
-      const userDetailData: any = [];
+      const userDetailData: any[] = [];
       querySnapshot.forEach((doc: any) => {
         userDetailData.push({ id: doc.id, ...doc.data() });
       });
