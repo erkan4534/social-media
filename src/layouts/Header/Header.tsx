@@ -2,8 +2,6 @@ import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-//import { AuthContext } from "../../context/AuthContext";
-//import { useContext, useEffect } from "react";
 import { ReactElement, useEffect, useState, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,8 +20,6 @@ function Header({
   setSearchTerm,
   isAdmin,
 }: HeaderProps): ReactElement {
-  //const { setUser, setIsLoggedIn, user, isLoggedIn } = useContext(AuthContext);
-
   const { isLoggedIn } = useSelector((state: RootState) => state.authSlice);
   const user: any = useSelector((state: RootState) => state.userSlice.user);
 
